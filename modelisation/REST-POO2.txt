@@ -1,0 +1,24 @@
+POST /game/newPvP/{name1}/{name2}/{colour1}
+Créer une nouvelle partie entre deux joueurs humains en précisant leurs noms, ainsi que la couleur du premier joueur (l'autre aura l'inverse de la couleur du joueur 1)
+
+POST /game/newPvE/{name1}/{colour1}/{level}
+Créer une nouvelle partie entre un joueur humain et une IA en précisant le nom et la couleur du joueur humain ainsi que le niveau de l'IA (l'IA aura un nom aléatoire et l'inverse de la couleur du joueur 1)
+
+POST /game/newPvE/{name1}/{name2}/{colour1}/{level}
+Créer une nouvelle partie entre un joueur humain et une IA en précisant le nom et la couleur du joueur humain ainsi que le nom et le niveau de l'IA (l'IA aura l'inverse de la couleur du joueur 1)
+
+POST /game/action/move/{x1}/{y1}/{x2}/{y2}
+Envoie une proposition de mouvement de pion ou de balle au back-end, qui sera vérifiée et appliquée si elle est valide.
+
+POST /game/finDeTour
+Envoie un message notifiant de la fin du tour
+
+PUT /game/action/undo
+Envoie un message notifiant de l'annulation d'une action
+
+PUT /game/action/redo
+Envoie un message notifiant de l'annulation d'une annulation
+
+PUT /game/kill
+Demande le retour au menu principal, et donc la destruction du jeu courant
+
