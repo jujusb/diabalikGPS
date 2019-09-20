@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<checkstyle version="8.23">
-<file name="/home-reseau/plerolla/INFO/4A/Projet CPOO/4INFO-oopProject-etd/diaballik-backend/src/main/java/diaballik/Main.java">
-</file>
-<file name="/home-reseau/plerolla/INFO/4A/Projet CPOO/4INFO-oopProject-etd/diaballik-backend/src/main/java/diaballik/resource/GameResource.java">
-</file>
-<file name="/home-reseau/plerolla/INFO/4A/Projet CPOO/4INFO-oopProject-etd/diaballik-backend/src/main/java/diaballik/resource/MyExceptionMapper.java">
-</file>
-</checkstyle>
