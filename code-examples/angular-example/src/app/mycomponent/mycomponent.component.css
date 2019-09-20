@@ -1,0 +1,16 @@
+div {
+    --size-cell: 120px;
+    --border-cell: 5px;
+}
+
+
+.aclass {
+    box-sizing: border-box;
+    border: var(--border-cell) solid;
+    background-color: blue;
+    width: var(--size-cell);
+    height: var(--size-cell);
+    float: left;
+    padding: 0; 
+    margin: 0;
+}
