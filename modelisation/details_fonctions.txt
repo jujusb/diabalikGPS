@@ -1,0 +1,54 @@
+Classe Game :
+. Attributs :
+. Méthodes :
+	- Game() : constructeur de la classe Game().
+Il manque un setter pour GameBoard, ainsi qu'un lien entre la Factory et Game. Pour l'instant, on a accès à rien.
+
+Classe GameBoard extends Undo, Do:
+. Attributs :
+	- BOUNDARY : constante correspondant à la largeur du plateau de jeu.
+	- undoable_move : pile composée d'ActionCoord contenant les potentiels mouvement que l'on peut annuler.
+	- redoable_move : pile composée d'ActionCoord contenant les potentiels mouvement que l'on souhaite refaire.
+. Méthodes :
+	- GameBoard(p1 : Player, p2 : Player) : constructeur de la classe Gameboard. Créé en plus les pions qui seront affectés aux deux joueurs.
+	- getPawn(c : Coordinate) : fonction qui renvoit un Optionnal<Pawn> composé d'un pion si celui-ci possède la coordonnée donnée en paramètre, ou null sinon.
+
+Classe Do :
+. Méthodes :
+	- move(player : Player, coords : ActionCoord) : fonction qui effectue le mouvement symbolisé par coords pour player. Renvoie true si le mouvement effectué est valide, renvoie false sinon (le mouvement n'était pas valide).
+	- canMove(player : Player, coords : ActionCoord) : fonction qui renvoit un booléen selon si coords constitue un mouvement valide pour player.
+
+Classe Undo :
+. Méthodes :
+	- undo() : défait le dernier mouvement effectué par le Player courant.
+	- redo() : refait le dernier mouvement annulé par le Player courant.
+
+Classe Player :
+. Attributs :
+	- nom : nom du joueur sous format String.
+	- colour : couleur des pions du joueur sous format booléen : true si le joueur a les pions blanc, false si il a les pions noir.
+	- pieces : List de Pawn, symbolisant les différentes pièces du joueur.
+	- ball : Pawn symbolisant la balle du joueur
+. Méthodes :
+	- addPawn() : ajoute une instance de Pawn au tableau pieces.
+	- setBall(p : Pawn) : setter de l'attribut ball avec le Pawn p.
+	- getBall() : getter de ball.
+	- getMove() : fonction qui renvoit le mouvement d'un joueur sous la forme d'une instance de ActionCoord
+	- waitEndOfTurn() : booléen notifiant de la fin du tour de Player.
+Il manque des précisions sur addPawn et setBall, car ces fonctions pourraient très bien n'être qu'apellées par la classe Pawn. Il faudra repréciser waitEndOfTurn(). Ajout d'une fonction win pour notifier d'une vistoire?
+
+Classe HumanPlayer extends Player :
+. Méthodes :
+	- HumanPlayer(nom : String, colour : boolean) : constructeur de HumanPlayer
+
+Classe AIPlayer extends Player :
+. Attributs :
+	- current_turn : int symbolisant le nombre de tours joués.
+	- TURNS_BEFORE_SWAP : int symbolisant le nombre de tours à partir duquel la difficulyé de l'IA doit changer
+	- algo : instance de la classe Algo, correspondant à l'algorithme qui va déterminer les mouvements de l'IA
+. Méthodes :
+	- AIPlayer(type : EAiType) : constructeur de AIPlayer. Prend en paramètre le niveau de l'IA souhaité.
+	- setAlgo(type : char) : setter de algo. Précise le niveau de l'IA souhaité
+	- setboard(board : GameBoard) : méthode qui transmet board à algo.
+Imprécision sur la méthode setboard : comment on l'appelle sachant qu'à la construction, on manipule des Player via le game ? Va falloir modifier le constructeur.
+
