@@ -1,10 +1,14 @@
 Classe Game :
 . Attributs :
+	- nbActions : int symbolisant le nombre d'actions que l'on peut effectuer par tour.
+	- nbTours : int symbolisant le nombre de tours effectués par les deux joueurs.
+||
 . Méthodes :
 	- Game() : constructeur de la classe Game().
+	- hasWon() : fonction qui renvoit true si current_player a fait un mouvement gagnant, false sinon.
 Il manque un setter pour GameBoard, ainsi qu'un lien entre la Factory et Game. Pour l'instant, on a accès à rien.
 
-Classe GameBoard extends Undo, Do:
+Classe GameBoard implements Undo, Do:
 . Attributs :
 	- BOUNDARY : constante correspondant à la largeur du plateau de jeu.
 	- undoable_move : pile composée d'ActionCoord contenant les potentiels mouvement que l'on peut annuler.
@@ -13,12 +17,12 @@ Classe GameBoard extends Undo, Do:
 	- GameBoard(p1 : Player, p2 : Player) : constructeur de la classe Gameboard. Créé en plus les pions qui seront affectés aux deux joueurs.
 	- getPawn(c : Coordinate) : fonction qui renvoit un Optionnal<Pawn> composé d'un pion si celui-ci possède la coordonnée donnée en paramètre, ou null sinon.
 
-Classe Do :
+Interface Do :
 . Méthodes :
 	- move(player : Player, coords : ActionCoord) : fonction qui effectue le mouvement symbolisé par coords pour player. Renvoie true si le mouvement effectué est valide, renvoie false sinon (le mouvement n'était pas valide).
 	- canMove(player : Player, coords : ActionCoord) : fonction qui renvoit un booléen selon si coords constitue un mouvement valide pour player.
 
-Classe Undo :
+Interface Undo :
 . Méthodes :
 	- undo() : défait le dernier mouvement effectué par le Player courant.
 	- redo() : refait le dernier mouvement annulé par le Player courant.
@@ -30,7 +34,7 @@ Classe Player :
 	- pieces : List de Pawn, symbolisant les différentes pièces du joueur.
 	- ball : Pawn symbolisant la balle du joueur
 . Méthodes :
-	- addPawn() : ajoute une instance de Pawn au tableau pieces.
+	- addPawn(p : Pawn) : ajoute p au tableau pieces.
 	- setBall(p : Pawn) : setter de l'attribut ball avec le Pawn p.
 	- getBall() : getter de ball.
 	- getMove() : fonction qui renvoit le mouvement d'un joueur sous la forme d'une instance de ActionCoord
@@ -50,5 +54,5 @@ Classe AIPlayer extends Player :
 	- AIPlayer(type : EAiType) : constructeur de AIPlayer. Prend en paramètre le niveau de l'IA souhaité.
 	- setAlgo(type : char) : setter de algo. Précise le niveau de l'IA souhaité
 	- setboard(board : GameBoard) : méthode qui transmet board à algo.
-Imprécision sur la méthode setboard : comment on l'appelle sachant qu'à la construction, on manipule des Player via le game ? Va falloir modifier le constructeur.
+
 
