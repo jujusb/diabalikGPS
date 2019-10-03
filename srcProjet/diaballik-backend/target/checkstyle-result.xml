@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.23">
-<file name="/home-reseau/plerolla/INFO/4A/Projet CPOO/4INFO-oopProject-etd/diaballik-backend/src/main/java/diaballik/Main.java">
-</file>
-<file name="/home-reseau/plerolla/INFO/4A/Projet CPOO/4INFO-oopProject-etd/diaballik-backend/src/main/java/diaballik/resource/GameResource.java">
-</file>
-<file name="/home-reseau/plerolla/INFO/4A/Projet CPOO/4INFO-oopProject-etd/diaballik-backend/src/main/java/diaballik/resource/MyExceptionMapper.java">
+<file name="/home-reseau/plerolla/INFO/4A/Projet CPOO/SrcProjet/srcProjet/diaballik-backend/src/main/java/diaballik/Coordinates/Coordinate.java">
+<error line="17" column="23" severity="error" message="Le paramètre posX devrait être final." source="com.puppycrawl.tools.checkstyle.checks.FinalParametersCheck"/>
+<error line="17" column="33" severity="error" message="Le paramètre posY devrait être final." source="com.puppycrawl.tools.checkstyle.checks.FinalParametersCheck"/>
+<error line="38" column="24" severity="error" message="Le paramètre c devrait être final." source="com.puppycrawl.tools.checkstyle.checks.FinalParametersCheck"/>
+<error line="38" column="37" severity="error" message="Il manque une espace avant &apos;{&apos;." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="39" column="18" severity="error" message="Il manque une espace après &apos;=&apos;." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="39" column="18" severity="error" message="Il manque une espace avant &apos;=&apos;." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="40" column="18" severity="error" message="Il manque une espace après &apos;=&apos;." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="40" column="18" severity="error" message="Il manque une espace avant &apos;=&apos;." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
 </file>
 </checkstyle>

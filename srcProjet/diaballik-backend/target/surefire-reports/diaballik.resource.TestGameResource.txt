@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: diaballik.resource.TestGameResource
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.101 s - in diaballik.resource.TestGameResource
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.818 s - in diaballik.resource.TestGameResource
