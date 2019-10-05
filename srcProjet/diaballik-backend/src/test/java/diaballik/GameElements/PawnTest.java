@@ -16,22 +16,29 @@ class PawnTest {
     }
 
     @Test
-    void getPosition() {
+    void testGetPosition() {
+        assertEquals(new Coordinate(1,2),a.getPosition());
     }
 
     @Test
-    void setPosition() {
+    void testSetPosition() {
+        a.setPosition(new Coordinate(5,7));
+        assertEquals(new Coordinate(5,7),a.getPosition());
     }
 
     @Test
-    void isBallOwner() {
+    void testIsBallOwner() {
+        assertFalse(a.isBallOwner());
     }
 
     @Test
-    void setBallOwner() {
+    void testSetBallOwner() {
+        a.setBallOwner(true);
+        assertTrue(a.isBallOwner());
     }
 
     @Test
-    void getPlayer() {
+    void testGetPlayer() {
+        assertEquals(null,a.getPlayer());
     }
 }
