@@ -22,7 +22,7 @@ public class ActionCoord {
      * @param s the Coordinate of the Pawn to mover
      * @param t the Coordinate where we want the Pawn to go
      */
-    public ActionCoord(Coordinate s, Coordinate t){
+    public ActionCoord(final Coordinate s, final Coordinate t) {
         source = s;
         target = t;
     }
@@ -47,9 +47,9 @@ public class ActionCoord {
 
     @Override
     public String toString() {
-        return "ActionCoord{" +
-                "source=" + source +
-                "; target=" + target +
+        return "ActionCoord {" +
+                "source =" + source +
+                " ; target=" + target +
                 '}';
     }
 }

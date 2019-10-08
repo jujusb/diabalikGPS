@@ -29,10 +29,10 @@ public class AiPlayer extends Player {
      * @param n the name of the AiPlayer
      * @param c the colour of the AiPlayer
      */
-    public AiPlayer(EAiType type, String n, boolean c){
-        super(n,c);
+    public AiPlayer(final EAiType type, final String n, final boolean c) {
+        super(n, c);
         current_turns = 0;
-        switch(type){
+        switch(type) {
             case NOOB:
                 algo = new NoobAlgo();
                 TURNS_BEFORE_SWAP = -1;
@@ -50,9 +50,9 @@ public class AiPlayer extends Player {
     /**
      * Method which swaps the type of Algo under a certain condition
      */
-    public void swap(){
-        if(current_turns==TURNS_BEFORE_SWAP){
-            Algo temp = new StartingAlgo();
+    public void swap() {
+        if(current_turns == TURNS_BEFORE_SWAP) {
+            final Algo temp = new StartingAlgo();
             temp.setBoard(algo.getBoard());
             algo = temp;
         }
@@ -67,7 +67,8 @@ public class AiPlayer extends Player {
     public boolean waitEndOfTurn() {
         current_turns++;
         swap();
-        return true;/*An AiPlayer never fails*/
+        return true;
+        /*An AiPlayer never fails*/
     }
 
     /**

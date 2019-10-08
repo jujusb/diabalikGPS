@@ -38,7 +38,7 @@ public abstract class  Player {
      * @param n the name of the Player
      * @param c the colour of the Player
      */
-    public Player(String n, boolean c){
+    public Player(final String n, final boolean c) {
         name = n;
         colour = c;
         pieces = new ArrayList<Pawn>();
@@ -57,15 +57,15 @@ public abstract class  Player {
      * Setter of ball
      * @param p the Pawn who will receives the ball
      */
-    public void setBall(Pawn p){
-        ball=p;
+    public void setBall(final Pawn p) {
+        ball = p;
     }
 
     /**
      * Method which adds a Pawn to the List pieces
      * @param p a Pawn to add
      */
-    public void addPawn(Pawn p){
+    public void addPawn(final Pawn p) {
         pieces.add(p);
     }
 

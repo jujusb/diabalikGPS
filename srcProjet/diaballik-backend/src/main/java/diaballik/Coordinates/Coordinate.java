@@ -22,7 +22,7 @@ public class Coordinate {
      * @param posX x coordinate as an int
      * @param posY y coordinate as an int
      */
-    public Coordinate(int posX, int posY) {
+    public Coordinate(final int posX, final int posY) {
         this.posX = posX;
         this.posY = posY;
     }
@@ -47,9 +47,9 @@ public class Coordinate {
      * Moves the coordinates to another absolute position
      * @param c the coordinates we want to move to as a Coordinate object
      */
-    public void moveTo(Coordinate c){
-        this.posX=c.getPosX();
-        this.posY=c.getPosY();
+    public void moveTo(final Coordinate c) {
+        this.posX = c.getPosX();
+        this.posY = c.getPosY();
     }
 
     /**
@@ -58,10 +58,14 @@ public class Coordinate {
      * @return true or false if it is equal or not
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || !(o instanceof Coordinate)) return false;
-        Coordinate that = (Coordinate) o;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || !(o instanceof Coordinate)) {
+            return false;
+        }
+        final Coordinate that = (Coordinate) o;
         return posX == that.posX &&
                 posY == that.posY;
     }
@@ -81,7 +85,7 @@ public class Coordinate {
      */
     @Override
     public String toString() {
-        return "(" + posX +","+ posY +
+        return "(" + posX + " , " + posY +
                 ')';
     }
 }

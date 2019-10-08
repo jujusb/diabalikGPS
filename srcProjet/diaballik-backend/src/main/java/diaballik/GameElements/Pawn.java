@@ -29,7 +29,7 @@ public class Pawn {
      * @param position  the position of Pawn in Coordinate format
      * @param player    the player who owns the pawn
      */
-    public Pawn(Coordinate position, Player player) {
+    public Pawn(final Coordinate position, final Player player) {
         this.position = position;
         this.player = player;
         this.ballOwner = false;
@@ -39,7 +39,7 @@ public class Pawn {
      * Getter of position
      * @return  position in Coordinate format
      */
-    public Coordinate getPosition(){
+    public Coordinate getPosition() {
         return position;
     }
 
@@ -47,7 +47,7 @@ public class Pawn {
      * Setter of position
      * @param target    the Coordinate we want the pawn to go
      */
-    public void setPosition(Coordinate target) {
+    public void setPosition(final Coordinate target) {
         this.position.moveTo(target);
     }
 
@@ -63,7 +63,7 @@ public class Pawn {
      * Setter of ballOwner
      * @param b a boolean
      */
-    public void setBallOwner(boolean b) {
+    public void setBallOwner(final boolean b) {
         this.ballOwner = b;
     }
 
