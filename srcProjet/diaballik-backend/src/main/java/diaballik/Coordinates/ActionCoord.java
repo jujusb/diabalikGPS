@@ -52,4 +52,19 @@ public class ActionCoord {
                 " ; target=" + target +
                 '}';
     }
+
+
+    /**
+     * Return to the source coordinate
+     */
+    public void undo() {
+        //TODO
+    }
+
+    /**
+     * Return to the target coordinate after the undo
+     */
+    public void redo() {
+        //TODO
+    }
 }

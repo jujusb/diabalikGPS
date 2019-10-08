@@ -34,15 +34,15 @@ public class AiPlayer extends Player {
         current_turns = 0;
         switch(type) {
             case NOOB:
-                algo = new NoobAlgo();
+                algo = new NoobAlgo(this);
                 TURNS_BEFORE_SWAP = -1;
                 break;
             case STARTING:
-                algo = new StartingAlgo();
+                algo = new StartingAlgo(this);
                 TURNS_BEFORE_SWAP = -1;
                 break;
             default:
-                algo = new NoobAlgo();
+                algo = new NoobAlgo(this);
                 TURNS_BEFORE_SWAP = 3;
         }
     }
@@ -52,7 +52,7 @@ public class AiPlayer extends Player {
      */
     public void swap() {
         if(current_turns == TURNS_BEFORE_SWAP) {
-            final Algo temp = new StartingAlgo();
+            final Algo temp = new StartingAlgo(this);
             temp.setBoard(algo.getBoard());
             algo = temp;
         }
