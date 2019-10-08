@@ -15,23 +15,23 @@ public abstract class  Player {
     /**
      * The name of the player
      */
-    protected String name;
+    private String name; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
 
     /**
      * The colour of the Player. Since only two colors are allowed in the game, we
      * implement the colour with a boolean, true if the colour is white, and false if the color is black.
      */
-    protected boolean colour;
+    private boolean colour; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
 
     /**
      * The different pieces a Player owns. The ball is included in this List.
      */
-    protected List<Pawn> pieces;
+    List<Pawn> pieces; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
 
     /**
      * The Pawn which possesses the ball
      */
-    protected Pawn ball;
+    Pawn ball; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
 
     /**
      * Consturctor of Player. Initializes also pieces to an empty ArrayList and ball to null;

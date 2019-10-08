@@ -14,7 +14,7 @@ public class GameBoard extends Do {
     /**
      * The boundary of the board
      */
-    private final int BOUNDARY = 7;
+    private static final int BOUNDARY = 7;
 
     /**
      * The queue of an undoable move in case the player want undo his move
@@ -37,6 +37,16 @@ public class GameBoard extends Do {
     private List<Pawn> board;
 
     /**
+     * Player 1
+     */
+    private Player player1;
+
+    /**
+     * Player 2
+     */
+    private Player player2;
+
+    /**
      * constructor of the game
      * @param p1 player 1
      * @param p2 player 2
@@ -47,6 +57,8 @@ public class GameBoard extends Do {
         undoable_mode = new ArrayDeque<>();
         redoable_mode = new ArrayDeque<>();
         size_max = 3;
+        player1 = p1;
+        player2 = p2;
     }
 
     /**
@@ -55,8 +67,8 @@ public class GameBoard extends Do {
      * @return the pawn if he found him else return null
      */
     public Optional<Pawn> getPawn(final Coordinate c) {
-        //TODO
-        return null;
+        final Pawn p = new Pawn(new Coordinate(0, 0), player1);
+        return Optional.of(p);
     }
 
     /**
