@@ -26,18 +26,22 @@ public class Pawn {
 
     /**
      * Constructor of Pawn. By default set ballOwner to false.
-     * @param position  the position of Pawn in Coordinate format
-     * @param player    the player who owns the pawn
+     *
+     * @param position the position of Pawn in Coordinate format
+     * @param player   the player who owns the pawn
      */
     public Pawn(final Coordinate position, final Player player) {
         this.position = position;
         this.player = player;
         this.ballOwner = false;
+
+        player.addPawn(this);
     }
 
     /**
      * Getter of position
-     * @return  position in Coordinate format
+     *
+     * @return position in Coordinate format
      */
     public Coordinate getPosition() {
         return position;
@@ -45,7 +49,8 @@ public class Pawn {
 
     /**
      * Setter of position
-     * @param target    the Coordinate we want the pawn to go
+     *
+     * @param target the Coordinate we want the pawn to go
      */
     public void setPosition(final Coordinate target) {
         this.position.moveTo(target);
@@ -53,7 +58,8 @@ public class Pawn {
 
     /**
      * Getter of ballOwner
-     * @return  true if the current Pawn has the ball, false otherwise
+     *
+     * @return true if the current Pawn has the ball, false otherwise
      */
     public boolean isBallOwner() {
         return ballOwner;
@@ -61,15 +67,22 @@ public class Pawn {
 
     /**
      * Setter of ballOwner
+     *
      * @param b a boolean
      */
     public void setBallOwner(final boolean b) {
         this.ballOwner = b;
+
+        // if it now owns the ball, says it to the player
+        if (b) {
+            player.setBall(this);
+        }
     }
 
     /**
      * Getter of player
-     * @return  the player who owns the Pawn
+     *
+     * @return the player who owns the Pawn
      */
     public Player getPlayer() {
         return player;

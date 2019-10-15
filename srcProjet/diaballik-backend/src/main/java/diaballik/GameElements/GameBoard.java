@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class GameBoard extends Do {
     /**
@@ -48,59 +49,127 @@ public class GameBoard extends Do {
 
     /**
      * constructor of the game
+     *
      * @param p1 player 1
      * @param p2 player 2
      */
     public GameBoard(final Player p1, final Player p2) {
         super();
-        board = new ArrayList<>(BOUNDARY * BOUNDARY);
         undoable_mode = new ArrayDeque<>();
         redoable_mode = new ArrayDeque<>();
         size_max = 3;
         player1 = p1;
         player2 = p2;
+
+        board = new ArrayList<>(BOUNDARY * BOUNDARY);
+        // initialisation of the board
+        Stream.iterate(0, n -> n + 1)
+                .limit(7)
+                .forEach(n -> board.add(n, new Pawn(new Coordinate(n, 0), player1)));
+        board.get(3).setBallOwner(true); // top-middle
+        Stream.iterate(0, n -> n + 1)
+                .limit(7)
+                .forEach(n -> board.add(n, new Pawn(new Coordinate(n, 6), player2)));
+        board.get(45).setBallOwner(true); // bottom-middle
     }
 
     /**
      * to get the pawn to the present coordinate
+     *
      * @param c the coordinates selectionned
      * @return the pawn if he found him else return null
      */
     public Optional<Pawn> getPawn(final Coordinate c) {
-        final Pawn p = new Pawn(new Coordinate(0, 0), player1);
-        return Optional.of(p);
+        final Pawn p = board.get(c.getPosY() * 7 + c.getPosX());
+        return Optional.ofNullable(p);
     }
 
     /**
      * The move to do
-     * @param p the current player
+     *
+     * @param p      the current player
      * @param coords the coordiate of the source and the target
      * @return true if OK false else
      */
     @Override
     public boolean move(final Player p, final ActionCoord coords) {
-        //TODO
+        if (canMove(p, coords)) {
+            final Pawn source = getPawn(coords.getSource()).get();
+
+            // checks if the ball moves or if it is a pawn
+            if (source.isBallOwner()) {
+                // it is a ball move
+                final Pawn dest = getPawn(coords.getTarget()).get();
+                dest.setBallOwner(true);
+                source.setBallOwner(false);
+            } else {
+                // it is a pawn move
+                source.setPosition(coords.getTarget());
+            }
+
+            return true;
+        }
         return false;
     }
 
     /**
      * Verify if the move to do is OK
-     * @param p the current player
+     *
+     * @param p      the current player
      * @param coords the coordiate of the source and the target
      * @return true if OK false else
      */
     @Override
     public boolean canMove(final Player p, final ActionCoord coords) {
-        //TODO
+
+        final Optional<Pawn> optSource = getPawn(coords.getSource());
+        final Pawn source;
+
+        // checks that there is a pawn at source coordinates and that it is a "friendly" pawn
+        if (optSource.isPresent() && optSource.get().getPlayer().equals(p)) {
+            source = optSource.get();
+
+            // checks if the ball moves or if it is a pawn
+            if (source.isBallOwner()) {
+                // it is a ball move
+                final Optional<Pawn> optDest = getPawn(coords.getTarget());
+                // checks that there is a pawn at target coordinates and that it is a "friendly" pawn
+                if (optDest.isPresent() && optDest.get().getPlayer().equals(p)) {
+                    final Pawn dest = optDest.get();
+                    if (dest.getPosition().sameDiagonal(source.getPosition())) {
+
+                    }
+                    if (dest.getPosition().sameHorizontal(source.getPosition())) {
+
+                    }
+                    if (dest.getPosition().sameVertical(source.getPosition())) {
+
+                    }
+                    // TODO assuming source and dest are friendly pawns and that source carries the ball, check if source->dest is legal (dont forget to return true if true)
+                }
+
+
+            } else {
+                // it is a pawn move
+                if (getPawn(coords.getTarget()).isEmpty()) {
+                    // checks that the source and target are at an absolute distance of 1 (i.e. they are neighbors)
+                    if (coords.getTarget().absoluteDistance(coords.getSource()) == 1) {
+                        return true;
+                    }
+                }
+            }
+        }
+
         return false;
     }
 
     /**
      * To add to the list of UNDOABLEs
+     *
      * @param u the action we just done
      */
     public void add(final ActionCoord u) {
-        if(undoable_mode.size() == size_max) {
+        if (undoable_mode.size() == size_max) {
             undoable_mode.removeLast();
         }
         redoable_mode.clear();
@@ -108,11 +177,11 @@ public class GameBoard extends Do {
     }
 
     /**
-     * Undo a move
+     * Undoable a move
      */
     @Override
     public void undo() {
-        if(!undoable_mode.isEmpty()) {
+        if (!undoable_mode.isEmpty()) {
             final ActionCoord undoable = undoable_mode.pop();
             undoable.undo();
             undoable_mode.push(undoable);
@@ -124,7 +193,7 @@ public class GameBoard extends Do {
      */
     @Override
     public void redo() {
-        if(!redoable_mode.isEmpty()) {
+        if (!redoable_mode.isEmpty()) {
             final ActionCoord redoable = redoable_mode.pop();
             redoable.redo();
             redoable_mode.push(redoable);

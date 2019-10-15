@@ -1,10 +1,10 @@
 package diaballik.GameElements;
 
 /**
- * interface Undo
+ * interface Undoable
  * Interface used to specify the behaviour of an action
  */
-public interface Undo {
+public interface Undoable {
     void undo();
     void redo();
 }
