@@ -18,12 +18,12 @@ public class GameBoard extends Do {
     private static final int BOUNDARY = 7;
 
     /**
-     * The queue of an undoable move in case the player want undo his move
+     * The queue of an undoable move in case the player want to undo his move
      */
     private Deque<ActionCoord> undoable_mode;
 
     /**
-     * The queue of a redoable moves in case the player want redo his move undo before
+     * The queue of a redoable moves in case the player want to redo his move undo before
      */
     private Deque<ActionCoord> redoable_mode;
 
@@ -63,14 +63,15 @@ public class GameBoard extends Do {
 
         board = new ArrayList<>(BOUNDARY * BOUNDARY);
         // initialisation of the board
+        //for raw values with BOUNDARY = 7 : 7,3,7,6,45
         Stream.iterate(0, n -> n + 1)
-                .limit(7)
+                .limit(BOUNDARY)
                 .forEach(n -> board.add(n, new Pawn(new Coordinate(n, 0), player1)));
-        board.get(3).setBallOwner(true); // top-middle
+        board.get(BOUNDARY/2).setBallOwner(true); // top-middle
         Stream.iterate(0, n -> n + 1)
-                .limit(7)
-                .forEach(n -> board.add(n, new Pawn(new Coordinate(n, 6), player2)));
-        board.get(45).setBallOwner(true); // bottom-middle
+                .limit(BOUNDARY)
+                .forEach(n -> board.add(n, new Pawn(new Coordinate(n, BOUNDARY-1), player2)));
+        board.get(BOUNDARY*(BOUNDARY-1)+BOUNDARY/2).setBallOwner(true); // bottom-middle
     }
 
     /**
@@ -80,6 +81,7 @@ public class GameBoard extends Do {
      * @return the pawn if he found him else return null
      */
     public Optional<Pawn> getPawn(final Coordinate c) {
+        //No check for out of bound ?
         final Pawn p = board.get(c.getPosY() * 7 + c.getPosX());
         return Optional.ofNullable(p);
     }
@@ -88,8 +90,8 @@ public class GameBoard extends Do {
      * The move to do
      *
      * @param p      the current player
-     * @param coords the coordiate of the source and the target
-     * @return true if OK false else
+     * @param coords the coordinates of the source and the target
+     * @return true if the move went well false otherwise
      */
     @Override
     public boolean move(final Player p, final ActionCoord coords) {
@@ -117,7 +119,7 @@ public class GameBoard extends Do {
      *
      * @param p      the current player
      * @param coords the coordiate of the source and the target
-     * @return true if OK false else
+     * @return true if OK false otherwise
      */
     @Override
     public boolean canMove(final Player p, final ActionCoord coords) {
@@ -126,7 +128,7 @@ public class GameBoard extends Do {
         final Pawn source;
 
         // checks that there is a pawn at source coordinates and that it is a "friendly" pawn
-        if (optSource.isPresent() && optSource.get().getPlayer().equals(p)) {
+        if (optSource.isPresent() && optSource.get().getPlayer().equals(p)) {//no equals in Player yet !!
             source = optSource.get();
 
             // checks if the ball moves or if it is a pawn

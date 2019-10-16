@@ -100,7 +100,7 @@ public class Coordinate {
      * Calculates the absolute distance beetween two points
      *
      * @param c the other coordinate from which we calculate the distance
-     * @return the sum of the absolute difference of the coordiantes
+     * @return the sum of the absolute difference of the coordinates
      */
     public int absoluteDistance(final Coordinate c) {
         return Math.abs(c.getPosX() - posX) + Math.abs(c.getPosY() - posY);

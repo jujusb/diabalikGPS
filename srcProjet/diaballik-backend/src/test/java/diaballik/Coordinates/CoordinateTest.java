@@ -44,4 +44,10 @@ class CoordinateTest {
     void testEqualsFalse() {
         assertFalse(c2.equals(c1));;
     }
+
+    @Test
+    void testAbsoluteDistance(){
+        assertEquals(10,c2.absoluteDistance(c1));
+        //ajouter d'autres cas ?
+    }
 }
