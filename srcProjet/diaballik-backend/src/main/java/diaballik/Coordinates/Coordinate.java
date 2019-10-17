@@ -6,7 +6,7 @@ import java.util.Objects;
  * @class Coordinate
  * Class used to handle the coordinates of the pawns in the game
  */
-public class Coordinate {
+public class Coordinate implements Cloneable {
 
     /**
      * The x coordinate
@@ -57,6 +57,16 @@ public class Coordinate {
     }
 
     /**
+     * Relatively moves the coordinates of (x,y)
+     * @param x the delta x of the move
+     * @param y the delta y of the move
+     */
+    public void moveOf(final int x, final int y) {
+        posX += x;
+        posY += y;
+    }
+
+    /**
      * Checks if two coordinates do have the same value
      *
      * @param o The other coordinate Object (or something else)
@@ -94,6 +104,15 @@ public class Coordinate {
     public String toString() {
         return "(" + posX + " , " + posY +
                 ')';
+    }
+
+    /**
+     * Clones a coordinate
+     * @return a new Coordinate with the same posX and posY
+     */
+    @Override
+    public Object clone() {
+        return new Coordinate(posX, posY);
     }
 
     /**
@@ -136,22 +155,4 @@ public class Coordinate {
         return c.getPosX() == posX;
     }
 
-    /**
-     * Clones a coordinate
-     * @return a new Coordinate with the same posX and posY
-     */
-    @Override
-    public Object clone() {
-        return new Coordinate(posX, posY);
-    }
-
-    /**
-     * Relatively moves the coordinates of (x,y)
-     * @param x the delta x of the move
-     * @param y the delta y of the move
-     */
-    public void moveOf(final int x, final int y) {
-        posX += x;
-        posY += y;
-    }
 }

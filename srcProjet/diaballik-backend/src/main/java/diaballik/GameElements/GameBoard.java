@@ -75,7 +75,7 @@ public class GameBoard extends Do {
     }
 
     /**
-     * to get the pawn to the present coordinate
+     * To get the pawn to the present coordinate
      *
      * @param c the coordinates selectionned
      * @return the pawn if he found him else return null
@@ -117,7 +117,7 @@ public class GameBoard extends Do {
      * Verifies if the move to do is OK
      *
      * @param p      the current player
-     * @param coords the coordiate of the source and the target
+     * @param coords the coordinate of the source and the target
      * @return true if OK false otherwise
      */
     @Override

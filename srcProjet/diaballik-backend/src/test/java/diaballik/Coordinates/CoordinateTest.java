@@ -96,4 +96,17 @@ class CoordinateTest {
         assertFalse(c2.sameVertical(c1));
         assertFalse(c2.sameVertical(c3));   //c2 and c3 are on the same row
     }
+
+    @Test
+    void testMoveOf() {
+        c1.moveOf(0,-1);
+        assertEquals(c4,c1);
+    }
+
+    @Test
+    void testClone() {
+        Coordinate aux = (Coordinate) c1.clone();
+        assertFalse(aux==c1);
+        assertEquals(c1,aux);
+    }
 }
