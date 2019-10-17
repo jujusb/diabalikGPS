@@ -168,7 +168,6 @@ public class GameBoard extends Do {
 
             final Coordinate sourceCo = (Coordinate) source.getPosition().clone();
 
-
             // checks that no object can be found between the two pawns
             return Stream.iterate(0, n -> n + 1)
                     // defines the quantity of moves that are necessary to check the line/diagonal. These two cases are different
