@@ -1,5 +1,7 @@
 package diaballik.Coordinates;
 
+import diaballik.Supervisors.Game;
+
 /**
  * class ActionCoord
  * A pair of Coordinate representing a move on the GameBoard.
@@ -55,16 +57,11 @@ public class ActionCoord {
 
 
     /**
-     * Return to the source coordinate
+     * Invert the source and the target
      */
-    public void undo() {
-        //TODO
-    }
-
-    /**
-     * Return to the target coordinate after the undo
-     */
-    public void redo() {
-        //TODO
+    public void invert() {
+        final Coordinate tmp = getSource();
+        this.source = target;
+        this.target = tmp;
     }
 }

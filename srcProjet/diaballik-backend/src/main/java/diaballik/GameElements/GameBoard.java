@@ -96,7 +96,20 @@ public class GameBoard extends Do {
     @Override
     public boolean move(final Player p, final ActionCoord coords) {
         if (canMove(p, coords)) {
-            final Pawn source = getPawn(coords.getSource()).get();
+            move(coords);
+            this.addUndo(coords);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Move to do is valid so we can do it without verification
+     *
+     * @param coords the coordinates of the source and the target
+     */
+    private void move(final ActionCoord coords) {
+        final Pawn source = getPawn(coords.getSource()).get();
 
             // checks if the ball moves or if it is a pawn
             if (source.isBallOwner()) {
@@ -108,13 +121,11 @@ public class GameBoard extends Do {
                 // it is a pawn move
                 source.setPosition(coords.getTarget());
             }
-            return true;
         }
-        return false;
     }
 
     /**
-     * Verifies if the move to do is OK
+     * Verify if the move to do is OK
      *
      * @param p      the current player
      * @param coords the coordinate of the source and the target
@@ -126,9 +137,8 @@ public class GameBoard extends Do {
         final Optional<Pawn> optSource = getPawn(coords.getSource());
         final Pawn source;
 
-        // checks that both coordinates are different, that there is a pawn at source coordinates and that it is a "friendly" pawn
-        if (!coords.getSource().equals(coords.getTarget()) &&
-                optSource.isPresent() && optSource.get().getPlayer() == p) {
+        // checks that there is a pawn at source coordinates and that it is a "friendly" pawn
+        if (optSource.isPresent() && optSource.get().getPlayer() == p) {
             source = optSource.get();
 
             // checks if the ball moves or if it is a pawn
@@ -136,10 +146,13 @@ public class GameBoard extends Do {
                 // it is a ball move
                 final Optional<Pawn> optDest = getPawn(coords.getTarget());
                 // checks that there is a pawn at target coordinates and that it is a "friendly" pawn
-                if (optDest.isPresent() && optDest.get().getPlayer() == p) {
+                if (optDest.isPresent() && optDest.get().getPlayer().equals(p)) {
                     final Pawn dest = optDest.get();
                     return canMoveBall(source, dest);
                 }
+            }
+
+
             } else {
                 // it is a pawn move
                 if (getPawn(coords.getTarget()).isEmpty()) {
@@ -150,8 +163,6 @@ public class GameBoard extends Do {
                 }
             }
         }
-
-        return false;
     }
 
     /**
@@ -190,7 +201,7 @@ public class GameBoard extends Do {
      *
      * @param u the action we just done
      */
-    public void add(final ActionCoord u) {
+    public void addUndo(final ActionCoord u) {
         if (undoable_mode.size() == size_max) {
             undoable_mode.removeLast();
         }
@@ -205,19 +216,21 @@ public class GameBoard extends Do {
     public void undo() {
         if (!undoable_mode.isEmpty()) {
             final ActionCoord undoable = undoable_mode.pop();
-            undoable.undo();
+            undoable.invert();
+            move(undoable);
             undoable_mode.push(undoable);
         }
     }
 
     /**
-     * Redo a move after the undo
+     * Redo a move after the undo : Return to the target coordinate after the undo
      */
     @Override
     public void redo() {
         if (!redoable_mode.isEmpty()) {
             final ActionCoord redoable = redoable_mode.pop();
-            redoable.redo();
+            redoable.invert();
+            move(redoable);
             redoable_mode.push(redoable);
         }
     }

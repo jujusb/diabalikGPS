@@ -5,12 +5,13 @@ import diaballik.GameElements.Pawn;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * class Player
  * Class used to specify the parameters and functions of a Player
  */
-public abstract class  Player {
+public abstract class Player {
 
     /**
      * The name of the player
@@ -35,6 +36,7 @@ public abstract class  Player {
 
     /**
      * Consturctor of Player. Initializes also pieces to an empty ArrayList and ball to null;
+     *
      * @param n the name of the Player
      * @param c the colour of the Player
      */
@@ -47,6 +49,7 @@ public abstract class  Player {
 
     /**
      * Getter of ball
+     *
      * @return the current Pawn who possesses the ball
      */
     public Pawn getBall() {
@@ -55,6 +58,7 @@ public abstract class  Player {
 
     /**
      * Setter of ball
+     *
      * @param p the Pawn who will receives the ball
      */
     public void setBall(final Pawn p) {
@@ -63,6 +67,7 @@ public abstract class  Player {
 
     /**
      * Method which adds a Pawn to the List pieces
+     *
      * @param p a Pawn to add
      */
     public void addPawn(final Pawn p) {
@@ -71,14 +76,58 @@ public abstract class  Player {
 
     /**
      * Function which wait and notify for the end of the turn
+     *
      * @return true if the turn of the player is finished, false otherwise
      */
     public abstract boolean waitEndOfTurn();
 
     /**
      * Function which returns a move to execute
+     *
      * @return an ActionCoord's instance, which defines the movement of the Player
      */
     public abstract ActionCoord getMove();
 
+    /**
+     * Getter of the name of the Player
+     *
+     * @return name of the player
+     */
+    public String getName() {
+        return name;
+    }
+
+
+    /**
+     * Getter of the color of the Player
+     *
+     * @return true if the colour is white, and false if the color is black.
+     */
+    public boolean getColor() {
+        return colour;
+    }
+
+
+    /**
+     * Equals of two players
+     *
+     * @return true if they are the same player
+     */
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Player)) {
+            return false;
+        }
+        final Player player = (Player) o;
+        return getColor() == player.getColor() &&
+                Objects.equals(getName(), player.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
 }
