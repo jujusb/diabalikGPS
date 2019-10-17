@@ -67,11 +67,11 @@ public class GameBoard extends Do {
         Stream.iterate(0, n -> n + 1)
                 .limit(BOUNDARY)
                 .forEach(n -> board.add(n, new Pawn(new Coordinate(n, 0), player1)));
-        board.get(BOUNDARY/2).setBallOwner(true); // top-middle
+        board.get(BOUNDARY / 2).setBallOwner(true); // top-middle
         Stream.iterate(0, n -> n + 1)
                 .limit(BOUNDARY)
-                .forEach(n -> board.add(n, new Pawn(new Coordinate(n, BOUNDARY-1), player2)));
-        board.get(BOUNDARY*(BOUNDARY-1)+BOUNDARY/2).setBallOwner(true); // bottom-middle
+                .forEach(n -> board.add(n, new Pawn(new Coordinate(n, BOUNDARY - 1), player2)));
+        board.get(BOUNDARY * (BOUNDARY - 1) + BOUNDARY / 2).setBallOwner(true); // bottom-middle
     }
 
     /**
@@ -81,7 +81,7 @@ public class GameBoard extends Do {
      * @return the pawn if he found him else return null
      */
     public Optional<Pawn> getPawn(final Coordinate c) {
-        //No check for out of bound ?
+        //No check for out of bound ?And what if the pawn returned is null ?
         final Pawn p = board.get(c.getPosY() * 7 + c.getPosX());
         return Optional.ofNullable(p);
     }
@@ -128,7 +128,7 @@ public class GameBoard extends Do {
         final Pawn source;
 
         // checks that there is a pawn at source coordinates and that it is a "friendly" pawn
-        if (optSource.isPresent() && optSource.get().getPlayer().equals(p)) {//no equals in Player yet !!
+        if (optSource.isPresent() && optSource.get().getPlayer() == p) {
             source = optSource.get();
 
             // checks if the ball moves or if it is a pawn
