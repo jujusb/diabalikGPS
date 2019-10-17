@@ -108,14 +108,13 @@ public class GameBoard extends Do {
                 // it is a pawn move
                 source.setPosition(coords.getTarget());
             }
-
             return true;
         }
         return false;
     }
 
     /**
-     * Verify if the move to do is OK
+     * Verifies if the move to do is OK
      *
      * @param p      the current player
      * @param coords the coordiate of the source and the target
@@ -127,8 +126,9 @@ public class GameBoard extends Do {
         final Optional<Pawn> optSource = getPawn(coords.getSource());
         final Pawn source;
 
-        // checks that there is a pawn at source coordinates and that it is a "friendly" pawn
-        if (optSource.isPresent() && optSource.get().getPlayer() == p) {
+        // checks that both coordinates are different, that there is a pawn at source coordinates and that it is a "friendly" pawn
+        if (!coords.getSource().equals(coords.getTarget()) &&
+                optSource.isPresent() && optSource.get().getPlayer() == p) {
             source = optSource.get();
 
             // checks if the ball moves or if it is a pawn
@@ -136,21 +136,10 @@ public class GameBoard extends Do {
                 // it is a ball move
                 final Optional<Pawn> optDest = getPawn(coords.getTarget());
                 // checks that there is a pawn at target coordinates and that it is a "friendly" pawn
-                if (optDest.isPresent() && optDest.get().getPlayer().equals(p)) {
+                if (optDest.isPresent() && optDest.get().getPlayer() == p) {
                     final Pawn dest = optDest.get();
-                    if (dest.getPosition().sameDiagonal(source.getPosition())) {
-
-                    }
-                    if (dest.getPosition().sameHorizontal(source.getPosition())) {
-
-                    }
-                    if (dest.getPosition().sameVertical(source.getPosition())) {
-
-                    }
-                    // TODO assuming source and dest are friendly pawns and that source carries the ball, check if source->dest is legal (dont forget to return true if true)
+                    return canMoveBall(source, dest);
                 }
-
-
             } else {
                 // it is a pawn move
                 if (getPawn(coords.getTarget()).isEmpty()) {
@@ -162,6 +151,38 @@ public class GameBoard extends Do {
             }
         }
 
+        return false;
+    }
+
+    /**
+     * Checks if we can move the ball from source to dest
+     *
+     * @param source      the source pawn, it is the pawn who carries the ball
+     * @param destination the ball catcher
+     * @return true if we can move the ball or false otherwise
+     */
+    public boolean canMoveBall(final Pawn source, final Pawn destination) {
+        if (destination.getPosition().sameDiagonal(source.getPosition())
+                || destination.getPosition().sameHorizontal(source.getPosition())
+                || destination.getPosition().sameVertical(source.getPosition())) {
+
+            final Coordinate sourceCo = (Coordinate) source.getPosition().clone();
+
+
+            // checks that no object can be found between the two pawns
+            return Stream.iterate(0, n -> n + 1)
+                    // defines the quantity of moves that are necessary to check the line/diagonal. These two cases are different
+                    .limit(destination.getPosition().sameDiagonal(source.getPosition()) ?
+                            destination.getPosition().absoluteDistance(source.getPosition()) / 2 - 1 :
+                            destination.getPosition().absoluteDistance(source.getPosition()) - 1)
+                    // checks that no object can be found on the line between source and target, that can whether be a diagonal or a "simple line"
+                    .noneMatch(n -> {
+                        final int deltaY = Integer.compare(destination.getPosition().getPosY(), source.getPosition().getPosY());
+                        final int deltaX = Integer.compare(destination.getPosition().getPosX(), source.getPosition().getPosX());
+                        sourceCo.moveOf(deltaX, deltaY);
+                        return getPawn(sourceCo).isPresent();
+                    });
+        }
         return false;
     }
 

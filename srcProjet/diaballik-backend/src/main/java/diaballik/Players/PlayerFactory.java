@@ -6,11 +6,6 @@ import java.util.Optional;
 import java.util.Random;
 
 public final class PlayerFactory {
-    /**
-     * The number of players that the game will have
-     */
-    private static final int PLAYER_LIMIT = 2;
-
 
     /**
      * Creates a human player with some caracteristics

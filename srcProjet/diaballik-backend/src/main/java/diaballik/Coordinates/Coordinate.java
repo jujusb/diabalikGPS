@@ -108,6 +108,7 @@ public class Coordinate {
 
     /**
      * Checks if two points are in the same diagonal by checking that abs(delta X) is abs(delta Y)
+     *
      * @param c the other coordinate
      * @return true if it is in the same diagonal false otherwise
      */
@@ -117,6 +118,7 @@ public class Coordinate {
 
     /**
      * Checks if two points are in the same horizontal line by checking the equality of their y
+     *
      * @param c the other coordinate
      * @return true if it is in the same horizontal false otherwise
      */
@@ -126,10 +128,30 @@ public class Coordinate {
 
     /**
      * Checks if two points are in the same vertical line by checking the equality of their x
+     *
      * @param c the other coordinate
      * @return true if it is in the same vertical false otherwise
      */
     public boolean sameVertical(final Coordinate c) {
         return c.getPosX() == posX;
+    }
+
+    /**
+     * Clones a coordinate
+     * @return a new Coordinate with the same posX and posY
+     */
+    @Override
+    public Object clone() {
+        return new Coordinate(posX, posY);
+    }
+
+    /**
+     * Relatively moves the coordinates of (x,y)
+     * @param x the delta x of the move
+     * @param y the delta y of the move
+     */
+    public void moveOf(final int x, final int y) {
+        posX += x;
+        posY += y;
     }
 }
