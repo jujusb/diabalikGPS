@@ -21,7 +21,7 @@ public class ActionCoord {
 
     /**
      * Constructor of the class
-     * @param s the Coordinate of the Pawn to mover
+     * @param s the Coordinate of the Pawn to move
      * @param t the Coordinate where we want the Pawn to go
      */
     public ActionCoord(final Coordinate s, final Coordinate t) {

@@ -130,4 +130,12 @@ public abstract class Player {
     public int hashCode() {
         return 0;
     }
+
+    /**
+     * Getter of the list of pawn of the player
+     * @return the list of pawn of the player
+     */
+    public List<Pawn> getPieces() {
+        return pieces;
+    }
 }

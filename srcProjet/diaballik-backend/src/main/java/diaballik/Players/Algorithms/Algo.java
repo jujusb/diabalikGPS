@@ -1,8 +1,11 @@
 package diaballik.Players.Algorithms;
 
 import diaballik.Coordinates.ActionCoord;
+import diaballik.Coordinates.Coordinate;
 import diaballik.GameElements.GameBoard;
 import diaballik.Players.Player;
+
+import java.util.List;
 
 public abstract class Algo {
     /**
@@ -22,6 +25,7 @@ public abstract class Algo {
 
     /**
      * to get the board from the IA
+     *
      * @return the current board
      */
     public GameBoard getBoard() {
@@ -30,6 +34,7 @@ public abstract class Algo {
 
     /**
      * to set the board to the IA
+     *
      * @param board the current board
      */
     public void setBoard(final GameBoard board) {
@@ -38,8 +43,25 @@ public abstract class Algo {
 
     /**
      * Function which returns a move to execute
+     *
      * @return an ActionCoord's instance, which defines the movement of the Player
      */
     public abstract ActionCoord decideMove();
+
+    /**
+     * Moves a coordinate and, if it is free, adds a move there in an ActionCoord list for a given pawn
+     *
+     * @param dx            the x displacement
+     * @param dy            the y displacement
+     * @param possibleMoves the list of currently possible moves
+     * @param dest          the coordinates we want to check
+     * @param source        the coordinates of the pawn that could move to c
+     */
+    void moveAndCheck(final int dx, final int dy, final List<ActionCoord> possibleMoves, final Coordinate dest, final Coordinate source) {
+        dest.moveOf(dx, dy);
+        if (board.checkCoord(dest) && board.getPawn(dest).isEmpty()) {
+            possibleMoves.add(new ActionCoord(source, dest));
+        }
+    }
 
 }
