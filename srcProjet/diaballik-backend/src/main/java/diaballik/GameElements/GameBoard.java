@@ -75,6 +75,13 @@ public class GameBoard extends Do {
     }
 
     /**
+     * Get Human Player
+     */
+    public Player getHumanPlayer() {
+        return player1;
+    }
+
+    /**
      * To get the pawn to the present coordinate
      *
      * @param c the coordinates selectionned

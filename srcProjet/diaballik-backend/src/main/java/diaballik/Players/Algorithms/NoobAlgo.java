@@ -48,7 +48,7 @@ public class NoobAlgo extends Algo {
                     moveAndCheck(0, -2, possibleMoves, c, p.getPosition());
                 });
 
-        // now that the list possibleMoves is full, we have to randomly select on of the moves to proceed
+        // now that the list possibleMoves is full, we have to randomly select one of the moves to proceed
         final Random rdm = new Random();
         return possibleMoves.get(rdm.nextInt(possibleMoves.size()));
     }
