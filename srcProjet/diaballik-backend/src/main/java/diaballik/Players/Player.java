@@ -138,4 +138,15 @@ public abstract class Player {
     public List<Pawn> getPieces() {
         return pieces;
     }
+
+    /**
+     * Function returning the sum of the height of the pawns, including the one carrying the ball
+     * @return the sum of the height of the pawns
+     */
+    public int heightSum(){
+        final List<Integer> aux = new ArrayList<>();
+        aux.set(0, 0);
+        pieces.stream().forEach(p -> aux.set(0,aux.get(0)+p.getPosition().getPosY()));
+        return aux.get(0);
+    }
 }

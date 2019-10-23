@@ -80,11 +80,21 @@ public class StartingAlgo extends Algo {
      */
     @Override
     public ActionCoord decideMove() {
-        double heuristique = 0;
-        board.getHumanPlayer().getPieces().stream()
-                .forEach(n -> {
-                    heuristique+=
-                });
+        Player adversary = board.getHumanPlayer();
+        List<ActionCoord> moves = new ArrayList<>();
+        List<ActionCoord> ballMoves = new ArrayList<>();
+        List<Float> heuristic = new ArrayList<>();
+        //we calculate all the possible moves
+        calculatePossiblePawnMoves(player,moves);
+        calculatePossibleBallMoves(player,moves);
+        calculatePossibleBallMoves(player,ballMoves);
+        //for each move, we're looking at the heuristic if the move is made, and add it to a list
+        moves.stream().forEachOrdered(m -> testHeuristic(m,adversary,heuristic));
+        //after, we're taking the best move given our heuristic
+        //TODO
+        //Check if it's a ball move. If it is, return a random ball move previously calculated
+        //Else, return the best move
+        //TODO
 
         //TODO
         /*heuristique pour le mouvement des pions =
@@ -99,28 +109,8 @@ public class StartingAlgo extends Algo {
         return null;
     }
 
-    /**
-     * Function which returns a ball move to execute
-     *
-     * @return an ActionCoord's instance, which defines the movement of the ball of the AI Player
-     */
-    public ActionCoord moveBall() {
-        // List of the moves that the player can perform
-        final List<ActionCoord> possibleMoves = new ArrayList<>();
+    public void testHeuristic(final ActionCoord m, final Player adversary, final List<Float> heuristic) {
 
-        final Pawn ball = player.getBall();
-        final List<Pawn> pawns = player.getPieces();
-
-        // gathers all the possible moves of balls in the list possibleMoves
-        pawns.stream()
-                .filter(p -> !p.isBallOwner())
-                .forEach(p -> {
-                    if (board.canMoveBall(ball, p)) {
-                        possibleMoves.add(new ActionCoord(ball.getPosition(), p.getPosition()));
-                    }
-                });
-        // now that the list possibleMoves is full, we have to randomly select one of the moves to proceed
-        final Random rdm = new Random();
-        return possibleMoves.get(rdm.nextInt(possibleMoves.size()));
     }
+
 }
