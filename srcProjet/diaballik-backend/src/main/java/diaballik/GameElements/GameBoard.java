@@ -263,4 +263,25 @@ public class GameBoard extends Do {
     public boolean checkCoord(final Coordinate c) {
         return c.getPosY() < BOUNDARY && c.getPosY() >= 0 && c.getPosX() < BOUNDARY && c.getPosX() >= 0;
     }
+
+    /**
+     * Checks if a player has won
+     *
+     * @return true if someone has won false otherwise
+     */
+    public Boolean checkIfWon() {
+        if (player1
+                .getPawns()
+                .parallelStream()
+                .anyMatch(p -> p.getPosition().getPosY() == 6)) {
+            return true;
+        }
+        if (player2
+                .getPawns()
+                .parallelStream()
+                .anyMatch(p -> p.getPosition().getPosY() == 0)) {
+            return true;
+        }
+        return false;
+    }
 }

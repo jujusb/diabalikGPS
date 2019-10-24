@@ -25,9 +25,9 @@ public abstract class Player {
     private boolean colour; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
 
     /**
-     * The different pieces a Player owns. The ball is included in this List.
+     * The different pawns a Player owns. The ball is included in this List.
      */
-    List<Pawn> pieces; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
+    List<Pawn> pawns; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
 
     /**
      * The Pawn which possesses the ball
@@ -35,7 +35,7 @@ public abstract class Player {
     Pawn ball; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
 
     /**
-     * Consturctor of Player. Initializes also pieces to an empty ArrayList and ball to null;
+     * Consturctor of Player. Initializes also pawns to an empty ArrayList and ball to null;
      *
      * @param n the name of the Player
      * @param c the colour of the Player
@@ -43,7 +43,7 @@ public abstract class Player {
     public Player(final String n, final boolean c) {
         name = n;
         colour = c;
-        pieces = new ArrayList<Pawn>();
+        pawns = new ArrayList<Pawn>();
         ball = null;
     }
 
@@ -66,12 +66,12 @@ public abstract class Player {
     }
 
     /**
-     * Method which adds a Pawn to the List pieces
+     * Method which adds a Pawn to the List pawns
      *
      * @param p a Pawn to add
      */
     public void addPawn(final Pawn p) {
-        pieces.add(p);
+        pawns.add(p);
     }
 
     /**
@@ -136,8 +136,8 @@ public abstract class Player {
      *
      * @return the list of pawn of the player
      */
-    public List<Pawn> getPieces() {
-        return pieces;
+    public List<Pawn> getPawns() {
+        return pawns;
     }
 
     /**
@@ -146,6 +146,6 @@ public abstract class Player {
      * @return the sum of the height of the pawns
      */
     public int heightSum() {
-        return pieces.stream().mapToInt(p -> p.getPosition().getPosY()).sum();
+        return pawns.stream().mapToInt(p -> p.getPosition().getPosY()).sum();
     }
 }

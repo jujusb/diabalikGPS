@@ -7,7 +7,6 @@ import diaballik.GameElements.Pawn;
 import diaballik.Players.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public abstract class Algo {
@@ -74,7 +73,7 @@ public abstract class Algo {
      */
     public List<ActionCoord>  calculatePossiblePawnMoves(final Player one) {
         final List<ActionCoord> possibleMoves = new ArrayList<>();
-        final List<Pawn> pawns = one.getPieces();
+        final List<Pawn> pawns = one.getPawns();
         // gathers all the possible moves of pawns and balls in the list possibleMoves
         pawns.stream()
                 .filter(p -> !p.isBallOwner())
@@ -96,7 +95,7 @@ public abstract class Algo {
     public List<ActionCoord> calculatePossibleBallMoves(final Player one) {
         final List<ActionCoord> possibleMoves = new ArrayList<>();
         final Pawn ball = one.getBall();
-        final List<Pawn> pawns = one.getPieces();
+        final List<Pawn> pawns = one.getPawns();
         // gathers all the possible moves of balls in the list possibleMoves
         pawns.stream()
                 .filter(p -> !p.isBallOwner())

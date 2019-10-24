@@ -1,14 +1,157 @@
 package diaballik.resource;
 
+import diaballik.Coordinates.ActionCoord;
+import diaballik.Coordinates.Coordinate;
+import diaballik.Players.HumanPlayer;
+import diaballik.Players.Player;
+import diaballik.Supervisors.Game;
 import io.swagger.annotations.Api;
+
 import javax.inject.Singleton;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.HashMap;
+import java.util.Map;
 
 @Singleton
 @Path("game")
 @Api(value = "game")
 public class GameResource {
-	public GameResource() {
-		super();
-	}
+    private Game game = new Game();
+
+    public GameResource() {
+        super();
+    }
+
+    /**
+     * POST /game/newPvP/{name1}/{name2}/{colour1}
+     * Creates a new Player vs Player game with the name of both players and the colour of the first one (the other will have the opposite)
+     */
+    @POST
+    @Path("game/newPvP/{name1}/{colour1}/{name2}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createGamePvP(@PathParam("name1") final String name1, @PathParam("colour1") final String colour1, @PathParam("name2") final String name2) {
+        final Map<String, String> gameDescriptor = new HashMap<>();
+        gameDescriptor.put("namePlayer1", name1);
+        gameDescriptor.put("namePlayer2", name2);
+        gameDescriptor.put("colourPlayer1", colour1);
+
+        game.initializeGame(gameDescriptor);
+
+        return Response.status(Response.Status.OK).build();
+    }
+
+    /**
+     * POST /game/newPvE/{name1}/{colour1}/{level}
+     * Creates a new Player vs Entity game with the name and colour of the first player (the name of the second will be random and its colour the opposite) and the AI level
+     */
+    @POST
+    @Path("game/newPvE/{name1}/{colour1}/{level}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createGamePvE(@PathParam("name1") final String name1, @PathParam("colour1") final String colour1, @PathParam("level") final String level) {
+        final Map<String, String> gameDescriptor = new HashMap<>();
+        gameDescriptor.put("namePlayer1", name1);
+        gameDescriptor.put("aiLevel", level);
+        gameDescriptor.put("colourPlayer1", colour1);
+
+        game.initializeGame(gameDescriptor);
+
+        return Response.status(Response.Status.OK).build();
+    }
+
+    /**
+     * POST /game/newPvE/{name1}/{name2}/{colour1}/{level}
+     * Creates a new Player vs Entity game with the name of both players and the colour of the first one (the other will have the opposite) and the AI level
+     */
+    @POST
+    @Path("game/newPvE/{name1}/{name2}/{colour1}/{level}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createGamePvEWithName2(@PathParam("name1") final String name1, @PathParam("colour1") final String colour1, @PathParam("name2") final String name2, @PathParam("level") final String level) {
+        final Map<String, String> gameDescriptor = new HashMap<>();
+        gameDescriptor.put("namePlayer1", name1);
+        gameDescriptor.put("namePlayer2", name2);
+        gameDescriptor.put("aiLevel", level);
+        gameDescriptor.put("colourPlayer1", colour1);
+
+        game.initializeGame(gameDescriptor);
+        game.start();
+
+        return Response.status(Response.Status.OK).build();
+    }
+
+    /**
+     * POST /game/action/move/{x1}/{y1}/{x2}/{y2}
+     * Sends a move proposal to the game so that it checks if it is legal or not and, if so, it will play it
+     */
+    @POST
+    @Path("game/action/move/{x1}/{y1}/{x2}/{y2}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response move(@PathParam("x1") final String x1, @PathParam("y1") final String y1, @PathParam("x2") final String x2, @PathParam("y2") final String y2) {
+        final ActionCoord move = new ActionCoord(
+                new Coordinate(Integer.valueOf(x1), Integer.valueOf(y1)),
+                new Coordinate(Integer.valueOf(x2), Integer.valueOf(y2)));
+        final Player p = game.getCurrentPlayer();
+
+        // tells the player to try this action and let it tell the game
+        ((HumanPlayer) p).setCurrentAction(move);
+        ((HumanPlayer) p).free();
+
+        // if(playerAChange) return codeSpecialPourDireQu'onAttendLaFinDeTour else
+        return Response.status(Response.Status.OK).build();
+    }
+
+    /**
+     * POST /game/endOfTurn
+     * 	Notifies of the end of the turn of the current playing player
+     */
+    @POST
+    @Path("game/endOfTurn")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response endOfTurn() {
+        final Player p = game.getCurrentPlayer();
+        // free the player so that it can tells
+        ((HumanPlayer) p).free();
+        return Response.status(Response.Status.OK).build();
+    }
+
+    /**
+     * PUT /game/action/undo
+     * 	Sends an undo request
+     */
+    @PUT
+    @Path("game/action/undo")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response undo() {
+        game.undo();
+        return Response.status(Response.Status.OK).build();
+    }
+
+    /**
+     * PUT /game/action/redo
+     * 	Envoie un message notifiant de l'annulation d'une annulation
+     */
+    @PUT
+    @Path("game/action/redo")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response redo() {
+        game.redo();
+        return Response.status(Response.Status.OK).build();
+    }
+
+    /**
+     * PUT /game/kill
+     */
+    @PUT
+    @Path("game/kill")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response kill() {
+        // assuming the garbage collector is clever enough to stop the game, we just "throw" its reference
+        game = null;
+        return Response.status(Response.Status.OK).build();
+    }
 }

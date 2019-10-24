@@ -40,11 +40,27 @@ public class Game {
     private Player currentPlayer;
 
     /**
-     * Constructor of games, creates a game from a query
+     * The thread in which we execute the game
+     */
+    private Thread threadOfTheGame;
+
+    /**
+     * True if there is an undo request false otherwise
+     */
+    private boolean undo;
+
+    /**
+     * True if there is a redo request false otherwise
+     */
+    private boolean redo;
+
+
+    /**
+     * Builder of games, creates a game from a query
      *
      * @param game game parameters in JSON
      */
-    public void Game(final Map<String, String> game) {
+    public void initializeGame(final Map<String, String> game) {
         final PlayerFactory pf = new PlayerFactory();
 
         // the player1 is always human
@@ -72,6 +88,99 @@ public class Game {
         if (player2 instanceof AiPlayer) {
             ((AiPlayer) player2).setBoard(gameBoard);
         }
+
+        threadOfTheGame = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                runGame();
+            }
+        });
+    }
+
+    /**
+     * game computing
+     */
+    private void runGame() {
+        // while nobody has won
+
+        // TODO transformer le code suivant en streams (bon courage :D) :
+        /*
+        while (!gameBoard.checkIfWon()) {
+            // makes player1 play
+            for (int i = 0; i < nbActions; i++) {
+                // if the move that the player tries is not legal
+                if (!gameBoard.move(player1, player1.getMove())) {
+                    // does one iteration more to let the player try something else
+                    i--;
+                    if(undo) {gameBoard.undo(); i--; undo=false;}
+                    if(redo) {gameBoard.redo(); i++; redo=false;}
+                } else {
+                    // if the player has won during his turn
+                    if (gameBoard.checkIfWon()) {
+                        return;
+                    }
+                }
+                if(i==nbActions-1){
+                    player1.waitEndOfTurn();
+                    if(undo) {gameBoard.undo(); i--; undo=false;}
+                    if(redo) {gameBoard.redo(); i++; redo=false;}
+                }
+            }
+
+           currentPlayer=player2;
+
+            // and then makes player2 play
+            for (int i = 0; i < nbActions; i++) {
+                // if the move that the player tries is not legal
+                if (!gameBoard.move(player2, player2.getMove())) {
+                    // does one iteration more to let the player try something else
+                    i--;
+                    if(undo) {gameBoard.undo(); i--; undo=false;}
+                    if(redo) {gameBoard.redo(); i++; redo=false;}
+                } else {
+                    // if the player has won during his turn
+                    if (gameBoard.checkIfWon()) {
+                        return;
+                    }
+                }
+                if(i==nbActions-1){
+                    player2.waitEndOfTurn();
+                    if(undo) {gameBoard.undo(); i--; undo=false;}
+                    if(redo) {gameBoard.redo(); i++; redo=false;}
+                }
+            }
+            currentPlayer=player1
+        }*/
+    }
+
+    /**
+     * Launches the game in a new thread
+     */
+    public void start() {
+        threadOfTheGame.start();
+    }
+
+    /**
+     * Getter of the current Player
+     *
+     * @return the current player
+     */
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    /**
+     * Tells the game there is an undo request
+     */
+    public void undo() {
+        undo = true;
+    }
+
+    /**
+     * Tells the game there is a redo request
+     */
+    public void redo() {
+        redo = true;
     }
 
 }
