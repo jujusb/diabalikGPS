@@ -7,6 +7,7 @@ import diaballik.GameElements.Pawn;
 import diaballik.Players.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class Algo {
@@ -69,9 +70,10 @@ public abstract class Algo {
     /**
      * Method which adds in a list all the possible pawn moves for a given player
      * @param one a Player for which we want to know all the possible pawn moves
-     * @param possibleMoves the list in which we want to add elements
+     * @return a list containing all the possible pawn moves
      */
-    public void calculatePossiblePawnMoves(final Player one, final List<ActionCoord> possibleMoves){
+    public List<ActionCoord>  calculatePossiblePawnMoves(final Player one) {
+        final List<ActionCoord> possibleMoves = new ArrayList<>();
         final List<Pawn> pawns = one.getPieces();
         // gathers all the possible moves of pawns and balls in the list possibleMoves
         pawns.stream()
@@ -83,14 +85,16 @@ public abstract class Algo {
                     moveAndCheck(1, 1, possibleMoves, c, p.getPosition());
                     moveAndCheck(0, -2, possibleMoves, c, p.getPosition());
                 });
+        return possibleMoves;
     }
 
     /**
      * Method which adds in a list all the possible ball moves for a given player
      * @param one a Player for which we want to know all the possible ball moves
-     * @param possibleMoves the list in which we want to add elements
+     * @return a list containing all the possible ball moves
      */
-    public void calculatePossibleBallMoves(final Player one, final List<ActionCoord> possibleMoves){
+    public List<ActionCoord> calculatePossibleBallMoves(final Player one) {
+        final List<ActionCoord> possibleMoves = new ArrayList<>();
         final Pawn ball = one.getBall();
         final List<Pawn> pawns = one.getPieces();
         // gathers all the possible moves of balls in the list possibleMoves
@@ -101,5 +105,18 @@ public abstract class Algo {
                         possibleMoves.add(new ActionCoord(ball.getPosition(), p.getPosition()));
                     }
                 });
+        return possibleMoves;
+    }
+
+    /**
+     * Method which adds in a list all the possible moves for a given player. Uses the two other possibilities computation functions
+     * @param one a Player for which we want to know all the possible  moves
+     * @return a list containing all the possible moves
+     */
+    public List<ActionCoord> calculatePossibleMoves(final Player one) {
+        final List<ActionCoord> possibleMoves;
+        possibleMoves = calculatePossiblePawnMoves(player); // add the pawn moves
+        possibleMoves.addAll(calculatePossibleBallMoves(player)); //add the ball moves
+        return possibleMoves;
     }
 }

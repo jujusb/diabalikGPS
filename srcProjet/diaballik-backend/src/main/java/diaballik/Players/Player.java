@@ -133,6 +133,7 @@ public abstract class Player {
 
     /**
      * Getter of the list of pawn of the player
+     *
      * @return the list of pawn of the player
      */
     public List<Pawn> getPieces() {
@@ -141,12 +142,10 @@ public abstract class Player {
 
     /**
      * Function returning the sum of the height of the pawns, including the one carrying the ball
+     *
      * @return the sum of the height of the pawns
      */
-    public int heightSum(){
-        final List<Integer> aux = new ArrayList<>();
-        aux.set(0, 0);
-        pieces.stream().forEach(p -> aux.set(0,aux.get(0)+p.getPosition().getPosY()));
-        return aux.get(0);
+    public int heightSum() {
+        return pieces.stream().mapToInt(p -> p.getPosition().getPosY()).sum();
     }
 }

@@ -82,7 +82,7 @@ public class GameBoard extends Do {
     }
 
     /**
-     * To get the pawn to the present coordinate
+     * Function which returns the pawn to the present coordinate
      *
      * @param c the coordinates selectionned
      * @return the pawn if he found him else return null
@@ -94,7 +94,7 @@ public class GameBoard extends Do {
     }
 
     /**
-     * The move to do
+     * Method which moves the specified pawn if the move is correct
      *
      * @param p      the current player
      * @param coords the coordinates of the source and the target
@@ -103,8 +103,7 @@ public class GameBoard extends Do {
     @Override
     public boolean move(final Player p, final ActionCoord coords) {
         if (canMove(p, coords)) {
-            move(coords);
-            this.addUndo(coords);
+            moveNoCheck(coords);
             return true;
         }
         return false;
@@ -116,7 +115,7 @@ public class GameBoard extends Do {
      *
      * @param coords an ActionCoord which represents the move to make
      */
-    private void move(final ActionCoord coords) {
+    public void moveNoCheck(final ActionCoord coords) {
         final Pawn source = getPawn(coords.getSource()).get();
 
         // checks if the ball moves or if it is a pawn
@@ -135,6 +134,7 @@ public class GameBoard extends Do {
             board.set(coords.getSource().getPosX() + coords.getSource().getPosY() * 7, null);
             board.set(coords.getTarget().getPosX() + coords.getTarget().getPosY() * 7, source);
         }
+        this.addUndo(coords);
     }
 
 
@@ -236,7 +236,7 @@ public class GameBoard extends Do {
         if (!undoable_mode.isEmpty()) {
             final ActionCoord undoable = undoable_mode.pop();
             undoable.invert();
-            move(undoable);
+            moveNoCheck(undoable);
             undoable_mode.push(undoable);
         }
     }
@@ -249,7 +249,7 @@ public class GameBoard extends Do {
         if (!redoable_mode.isEmpty()) {
             final ActionCoord redoable = redoable_mode.pop();
             redoable.invert();
-            move(redoable);
+            moveNoCheck(redoable);
             redoable_mode.push(redoable);
         }
     }

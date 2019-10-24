@@ -1,12 +1,14 @@
 package diaballik.Players.Algorithms;
 
 import diaballik.Coordinates.ActionCoord;
-import diaballik.GameElements.Pawn;
 import diaballik.Players.Player;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.HashMap;
 
 public class StartingAlgo extends Algo {
 
@@ -52,25 +54,26 @@ public class StartingAlgo extends Algo {
      */
     public StartingAlgo(final Player p) {
         super(p);
-        k1 = createCoeff(1.5,0.5);
-        k2 = createCoeff(1.5,0.5);
-        k3 = createCoeff(2.0,0.7);
-        k4 = createCoeff(2.0,0.7);
-        k5 = createCoeff(60.0,20.0);
-        k6 = createCoeff(10.0,3.4);
-        k7 = createCoeff(10.0,3.4);
+        k1 = createCoeff(-1.5, 0.5);
+        k2 = createCoeff(-1.5, 0.5);
+        k3 = createCoeff(-2.0, 0.7);
+        k4 = createCoeff(-2.0, 0.7);
+        k5 = createCoeff(60.0, 20.0);
+        k6 = createCoeff(-10.0, 3.4);
+        k7 = createCoeff(-10.0, 3.4);
     }
 
     /**
      * Create a coefficent randomnly by picking a number in a Gauss law distribution
      * with parameters mean and standard deviation
-     * @param mean the mean of your Gaussian Law
+     *
+     * @param mean           the mean of your Gaussian Law
      * @param std_derivation the standard deviation of your Gaussian Law
      * @return a random coefficient
      */
-    private double createCoeff(final double mean, final double std_derivation){
-        Random ra = new Random();
-        return ra.nextGaussian()*std_derivation + mean;
+    private double createCoeff(final double mean, final double std_derivation) {
+        final Random ra = new Random();
+        return ra.nextGaussian() * std_derivation + mean;
     }
 
     /**
@@ -80,37 +83,71 @@ public class StartingAlgo extends Algo {
      */
     @Override
     public ActionCoord decideMove() {
-        Player adversary = board.getHumanPlayer();
-        List<ActionCoord> moves = new ArrayList<>();
-        List<ActionCoord> ballMoves = new ArrayList<>();
-        List<Float> heuristic = new ArrayList<>();
-        //we calculate all the possible moves
-        calculatePossiblePawnMoves(player,moves);
-        calculatePossibleBallMoves(player,moves);
-        calculatePossibleBallMoves(player,ballMoves);
-        //for each move, we're looking at the heuristic if the move is made, and add it to a list
-        moves.stream().forEachOrdered(m -> testHeuristic(m,adversary,heuristic));
-        //after, we're taking the best move given our heuristic
-        //TODO
-        //Check if it's a ball move. If it is, return a random ball move previously calculated
-        //Else, return the best move
-        //TODO
+        final Player adversary = board.getHumanPlayer();
+        final List<ActionCoord> moves;
+        final List<ActionCoord> ballMoves;
 
-        //TODO
-        /*heuristique pour le mouvement des pions =
-         * k1 * somme(pion_adverse_hauteur)      k1<0
-         * + k2 * somme(pion_soi_hauteur)       k2<0||k2>0 si on joue défensif
-         * + k3 * somme(mvt_adverse_possible)   k3<0
-         * + k4 * somme(mvt_soi_hauteur)        k4>0
-         * + k5 * proportion de mouvement de balles victorieux sur les mouvement de balles possibles  k5>>0
-         * + k6 * hauteur_adversaire_balle             k6<0
-         * + k7 * hauteur_soi_balle      k7<0
-         */
-        return null;
+        final Map<ActionCoord, Double> heuristics = new HashMap<>();
+        //we calculate all the possible moves
+        moves = calculatePossiblePawnMoves(player);
+        ballMoves = calculatePossibleBallMoves(player);
+        moves.addAll(ballMoves);
+        //for each move, we're looking at the heuristic if the move is made, and add it to a list
+        moves.stream().forEach(m -> heuristics.put(m, computeHeuristic(m, adversary)));
+
+        // sorts the move list by the heuristics
+        moves.sort(new Comparator<ActionCoord>() {
+            @Override
+            public int compare(final ActionCoord o1, final ActionCoord o2) {
+                return Double.compare(heuristics.get(o1), heuristics.get(o2));
+            }
+        });
+
+        //after, we're taking the best move given our heuristic
+        //Check if it's a ball move. If it is, return a random ball move previously calculated
+        if (board.getPawn(moves.get(0).getSource()).get().isBallOwner()) {
+            final Random rdm = new Random();
+            return ballMoves.get(rdm.nextInt(ballMoves.size()));
+        }
+        //Else, return the best move
+        return moves.get(0);
     }
 
-    public void testHeuristic(final ActionCoord m, final Player adversary, final List<Float> heuristic) {
+    /**
+     * Computes the heuristic of a move
+     * heuristic for a move =
+     * k1 * sum(height of opponent's pawns)      k1<0
+     * + k2 * sum(height of our pawns)       k2<0||k2>0 if we play in a defensive way
+     * + k3 * sum(opponent's possible moves)   k3<0
+     * + k4 * sum(our possible moves)        k4>0
+     * + k5 * proportion of winning ball moves over the possible ball moves  k5>>0
+     * + k6 * height of the ball of the opponent          k6<0
+     * + k7 * height of our ball     k7<0
+     *
+     * @param m the move we want to examine
+     * @param adversary the adversary of the AI
+     * @return the heuristic of the move according to the previously given rules
+     */
+    public Double computeHeuristic(final ActionCoord m, final Player adversary) {
+        board.moveNoCheck(m);
 
+        // we have to calculate the move possibilities of the player now to avoid computing it several times
+        final List<ActionCoord> ballMoves = calculatePossibleBallMoves(player);
+        final List<ActionCoord> moves = calculatePossiblePawnMoves(player);
+        moves.addAll(ballMoves);
+
+
+        final double heuristic = k1 * adversary.heightSum() +
+                k2 * player.heightSum() +
+                k3 * calculatePossibleMoves(adversary).size() +
+                k4 * moves.size() +
+                k5 * ballMoves.stream().filter(a -> a.getTarget().getPosY() == 0).count() / ballMoves.size() +
+                k6 * adversary.getBall().getPosition().getPosY() +
+                k7 * player.getBall().getPosition().getPosY();
+
+        board.undo();
+
+        return heuristic;
     }
 
 }
