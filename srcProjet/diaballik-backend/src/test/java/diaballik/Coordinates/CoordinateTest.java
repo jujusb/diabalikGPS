@@ -1,6 +1,5 @@
 package diaballik.Coordinates;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,13 +39,16 @@ class CoordinateTest {
     @Test
     void testEqualsTrue() {
         assertTrue(c2.equals(c3));
+        assertTrue(c2.equals(c2));
     }
 
     @Test
     void testEqualsFalse() {
-        assertFalse(c2.equals(c1));;
+        assertFalse(c2.equals(c1));
+        assertFalse(c2.equals(null));
+        assertFalse(c2.equals(5));
     }
-
+    
     @Test
     void testAbsoluteDistance(){
         assertEquals(10,c2.absoluteDistance(c1));
