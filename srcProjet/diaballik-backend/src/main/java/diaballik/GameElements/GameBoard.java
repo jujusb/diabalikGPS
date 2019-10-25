@@ -65,13 +65,20 @@ public class GameBoard extends Do {
         // initialisation of the board
         //for raw values with BOUNDARY = 7 : 7,3,7,6,45
         Stream.iterate(0, n -> n + 1)
-                .limit(BOUNDARY)
-                .forEach(n -> board.add(n, new Pawn(new Coordinate(n, 0), player1)));
-        board.get(BOUNDARY / 2).setBallOwner(true); // top-middle
-        Stream.iterate(0, n -> n + 1)
-                .limit(BOUNDARY)
-                .forEach(n -> board.add(n, new Pawn(new Coordinate(n, BOUNDARY - 1), player2)));
-        board.get(BOUNDARY * (BOUNDARY - 1) + BOUNDARY / 2).setBallOwner(true); // bottom-middle
+                .limit(BOUNDARY * BOUNDARY)
+                .forEach(n -> {
+                    if (n < BOUNDARY) {
+                        board.add(n, new Pawn(new Coordinate(n, 0), player1));
+                    } else if (n > BOUNDARY * (BOUNDARY - 1) - 1) {
+                        board.add(n, new Pawn(new Coordinate(n - (BOUNDARY * BOUNDARY - 1), n / (BOUNDARY - 1)), player2));
+                    } else {
+                        board.add(n, null);
+                    }
+                });
+
+        //.forEach(n -> board.add(n, new Pawn(new Coordinate(n, 0), player1)));
+        getPawn(new Coordinate(Math.floorDiv(BOUNDARY, 2), 0)).get().setBallOwner(true); // top-middle
+        getPawn(new Coordinate(Math.floorDiv(BOUNDARY, 2), BOUNDARY - 1)).get().setBallOwner(true); // bottom-middle*/
     }
 
     /**
@@ -89,7 +96,7 @@ public class GameBoard extends Do {
      */
     public Optional<Pawn> getPawn(final Coordinate c) {
         //No check for out of bound ?And what if the pawn returned is null ?
-        final Pawn p = board.get(c.getPosY() * 7 + c.getPosX());
+        final Pawn p = board.get(c.getPosY() * BOUNDARY + c.getPosX());
         return Optional.ofNullable(p);
     }
 
@@ -171,15 +178,13 @@ public class GameBoard extends Do {
                     final Pawn dest = optDest.get();
                     return canMoveBall(source, dest);
                 }
-            }
-
-
-        } else {
-            // it is a pawn move
-            if (getPawn(coords.getTarget()).isEmpty()) {
-                // checks that the source and target are at an absolute distance of 1 (i.e. they are neighbors)
-                if (coords.getTarget().absoluteDistance(coords.getSource()) == 1) {
-                    return true;
+            } else {
+                // it is a pawn move
+                if (getPawn(coords.getTarget()).isEmpty()) {
+                    // checks that the source and target are at an absolute distance of 1 (i.e. they are neighbors)
+                    if (coords.getTarget().absoluteDistance(coords.getSource()) == 1) {
+                        return true;
+                    }
                 }
             }
         }

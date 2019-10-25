@@ -1,5 +1,6 @@
 package diaballik.GameElements;
 
+import diaballik.Coordinates.ActionCoord;
 import diaballik.Coordinates.Coordinate;
 import diaballik.Players.HumanPlayer;
 import diaballik.Players.Player;
@@ -24,12 +25,12 @@ class GameBoardTest {
     }
     
     @Test
-    void move() {
-        //board.move(p1,);
+    void canMove() {
+        assertTrue(board.canMove(p1,new ActionCoord(new Coordinate(0,0),new Coordinate(0,1))));
     }
 
     @Test
-    void canMove() {
+    void move() {
     }
 
     @Test
