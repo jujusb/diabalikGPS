@@ -75,8 +75,6 @@ public class GameBoard extends Do {
                         board.add(n, null);
                     }
                 });
-
-        //.forEach(n -> board.add(n, new Pawn(new Coordinate(n, 0), player1)));
         getPawn(new Coordinate(Math.floorDiv(BOUNDARY, 2), 0)).get().setBallOwner(true); // top-middle
         getPawn(new Coordinate(Math.floorDiv(BOUNDARY, 2), BOUNDARY - 1)).get().setBallOwner(true); // bottom-middle*/
     }
