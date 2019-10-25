@@ -9,6 +9,8 @@ import diaballik.Players.Algorithms.StartingAlgo;
 
 public class AiPlayer extends Player {
 
+
+
     /**
      * The algorithm used to determine a move
      */
@@ -17,7 +19,7 @@ public class AiPlayer extends Player {
     /**
      * Symbolizes the number of turns played
      */
-    private int current_turns;
+    private int currentTurn = 0;
 
     /**
      * Indicates at which turn the algorithm should swap
@@ -33,7 +35,7 @@ public class AiPlayer extends Player {
      */
     public AiPlayer(final EAiType type, final String n, final boolean c) {
         super(n, c);
-        current_turns = 0;
+        currentTurn = 0;
         switch (type) {
             case NOOB:
                 algo = new NoobAlgo(this);
@@ -53,23 +55,11 @@ public class AiPlayer extends Player {
      * Method which swaps the type of Algo under a certain condition
      */
     public void swap() {
-        if (current_turns == TURNS_BEFORE_SWAP) {
+        if (currentTurn == TURNS_BEFORE_SWAP) {
             final Algo temp = new StartingAlgo(this);
             temp.setBoard(algo.getBoard());
             algo = temp;
         }
-    }
-
-    /**
-     * Function that finish the turn of the AiPlayer. It increments current_turns by 1
-     * and calls the function swap() before returning true.
-     *
-     * @return true
-     */
-    public void endOfTurn() {
-        current_turns++;
-        swap();
-        /*An AiPlayer never fails*/
     }
 
     /**
@@ -87,5 +77,21 @@ public class AiPlayer extends Player {
      */
     public void setBoard(final GameBoard board) {
         algo.setBoard(board);
+    }
+
+    /**
+     * Setter of the current turn
+     * @param currentTurn the
+     */
+    public void setCurrentTurn(final int currentTurn) {
+        this.currentTurn = currentTurn;
+    }
+
+    /**
+     * Getter of the algorithm
+     * @return the current algorithm
+     */
+    public Algo getAlgo() {
+        return algo;
     }
 }

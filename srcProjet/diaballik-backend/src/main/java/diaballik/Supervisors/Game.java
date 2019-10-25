@@ -25,7 +25,7 @@ public class Game {
     /**
      * The number of turns that have been achieved
      */
-    private int nbTurns = 0;
+    private int currentTurn = 0;
 
     /**
      * The current gameboard
@@ -51,7 +51,6 @@ public class Game {
      * The thread in which we execute the game
      */
     private Thread threadOfTheGame;
-
 
 
     /**
@@ -210,12 +209,21 @@ public class Game {
             // updates the current player
             swapPlayer();
 
-            // updates the nb of actions/turns
+            // updates the nb of actions
             nbActions = 0;
-            nbTurns++;
+            // increases the number of turns only if we came back to player1
+            if (currentPlayer == player1) {
+                currentTurn++;
+                // in case of AI we have to notice it of the current turns
+                if (player2 instanceof AiPlayer) {
+                    ((AiPlayer) player2).setCurrentTurn(currentTurn);
+                }
+            }
 
             // if it is an AI we make it play instantly
             if (currentPlayer instanceof AiPlayer) {
+                // swaps the AI algorithm if we have a progressive AI
+                ((AiPlayer) currentPlayer).swap();
                 Stream.iterate(0, i -> i < nbActionsPerTurn, i -> i + 1)
                         .forEach(i -> gameBoard.moveNoCheck(((AiPlayer) currentPlayer).getMove(), true));
                 swapPlayer();

@@ -79,9 +79,6 @@
         <module name="diaballik-backend" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="diaballik-backend" target="11" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
