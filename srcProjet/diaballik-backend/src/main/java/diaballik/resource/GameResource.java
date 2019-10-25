@@ -31,7 +31,7 @@ public class GameResource {
      * Creates a new Player vs Player game with the name of both players and the colour of the first one (the other will have the opposite)
      */
     @POST
-    @Path("game/newPvP/{name1}/{colour1}/{name2}")
+    @Path("/newPvP/{name1}/{name2}/{colour1}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response createGamePvP(@PathParam("name1") final String name1, @PathParam("colour1") final String colour1, @PathParam("name2") final String name2) {
         final Map<String, String> gameDescriptor = new HashMap<>();
@@ -42,7 +42,7 @@ public class GameResource {
         game.initializeGame(gameDescriptor);
         game.start();
 
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).entity(game).build();
     }
 
     /**
@@ -50,7 +50,7 @@ public class GameResource {
      * Creates a new Player vs Entity game with the name and colour of the first player (the name of the second will be random and its colour the opposite) and the AI level
      */
     @POST
-    @Path("game/newPvE/{name1}/{colour1}/{level}")
+    @Path("/newPvE/{name1}/{colour1}/{level}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response createGamePvE(@PathParam("name1") final String name1, @PathParam("colour1") final String colour1, @PathParam("level") final String level) {
         final Map<String, String> gameDescriptor = new HashMap<>();
@@ -61,7 +61,7 @@ public class GameResource {
         game.initializeGame(gameDescriptor);
         game.start();
 
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).entity(game).build();
     }
 
     /**
@@ -69,7 +69,7 @@ public class GameResource {
      * Creates a new Player vs Entity game with the name of both players and the colour of the first one (the other will have the opposite) and the AI level
      */
     @POST
-    @Path("game/newPvE/{name1}/{name2}/{colour1}/{level}")
+    @Path("/newPvE/{name1}/{name2}/{colour1}/{level}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response createGamePvEWithName(@PathParam("name1") final String name1, @PathParam("colour1") final String colour1, @PathParam("name2") final String name2, @PathParam("level") final String level) {
         final Map<String, String> gameDescriptor = new HashMap<>();
@@ -81,7 +81,7 @@ public class GameResource {
         game.initializeGame(gameDescriptor);
         game.start();
 
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).entity(game).build();
     }
 
     /**
@@ -89,7 +89,7 @@ public class GameResource {
      * Sends a move proposal to the game so that it checks if it is legal or not and, if so, it will play it
      */
     @POST
-    @Path("game/action/move/{x1}/{y1}/{x2}/{y2}")
+    @Path("/action/move/{x1}/{y1}/{x2}/{y2}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response move(@PathParam("x1") final String x1, @PathParam("y1") final String y1, @PathParam("x2") final String x2, @PathParam("y2") final String y2) {
         final ActionCoord move = new ActionCoord(
@@ -103,10 +103,10 @@ public class GameResource {
 
         // if it was the last action of the player
         if (p.getColor() == color) {
-            return Response.status(Response.Status.OK).build();
+            return Response.status(Response.Status.OK).entity(game).build();
         } else {
             // code to say it is the end of the turn
-            return Response.status(Response.Status.RESET_CONTENT).build();
+            return Response.status(Response.Status.RESET_CONTENT).entity(game).build();
         }
     }
 
@@ -115,12 +115,12 @@ public class GameResource {
      * Notifies of the end of the turn of the current playing player
      */
     @POST
-    @Path("game/endOfTurn")
+    @Path("/endOfTurn")
     @Produces(MediaType.APPLICATION_JSON)
     public Response endOfTurn() {
         game.endOfTurn();
         // free the player so that it can tells
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).entity(game).build();
     }
 
     /**
@@ -128,11 +128,11 @@ public class GameResource {
      * Sends an undo request
      */
     @PUT
-    @Path("game/action/undo")
+    @Path("/action/undo")
     @Produces(MediaType.APPLICATION_JSON)
     public Response undo() {
         game.undo();
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).entity(game).build();
     }
 
     /**
@@ -140,11 +140,11 @@ public class GameResource {
      * Sends a redo request
      */
     @PUT
-    @Path("game/action/redo")
+    @Path("/action/redo")
     @Produces(MediaType.APPLICATION_JSON)
     public Response redo() {
         game.redo();
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).entity(game).build();
     }
 
     /**
@@ -152,11 +152,11 @@ public class GameResource {
      * Kills the game
      */
     @PUT
-    @Path("game/kill")
+    @Path("/kill")
     @Produces(MediaType.APPLICATION_JSON)
     public Response kill() {
         game.kill();
         game = null;
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).entity(game).build();
     }
 }
