@@ -18,10 +18,15 @@ class GameBoardTest {
 
     @BeforeEach
     void init() {
+        board = new GameBoard(p1, p2);
     }
 
     @Test
     void constructor(){
+        assertTrue(board.getPawn(new Coordinate(3,0)).get().isBallOwner());
+        assertTrue(board.getPawn(new Coordinate(3,6)).get().isBallOwner());
+        assertFalse(board.getPawn(new Coordinate(2,6)).get().isBallOwner());
+        assertTrue(board.getPawn(new Coordinate(3,3)).isEmpty());
     }
     
     @Test
