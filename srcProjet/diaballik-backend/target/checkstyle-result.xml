@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.23">
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/Coordinates/ActionCoord.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/Coordinates/Coordinate.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/GameElements/Do.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/GameElements/GameBoard.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/GameElements/Pawn.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/GameElements/Undoable.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/Main.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/Players/AiPlayer.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/Players/Algorithms/Algo.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/Players/Algorithms/EAiType.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/Players/Algorithms/NoobAlgo.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/Players/Algorithms/StartingAlgo.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/Players/HumanPlayer.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/Players/Player.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/Players/PlayerFactory.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/Supervisors/Game.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/resource/GameResource.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/resource/MyExceptionMapper.java">
+</file>
+<file name="/home-reseau/jsantila/4INFO/CPOO_Projet/diabalikGPS/srcProjet/diaballik-backend/src/main/java/diaballik/resource/Parser.java">
+</file>
+</checkstyle>

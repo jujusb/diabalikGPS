@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Coordinate.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">diaballik-backend</a> &gt; <a href="index.source.html" class="el_package">diaballik.Coordinates</a> &gt; <span class="el_source">Coordinate.java</span></div><h1>Coordinate.java</h1><pre class="source lang-java linenums">package diaballik.Coordinates;
+
+import java.util.Objects;
+
+/**
+ * @class Coordinate
+ * Class used to handle the coordinates of the pawns in the game
+ */
+public class Coordinate implements Cloneable {
+
+    /**
+     * The x coordinate
+     */
+    private int posX;
+    /**
+     * The y coordinate
+     */
+    private int posY;
+
+    /**
+     * Constructor of the class
+     *
+     * @param posX x coordinate as an int
+     * @param posY y coordinate as an int
+     */
+<span class="fc" id="L26">    public Coordinate(final int posX, final int posY) {</span>
+<span class="fc" id="L27">        this.posX = posX;</span>
+<span class="fc" id="L28">        this.posY = posY;</span>
+<span class="fc" id="L29">    }</span>
+
+    /**
+     * Getter of x
+     *
+     * @return the x coordinate as an int
+     */
+    public int getPosX() {
+<span class="fc" id="L37">        return posX;</span>
+    }
+
+    /**
+     * Getter of y
+     *
+     * @return the y coordinate as an int
+     */
+    public int getPosY() {
+<span class="fc" id="L46">        return posY;</span>
+    }
+
+    /**
+     * Moves the coordinates to another absolute position
+     *
+     * @param c the coordinates we want to move to as a Coordinate object
+     */
+    public void moveTo(final Coordinate c) {
+<span class="fc" id="L55">        this.posX = c.getPosX();</span>
+<span class="fc" id="L56">        this.posY = c.getPosY();</span>
+<span class="fc" id="L57">    }</span>
+
+    /**
+     * Relatively moves the coordinates of (x,y)
+     * @param x the delta x of the move
+     * @param y the delta y of the move
+     */
+    public void moveOf(final int x, final int y) {
+<span class="fc" id="L65">        posX += x;</span>
+<span class="fc" id="L66">        posY += y;</span>
+<span class="fc" id="L67">    }</span>
+
+    /**
+     * Checks if two coordinates do have the same value
+     *
+     * @param o The other coordinate Object (or something else)
+     * @return true or false if it is equal or not
+     */
+    @Override
+    public boolean equals(final Object o) {
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (this == o) {</span>
+<span class="fc" id="L78">            return true;</span>
+        }
+<span class="fc bfc" id="L80" title="All 4 branches covered.">        if (o == null || !(o instanceof Coordinate)) {</span>
+<span class="fc" id="L81">            return false;</span>
+        }
+<span class="fc" id="L83">        final Coordinate that = (Coordinate) o;</span>
+<span class="pc bpc" id="L84" title="1 of 4 branches missed.">        return posX == that.posX &amp;&amp;</span>
+                posY == that.posY;
+    }
+
+    /**
+     * Computes the hash of a coordinate object
+     *
+     * @return the hashcode of the coordinates
+     */
+    @Override
+    public int hashCode() {
+<span class="nc" id="L95">        return Objects.hash(posX, posY);</span>
+    }
+
+    /**
+     * Return the string from posX and posY
+     *
+     * @return the current Coordinate in String format
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L105">        return &quot;(&quot; + posX + &quot; , &quot; + posY +</span>
+                ')';
+    }
+
+    /**
+     * Clones a coordinate
+     * @return a new Coordinate with the same posX and posY
+     */
+    @Override
+    public Object clone() {
+        try {
+<span class="fc" id="L116">            return super.clone();</span>
+<span class="nc" id="L117">        } catch (CloneNotSupportedException e) {</span>
+<span class="nc" id="L118">            e.printStackTrace();</span>
+        }
+<span class="nc" id="L120">        return null;</span>
+        //return new Coordinate(posX, posY);
+    }
+
+    /**
+     * Calculates the absolute distance beetween two points
+     *
+     * @param c the other coordinate from which we calculate the distance
+     * @return the sum of the absolute difference of the coordinates
+     */
+    public int absoluteDistance(final Coordinate c) {
+<span class="fc" id="L131">        return Math.abs(c.getPosX() - posX) + Math.abs(c.getPosY() - posY);</span>
+    }
+
+    /**
+     * Checks if two points are in the same diagonal by checking that abs(delta X) is abs(delta Y)
+     *
+     * @param c the other coordinate
+     * @return true if it is in the same diagonal false otherwise
+     */
+    public boolean sameDiagonal(final Coordinate c) {
+<span class="fc bfc" id="L141" title="All 2 branches covered.">        return Math.abs(c.getPosX() - posX) == Math.abs(c.getPosY() - posY);</span>
+    }
+
+    /**
+     * Checks if two points are in the same horizontal line by checking the equality of their y
+     *
+     * @param c the other coordinate
+     * @return true if it is in the same horizontal false otherwise
+     */
+    public boolean sameHorizontal(final Coordinate c) {
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        return c.getPosY() == posY;</span>
+    }
+
+    /**
+     * Checks if two points are in the same vertical line by checking the equality of their x
+     *
+     * @param c the other coordinate
+     * @return true if it is in the same vertical false otherwise
+     */
+    public boolean sameVertical(final Coordinate c) {
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        return c.getPosX() == posX;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

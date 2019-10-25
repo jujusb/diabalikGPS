@@ -243,7 +243,7 @@ public class GameBoard extends Do {
             final ActionCoord undoable = undoable_mode.pop();
             undoable.invert();
             moveNoCheck(undoable, false);
-            undoable_mode.push(undoable);
+            redoable_mode.push(undoable);
         }
     }
 
