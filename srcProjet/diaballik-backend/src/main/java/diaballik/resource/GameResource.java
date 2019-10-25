@@ -1,7 +1,6 @@
 package diaballik.resource;
 
 import diaballik.Coordinates.ActionCoord;
-import diaballik.Players.HumanPlayer;
 import diaballik.Players.Player;
 import diaballik.Supervisors.Game;
 import io.swagger.annotations.Api;
@@ -100,10 +99,9 @@ public class GameResource {
         final boolean color = game.getCurrentPlayer().getColor();
 
         // tells the player to try this action and let it tell the game
-        ((HumanPlayer) p).setCurrentAction(move);
-        ((HumanPlayer) p).free();
+        game.moveOfPlayer(move);
 
-        // if(playerAChange) return codeSpecialPourDireQu'onAttendLaFinDeTour else
+        // if it was the last action of the player
         if (p.getColor() == color) {
             return Response.status(Response.Status.OK).build();
         } else {
@@ -120,9 +118,8 @@ public class GameResource {
     @Path("game/endOfTurn")
     @Produces(MediaType.APPLICATION_JSON)
     public Response endOfTurn() {
-        final Player p = game.getCurrentPlayer();
+        game.endOfTurn();
         // free the player so that it can tells
-        ((HumanPlayer) p).free();
         return Response.status(Response.Status.OK).build();
     }
 

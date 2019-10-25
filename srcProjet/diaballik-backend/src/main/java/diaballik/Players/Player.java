@@ -1,6 +1,5 @@
 package diaballik.Players;
 
-import diaballik.Coordinates.ActionCoord;
 import diaballik.GameElements.Pawn;
 
 import java.util.ArrayList;
@@ -74,19 +73,7 @@ public abstract class Player {
         pawns.add(p);
     }
 
-    /**
-     * Function which wait and notify for the end of the turn
-     *
-     * @return true if the turn of the player is finished, false otherwise
-     */
-    public abstract void waitEndOfTurn();
 
-    /**
-     * Function which returns a move to execute
-     *
-     * @return an ActionCoord's instance, which defines the movement of the Player
-     */
-    public abstract ActionCoord getMove();
 
     /**
      * Getter of the name of the Player

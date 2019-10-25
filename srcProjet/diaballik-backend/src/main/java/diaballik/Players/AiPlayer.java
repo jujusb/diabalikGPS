@@ -66,8 +66,7 @@ public class AiPlayer extends Player {
      *
      * @return true
      */
-    @Override
-    public void waitEndOfTurn() {
+    public void endOfTurn() {
         current_turns++;
         swap();
         /*An AiPlayer never fails*/
@@ -78,7 +77,6 @@ public class AiPlayer extends Player {
      *
      * @return an ActionCoord's instance, which defines the movement of the Player
      */
-    @Override
     public ActionCoord getMove() {
         return algo.decideMove();
     }

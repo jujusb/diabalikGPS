@@ -1,5 +1,6 @@
 package diaballik.Supervisors;
 
+import diaballik.Coordinates.ActionCoord;
 import diaballik.GameElements.GameBoard;
 import diaballik.Players.AiPlayer;
 import diaballik.Players.Player;
@@ -7,18 +8,24 @@ import diaballik.Players.PlayerFactory;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 
 public class Game {
     /**
      * The number of actions that a player can do during a turn
      */
-    // private int nbActions;
+    private int nbActionsPerTurn = 3;
+
+    /**
+     * The number of actions that have been played, from 0 to nbActionsPerTurn
+     */
+    private int nbActions;
 
     /**
      * The number of turns that have been achieved
      */
-    // private int nbTurns;
+    private int nbTurns = 0;
 
     /**
      * The current gameboard
@@ -45,15 +52,6 @@ public class Game {
      */
     private Thread threadOfTheGame;
 
-    /**
-     * True if there is an undo request false otherwise
-     */
-    private boolean undo;
-
-    /**
-     * True if there is a redo request false otherwise
-     */
-    private boolean redo;
 
 
     /**
@@ -171,14 +169,14 @@ public class Game {
      * Tells the game there is an undo request
      */
     public void undo() {
-        undo = true;
+        gameBoard.undo();
     }
 
     /**
      * Tells the game there is a redo request
      */
     public void redo() {
-        redo = true;
+        gameBoard.redo();
     }
 
     /**
@@ -192,4 +190,47 @@ public class Game {
         }
     }
 
+    /**
+     * Tries to move a pawn or a ball of a human player
+     *
+     * @param move the move that is tried
+     */
+    public void moveOfPlayer(final ActionCoord move) {
+        if (nbActions != nbActionsPerTurn && gameBoard.move(currentPlayer, move)) {
+            nbActions++;
+        }
+    }
+
+    /**
+     * Notifies the player wants to end his turn
+     */
+    public void endOfTurn() {
+        // if it is really the turn of the other player
+        if (nbActions == nbActionsPerTurn) {
+            // updates the current player
+            swapPlayer();
+
+            // updates the nb of actions/turns
+            nbActions = 0;
+            nbTurns++;
+
+            // if it is an AI we make it play instantly
+            if (currentPlayer instanceof AiPlayer) {
+                Stream.iterate(0, i -> i < nbActionsPerTurn, i -> i + 1)
+                        .forEach(i -> gameBoard.moveNoCheck(((AiPlayer) currentPlayer).getMove(), true));
+                swapPlayer();
+            }
+        }
+    }
+
+    /**
+     * Simply swaps the player that currently plays
+     */
+    public void swapPlayer() {
+        if (currentPlayer == player1) {
+            currentPlayer = player2;
+        } else {
+            currentPlayer = player1;
+        }
+    }
 }
