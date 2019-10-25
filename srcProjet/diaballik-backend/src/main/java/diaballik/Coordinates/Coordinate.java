@@ -112,7 +112,13 @@ public class Coordinate implements Cloneable {
      */
     @Override
     public Object clone() {
-        return new Coordinate(posX, posY);
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+        //return new Coordinate(posX, posY);
     }
 
     /**

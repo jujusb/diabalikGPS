@@ -1,7 +1,5 @@
 package diaballik.Coordinates;
 
-import diaballik.Supervisors.Game;
-
 /**
  * class ActionCoord
  * A pair of Coordinate representing a move on the GameBoard.

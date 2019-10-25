@@ -1,7 +1,6 @@
 package diaballik.resource;
 
 import diaballik.Coordinates.ActionCoord;
-import diaballik.Coordinates.Coordinate;
 import diaballik.Players.HumanPlayer;
 import diaballik.Players.Player;
 import diaballik.Supervisors.Game;
@@ -42,6 +41,7 @@ public class GameResource {
         gameDescriptor.put("colourPlayer1", colour1);
 
         game.initializeGame(gameDescriptor);
+        game.start();
 
         return Response.status(Response.Status.OK).build();
     }
@@ -60,6 +60,7 @@ public class GameResource {
         gameDescriptor.put("colourPlayer1", colour1);
 
         game.initializeGame(gameDescriptor);
+        game.start();
 
         return Response.status(Response.Status.OK).build();
     }
@@ -71,7 +72,7 @@ public class GameResource {
     @POST
     @Path("game/newPvE/{name1}/{name2}/{colour1}/{level}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createGamePvEWithName2(@PathParam("name1") final String name1, @PathParam("colour1") final String colour1, @PathParam("name2") final String name2, @PathParam("level") final String level) {
+    public Response createGamePvEWithName(@PathParam("name1") final String name1, @PathParam("colour1") final String colour1, @PathParam("name2") final String name2, @PathParam("level") final String level) {
         final Map<String, String> gameDescriptor = new HashMap<>();
         gameDescriptor.put("namePlayer1", name1);
         gameDescriptor.put("namePlayer2", name2);
@@ -93,21 +94,27 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response move(@PathParam("x1") final String x1, @PathParam("y1") final String y1, @PathParam("x2") final String x2, @PathParam("y2") final String y2) {
         final ActionCoord move = new ActionCoord(
-                new Coordinate(Integer.valueOf(x1), Integer.valueOf(y1)),
-                new Coordinate(Integer.valueOf(x2), Integer.valueOf(y2)));
+                Parser.parseCoordinate(x1, y1),
+                Parser.parseCoordinate(x2, y2));
         final Player p = game.getCurrentPlayer();
+        final boolean color = game.getCurrentPlayer().getColor();
 
         // tells the player to try this action and let it tell the game
         ((HumanPlayer) p).setCurrentAction(move);
         ((HumanPlayer) p).free();
 
         // if(playerAChange) return codeSpecialPourDireQu'onAttendLaFinDeTour else
-        return Response.status(Response.Status.OK).build();
+        if (p.getColor() == color) {
+            return Response.status(Response.Status.OK).build();
+        } else {
+            // code to say it is the end of the turn
+            return Response.status(Response.Status.RESET_CONTENT).build();
+        }
     }
 
     /**
      * POST /game/endOfTurn
-     * 	Notifies of the end of the turn of the current playing player
+     * Notifies of the end of the turn of the current playing player
      */
     @POST
     @Path("game/endOfTurn")
@@ -121,7 +128,7 @@ public class GameResource {
 
     /**
      * PUT /game/action/undo
-     * 	Sends an undo request
+     * Sends an undo request
      */
     @PUT
     @Path("game/action/undo")
@@ -133,7 +140,7 @@ public class GameResource {
 
     /**
      * PUT /game/action/redo
-     * 	Envoie un message notifiant de l'annulation d'une annulation
+     * Sends a redo request
      */
     @PUT
     @Path("game/action/redo")
@@ -145,12 +152,13 @@ public class GameResource {
 
     /**
      * PUT /game/kill
+     * Kills the game
      */
     @PUT
     @Path("game/kill")
     @Produces(MediaType.APPLICATION_JSON)
     public Response kill() {
-        // assuming the garbage collector is clever enough to stop the game, we just "throw" its reference
+        game.kill();
         game = null;
         return Response.status(Response.Status.OK).build();
     }

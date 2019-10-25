@@ -79,7 +79,7 @@ public abstract class Player {
      *
      * @return true if the turn of the player is finished, false otherwise
      */
-    public abstract boolean waitEndOfTurn();
+    public abstract void waitEndOfTurn();
 
     /**
      * Function which returns a move to execute

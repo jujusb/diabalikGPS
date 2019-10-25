@@ -4,7 +4,7 @@ import diaballik.Coordinates.ActionCoord;
 
 public class HumanPlayer extends Player {
     private ActionCoord currentAction;
-    private Object sema;
+    private Object sema = new Object();
 
     /**
      * Constructor of HumanPlayer
@@ -23,14 +23,12 @@ public class HumanPlayer extends Player {
      * @return true if the turn of the player is finished, false otherwise
      */
     @Override
-    public boolean waitEndOfTurn() {
+    public void waitEndOfTurn() {
         try {
             sema.wait();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        // TODO change boolean return type to void as the undo/redo are done by "courcircuit" in the Game
-        return true;
     }
 
     /**
@@ -61,7 +59,7 @@ public class HumanPlayer extends Player {
      * enables the player class to carry on what it was doing, meaning that the human player has done something
      */
     public void free() {
-        sema.notify();
+        sema.notifyAll();
     }
 
 }

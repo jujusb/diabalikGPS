@@ -3,8 +3,6 @@ package diaballik.Players.Algorithms;
 import diaballik.Coordinates.ActionCoord;
 import diaballik.Players.Player;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -93,15 +91,10 @@ public class StartingAlgo extends Algo {
         ballMoves = calculatePossibleBallMoves(player);
         moves.addAll(ballMoves);
         //for each move, we're looking at the heuristic if the move is made, and add it to a list
-        moves.stream().forEach(m -> heuristics.put(m, computeHeuristic(m, adversary)));
+        moves.forEach(m -> heuristics.put(m, computeHeuristic(m, adversary)));
 
         // sorts the move list by the heuristics
-        moves.sort(new Comparator<ActionCoord>() {
-            @Override
-            public int compare(final ActionCoord o1, final ActionCoord o2) {
-                return Double.compare(heuristics.get(o1), heuristics.get(o2));
-            }
-        });
+        moves.sort((o1, o2) -> Double.compare(heuristics.get(o1), heuristics.get(o2)));
 
         //after, we're taking the best move given our heuristic
         //Check if it's a ball move. If it is, return a random ball move previously calculated
@@ -124,12 +117,12 @@ public class StartingAlgo extends Algo {
      * + k6 * height of the ball of the opponent          k6<0
      * + k7 * height of our ball     k7<0
      *
-     * @param m the move we want to examine
+     * @param m         the move we want to examine
      * @param adversary the adversary of the AI
      * @return the heuristic of the move according to the previously given rules
      */
     public Double computeHeuristic(final ActionCoord m, final Player adversary) {
-        board.moveNoCheck(m);
+        board.moveNoCheck(m, true);
 
         // we have to calculate the move possibilities of the player now to avoid computing it several times
         final List<ActionCoord> ballMoves = calculatePossibleBallMoves(player);

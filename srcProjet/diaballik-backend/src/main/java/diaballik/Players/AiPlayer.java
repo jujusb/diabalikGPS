@@ -67,10 +67,9 @@ public class AiPlayer extends Player {
      * @return true
      */
     @Override
-    public boolean waitEndOfTurn() {
+    public void waitEndOfTurn() {
         current_turns++;
         swap();
-        return true;
         /*An AiPlayer never fails*/
     }
 

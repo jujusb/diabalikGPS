@@ -8,16 +8,17 @@ import diaballik.Players.PlayerFactory;
 import java.util.Map;
 import java.util.Optional;
 
+
 public class Game {
     /**
      * The number of actions that a player can do during a turn
      */
-    private int nbActions;
+    // private int nbActions;
 
     /**
      * The number of turns that have been achieved
      */
-    private int nbTurns;
+    // private int nbTurns;
 
     /**
      * The current gameboard
@@ -73,7 +74,7 @@ public class Game {
         final String typePlayer2 = game.getOrDefault("aiLevel", null);
 
         // for the second player we have to check whether he is human or not
-        if (typePlayer2.equals(null)) {
+        if (typePlayer2 == null) {
             // we have a human
             name = game.get("namePlayer2");
             player2 = pf.createHuman(name, colour);
@@ -89,12 +90,8 @@ public class Game {
             ((AiPlayer) player2).setBoard(gameBoard);
         }
 
-        threadOfTheGame = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                runGame();
-            }
-        });
+        currentPlayer = player1;
+        threadOfTheGame = new Thread(() -> runGame());
     }
 
     /**
@@ -102,6 +99,7 @@ public class Game {
      */
     private void runGame() {
         // while nobody has won
+
 
         // TODO transformer le code suivant en streams (bon courage :D) :
         /*
@@ -181,6 +179,17 @@ public class Game {
      */
     public void redo() {
         redo = true;
+    }
+
+    /**
+     * Kills the thread that computes the game
+     */
+    public void kill() {
+        try {
+            threadOfTheGame.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

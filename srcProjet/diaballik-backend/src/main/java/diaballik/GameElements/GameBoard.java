@@ -103,7 +103,7 @@ public class GameBoard extends Do {
     @Override
     public boolean move(final Player p, final ActionCoord coords) {
         if (canMove(p, coords)) {
-            moveNoCheck(coords);
+            moveNoCheck(coords, true);
             return true;
         }
         return false;
@@ -114,8 +114,9 @@ public class GameBoard extends Do {
      * The move to do must be valid because NO tests are made on this function.
      *
      * @param coords an ActionCoord which represents the move to make
+     * @param save   true if we have to save the move in the undo list, false otherwise
      */
-    public void moveNoCheck(final ActionCoord coords) {
+    public void moveNoCheck(final ActionCoord coords, final boolean save) {
         final Pawn source = getPawn(coords.getSource()).get();
 
         // checks if the ball moves or if it is a pawn
@@ -134,7 +135,9 @@ public class GameBoard extends Do {
             board.set(coords.getSource().getPosX() + coords.getSource().getPosY() * 7, null);
             board.set(coords.getTarget().getPosX() + coords.getTarget().getPosY() * 7, source);
         }
-        this.addUndo(coords);
+        if (save) {
+            this.addUndo(coords);
+        }
     }
 
 
@@ -236,7 +239,7 @@ public class GameBoard extends Do {
         if (!undoable_mode.isEmpty()) {
             final ActionCoord undoable = undoable_mode.pop();
             undoable.invert();
-            moveNoCheck(undoable);
+            moveNoCheck(undoable, false);
             undoable_mode.push(undoable);
         }
     }
@@ -249,8 +252,7 @@ public class GameBoard extends Do {
         if (!redoable_mode.isEmpty()) {
             final ActionCoord redoable = redoable_mode.pop();
             redoable.invert();
-            moveNoCheck(redoable);
-            redoable_mode.push(redoable);
+            moveNoCheck(redoable, true);
         }
     }
 

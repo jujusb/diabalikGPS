@@ -1,5 +1,6 @@
 package diaballik.GameElements;
 
+import diaballik.Coordinates.Coordinate;
 import diaballik.Players.HumanPlayer;
 import diaballik.Players.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +20,14 @@ class GameBoardTest {
         board = new GameBoard(p1,p2);
     }
 
+    @Test
+    void constructor(){
+        assertTrue(board.getPawn(new Coordinate(3,0)).get().isBallOwner());
+        assertTrue(board.getPawn(new Coordinate(3,6)).get().isBallOwner());
+        assertFalse(board.getPawn(new Coordinate(2,6)).get().isBallOwner());
+        assertTrue(board.getPawn(new Coordinate(3,3)).isEmpty());
+    }
+    
     @Test
     void move() {
         //board.move(p1,);
