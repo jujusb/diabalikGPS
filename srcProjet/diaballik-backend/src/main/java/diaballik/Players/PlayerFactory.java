@@ -23,7 +23,7 @@ public final class PlayerFactory {
      * Creates an AI player with some caracteristics
      *
      * @param type  the type of the AI algorithm in String format
-     * @param color the color if the player, white if true black otherwise
+     * @param color the color of the player, white if true black otherwise
      * @param name  the name of the AI if it has one already defined
      * @return the new AI player
      */
@@ -32,10 +32,11 @@ public final class PlayerFactory {
         final boolean c = color;
         final String n;
 
+
         if (name.isEmpty()) {
             final int rndm = new Random().nextInt(10);
             switch (rndm) {
-                case 0:
+                case 0 :
                     n = "GlaDos";
                     break;
                 case 1:

@@ -87,14 +87,16 @@ public class GameBoard extends Do {
     }
 
     /**
-     * Function which returns the pawn to the present coordinate
+     * Function which returns the pawn to the present coordinates. Returns null if the
+     * present coordinates are false (in the sense of function checkCoord(Coordinate)), and if
+     * there is no pawn at these coordinates on the board.
      *
-     * @param c the coordinates selectionned
+     * @param c the chosen coordinates
      * @return the pawn if he found him else return null
      */
     public Optional<Pawn> getPawn(final Coordinate c) {
         //No check for out of bound ?And what if the pawn returned is null ?
-        final Pawn p = board.get(c.getPosY() * BOUNDARY + c.getPosX());
+        final Pawn p = checkCoord(c) ? board.get(c.getPosY() * BOUNDARY + c.getPosX()) : null;
         return Optional.ofNullable(p);
     }
 
@@ -191,7 +193,9 @@ public class GameBoard extends Do {
 
 
     /**
-     * Checks if we can move the ball from source to dest
+     * Checks if we can move the ball from source to dest. Be sure that source
+     * and destination belongs to the same Player, because this condition is not
+     * tested.
      *
      * @param source      the source pawn, it is the pawn who carries the ball
      * @param destination the ball catcher

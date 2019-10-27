@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameBoardTest {
@@ -22,26 +24,58 @@ class GameBoardTest {
     }
 
     @Test
+    void checkCoord() {
+        assertTrue(board.checkCoord(new Coordinate(0,0)));
+        assertTrue(board.checkCoord(new Coordinate(6,6)));
+        assertTrue(board.checkCoord(new Coordinate(3,5)));
+        assertFalse(board.checkCoord(new Coordinate(-1,5)));
+        assertFalse(board.checkCoord(new Coordinate(7,5)));
+        assertFalse(board.checkCoord(new Coordinate(2,-1)));
+        assertFalse(board.checkCoord(new Coordinate(2,7)));
+        assertFalse(board.checkCoord(new Coordinate(7,7)));
+        assertFalse(board.checkCoord(new Coordinate(-1,-1)));
+    }
+
+    @Test
     void getPawn() {
         assertEquals(board.getHumanPlayer().getPawns().get(0), board.getPawn(board.getHumanPlayer().getPawns().get(0).getPosition()).get());
+        assertEquals(board.getPawn(new Coordinate(3,3)), Optional.empty());
+        assertEquals(board.getPawn(new Coordinate(-1,3)), Optional.empty());
+        assertEquals(board.getPawn(new Coordinate(7,3)), Optional.empty());
+        assertEquals(board.getPawn(new Coordinate(3,-1)), Optional.empty());
+        assertEquals(board.getPawn(new Coordinate(3,7)), Optional.empty());
+
     }
 
     @Test
     void constructor() {
-        assertTrue(board.getPawn(new Coordinate(3, 0)).get().isBallOwner());
-        assertTrue(board.getPawn(new Coordinate(3, 6)).get().isBallOwner());
-        assertFalse(board.getPawn(new Coordinate(2, 6)).get().isBallOwner());
-        assertTrue(board.getPawn(new Coordinate(3, 3)).isEmpty());
+        assertTrue(board.getPawn(new Coordinate(3, 0)).get().isBallOwner()); //check the ball for player 1
+        assertTrue(board.getPawn(new Coordinate(3, 6)).get().isBallOwner()); //check the ball for player 2
+        assertFalse(board.getPawn(new Coordinate(2, 6)).get().isBallOwner()); //check if another pawn has not the ball
+        assertTrue(board.getPawn(new Coordinate(3, 3)).isEmpty()); // check an empty position
     }
 
     @Test
     void canMove() {
         assertTrue(board.canMove(p1, new ActionCoord(new Coordinate(0, 0), new Coordinate(0, 1))));
+        assertTrue(board.canMove(p2, new ActionCoord(new Coordinate(0,6), new Coordinate(0,5))));
     }
 
     @Test
     void cannotMove() {
         assertFalse(board.canMove(p1, new ActionCoord(new Coordinate(0, 0), new Coordinate(1, 1))));
+        assertFalse(board.canMove(p2, new ActionCoord(new Coordinate(2,6),new Coordinate(3,6))));
+    }
+
+    @Test
+    void canMoveBall() {
+        assertTrue(board.canMoveBall(board.getPawn(new Coordinate(3,6)).get(),board.getPawn(new Coordinate(4,6)).get()));
+        assertTrue(board.canMoveBall(board.getPawn(new Coordinate(3,0)).get(),board.getPawn(new Coordinate(4,0)).get()));
+    }
+
+    @Test
+    void cannotMoveBall() {
+        //assertFalse(board.canMoveBall(board.getPawn(new Coordinate())));
     }
 
     @Test
@@ -57,7 +91,7 @@ class GameBoardTest {
     }
 
     @Test
-    void movePawnOutOfBount() {
+    void movePawnOutOfBound() {
         assertThrows(IndexOutOfBoundsException.class, () -> {
             board.move(p1, new ActionCoord(new Coordinate(0, 0), new Coordinate(-1, 0)));
         });
@@ -189,4 +223,5 @@ class GameBoardTest {
         board.move(p2, new ActionCoord(new Coordinate(0, 6), new Coordinate(0, 0)));
         assertTrue(board.checkIfWon());
     }
+
 }
