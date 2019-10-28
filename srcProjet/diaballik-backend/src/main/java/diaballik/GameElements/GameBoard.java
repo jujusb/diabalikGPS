@@ -70,7 +70,7 @@ public class GameBoard extends Do {
                     if (n < BOUNDARY) {
                         board.add(n, new Pawn(new Coordinate(n, 0), player1));
                     } else if (n > BOUNDARY * (BOUNDARY - 1) - 1) {
-                        board.add(n, new Pawn(new Coordinate(n - (BOUNDARY * BOUNDARY - 1), n / (BOUNDARY - 1)), player2));
+                        board.add(n, new Pawn(new Coordinate(n - (BOUNDARY * (BOUNDARY - 1)), n / (BOUNDARY)), player2));
                     } else {
                         board.add(n, null);
                     }
@@ -212,7 +212,7 @@ public class GameBoard extends Do {
             return Stream.iterate(0, n -> n + 1)
                     // defines the quantity of moves that are necessary to check the line/diagonal. These two cases are different
                     .limit(destination.getPosition().sameDiagonal(source.getPosition()) ?
-                            destination.getPosition().absoluteDistance(source.getPosition()) / 2 - 1 :
+                            (destination.getPosition().absoluteDistance(source.getPosition()) / 2) - 1 :
                             destination.getPosition().absoluteDistance(source.getPosition()) - 1)
                     // checks that no object can be found on the line between source and target, that can whether be a diagonal or a "simple line"
                     .noneMatch(n -> {
@@ -292,5 +292,14 @@ public class GameBoard extends Do {
             return true;
         }
         return false;
+    }
+
+    public String playerPawnCoordinates() {
+        final String[] aux = {""};
+        aux[0] += "Player 1\n";
+        player1.getPawns().stream().forEach(p -> aux[0] += p.getPosition() + "\n");
+        aux[0] += "Player 2\n";
+        player2.getPawns().stream().forEach(p -> aux[0] += p.getPosition() + "\n");
+        return aux[0];
     }
 }

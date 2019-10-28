@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7585ac15-bdf7-4991-b90f-6e29ef50b625" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/diaballik/GameElements/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diaballik/GameElements/GameBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/diaballik/Players/PlayerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diaballik/Players/PlayerFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/diaballik/GameElements/GameBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/diaballik/GameElements/GameBoardTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -30,7 +28,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Supervisors/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1224">
+            <state>
               <caret line="80" column="24" selection-start-line="80" selection-start-column="24" selection-end-line="80" selection-end-column="24" />
             </state>
           </provider>
@@ -51,11 +49,48 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/GameElements/GameBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-927">
-              <caret line="147" column="5" lean-forward="true" selection-start-line="147" selection-start-column="5" selection-end-line="147" selection-end-column="5" />
+            <state relative-caret-position="-2172">
+              <caret line="66" column="31" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#playerPawnCoordinates#0;class#GameBoard#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/GameElements/Pawn.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="208">
+              <caret line="38" selection-start-line="38" selection-end-line="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1834#1835#0" expanded="true" />
+                <element signature="e#1863#1864#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/Player.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="230">
+              <caret line="73" selection-start-line="73" selection-end-line="73" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1985#1986#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Coordinates/Coordinate.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="157">
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
             </state>
           </provider>
         </entry>
@@ -63,32 +98,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/diaballik/GameElements/GameBoardTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="77" column="10" selection-start-line="77" selection-start-column="10" selection-end-line="77" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/Algorithms/Algo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1300">
-              <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/diaballik/Coordinates/CoordinateTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="49" lean-forward="true" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="311">
+              <caret line="103" column="111" selection-start-line="103" selection-start-column="111" selection-end-line="103" selection-end-column="111" />
             </state>
           </provider>
         </entry>
@@ -96,7 +107,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/PlayerFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
+            <state relative-caret-position="561">
               <caret line="38" column="24" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -288,6 +299,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -437,8 +450,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -455,7 +466,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="experimental" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -482,7 +493,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.GameBoardTest.checkCoord">
+  <component name="RunManager" selected="JUnit.GameBoardTest.testMoveBallFalse">
     <configuration name="GameBoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="diaballik-backend" />
       <extension name="coverage">
@@ -498,7 +509,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameBoardTest.canMoveBall" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GameBoardTest.testCannotMoveBall" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="diaballik-backend" />
       <extension name="coverage">
         <pattern>
@@ -508,13 +519,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="diaballik.GameElements" />
       <option name="MAIN_CLASS_NAME" value="diaballik.GameElements.GameBoardTest" />
-      <option name="METHOD_NAME" value="canMoveBall" />
+      <option name="METHOD_NAME" value="testCannotMoveBall" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameBoardTest.cannotMove" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GameBoardTest.testConstructor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="diaballik-backend" />
       <extension name="coverage">
         <pattern>
@@ -524,13 +535,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="diaballik.GameElements" />
       <option name="MAIN_CLASS_NAME" value="diaballik.GameElements.GameBoardTest" />
-      <option name="METHOD_NAME" value="cannotMove" />
+      <option name="METHOD_NAME" value="testConstructor" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameBoardTest.checkCoord" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GameBoardTest.testGetPawn" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="diaballik-backend" />
       <extension name="coverage">
         <pattern>
@@ -540,13 +551,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="diaballik.GameElements" />
       <option name="MAIN_CLASS_NAME" value="diaballik.GameElements.GameBoardTest" />
-      <option name="METHOD_NAME" value="checkCoord" />
+      <option name="METHOD_NAME" value="testGetPawn" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameBoardTest.getPawn" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GameBoardTest.testMoveBallFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="diaballik-backend" />
       <extension name="coverage">
         <pattern>
@@ -556,7 +567,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="diaballik.GameElements" />
       <option name="MAIN_CLASS_NAME" value="diaballik.GameElements.GameBoardTest" />
-      <option name="METHOD_NAME" value="getPawn" />
+      <option name="METHOD_NAME" value="testMoveBallFalse" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -564,11 +575,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.GameBoardTest.checkCoord" />
-        <item itemvalue="JUnit.GameBoardTest.getPawn" />
-        <item itemvalue="JUnit.GameBoardTest.canMoveBall" />
-        <item itemvalue="JUnit.GameBoardTest.cannotMove" />
+        <item itemvalue="JUnit.GameBoardTest.testMoveBallFalse" />
+        <item itemvalue="JUnit.GameBoardTest.testCannotMoveBall" />
+        <item itemvalue="JUnit.GameBoardTest.testGetPawn" />
         <item itemvalue="JUnit.GameBoardTest" />
+        <item itemvalue="JUnit.GameBoardTest.testConstructor" />
       </list>
     </recent_temporary>
   </component>
@@ -597,7 +608,8 @@
       <workItem from="1571987520386" duration="9210000" />
       <workItem from="1572000057139" duration="1587000" />
       <workItem from="1572196284212" duration="2453000" />
-      <workItem from="1572198802574" duration="4191000" />
+      <workItem from="1572198802574" duration="4457000" />
+      <workItem from="1572271778373" duration="5998000" />
     </task>
     <task id="LOCAL-00001" summary="Création des fichiers back-end et des classes de Tests">
       <created>1570089834752</created>
@@ -624,45 +636,45 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="GameBoardTest_cannotMove - 2019.10.27 at 19h 21m 41s.xml">
-      <configuration name="GameBoardTest.cannotMove" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testConstructor - 2019.10.28 at 16h 35m 01s.xml">
+      <configuration name="GameBoardTest.testConstructor" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_cannotMove - 2019.10.27 at 19h 22m 35s.xml">
-      <configuration name="GameBoardTest.cannotMove" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testGetPawn - 2019.10.28 at 16h 37m 11s.xml">
+      <configuration name="GameBoardTest.testGetPawn" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_canMoveBall - 2019.10.27 at 19h 32m 26s.xml">
-      <configuration name="GameBoardTest.canMoveBall" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testGetPawn - 2019.10.28 at 16h 38m 17s.xml">
+      <configuration name="GameBoardTest.testGetPawn" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_canMoveBall - 2019.10.27 at 19h 33m 00s.xml">
-      <configuration name="GameBoardTest.canMoveBall" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testCannotMoveBall - 2019.10.28 at 16h 38m 42s.xml">
+      <configuration name="GameBoardTest.testCannotMoveBall" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_getPawn - 2019.10.27 at 19h 36m 20s.xml">
-      <configuration name="GameBoardTest.getPawn" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testConstructor - 2019.10.28 at 16h 38m 58s.xml">
+      <configuration name="GameBoardTest.testConstructor" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_getPawn - 2019.10.27 at 19h 37m 18s.xml">
-      <configuration name="GameBoardTest.getPawn" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testConstructor - 2019.10.28 at 16h 39m 25s.xml">
+      <configuration name="GameBoardTest.testConstructor" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_getPawn - 2019.10.27 at 19h 40m 36s.xml">
-      <configuration name="GameBoardTest.getPawn" configurationId="JUnit" />
+    <history-entry file="GameBoardTest - 2019.10.28 at 16h 40m 44s.xml">
+      <configuration name="GameBoardTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_getPawn - 2019.10.27 at 19h 41m 12s.xml">
-      <configuration name="GameBoardTest.getPawn" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testMoveBallFalse - 2019.10.28 at 16h 41m 40s.xml">
+      <configuration name="GameBoardTest.testMoveBallFalse" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_getPawn - 2019.10.27 at 19h 59m 13s.xml">
-      <configuration name="GameBoardTest.getPawn" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testGetPawn - 2019.10.28 at 16h 45m 26s.xml">
+      <configuration name="GameBoardTest.testGetPawn" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_checkCoord - 2019.10.27 at 20h 01m 58s.xml">
-      <configuration name="GameBoardTest.checkCoord" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testCannotMoveBall - 2019.10.28 at 16h 48m 22s.xml">
+      <configuration name="GameBoardTest.testCannotMoveBall" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59011000" />
+    <option name="totallyTimeSpent" value="65275000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30332828" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30786687" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -672,7 +684,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3289689" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39934534" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -686,7 +698,7 @@
       <window_info anchor="bottom" id="CheckStyle" order="14" weight="0.32569557" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="1" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="2" sideWeight="0.5334346" visible="true" weight="0.20347957" />
+      <window_info anchor="right" id="Maven" order="2" sideWeight="0.5334346" weight="0.20347957" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="right" id="Database" order="5" />
@@ -694,7 +706,7 @@
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info anchor="right" id="Bean Validation" order="8" />
       <window_info anchor="right" id="Ant Build" order="9" weight="0.2498618" />
-      <window_info anchor="right" id="Coverage" order="10" sideWeight="0.50151974" side_tool="true" visible="true" weight="0.1580984" />
+      <window_info anchor="right" id="Coverage" order="10" sideWeight="0.50151974" side_tool="true" weight="0.1580984" />
       <window_info anchor="right" x="0" y="0" width="413" height="884" id="Documentation" order="11" sideWeight="0.46656534" side_tool="true" weight="0.12050857" />
     </layout>
   </component>
@@ -727,6 +739,18 @@
     <SUITE FILE_PATH="coverage/diaballik_backend$PawnTest.ic" NAME="PawnTest Coverage Results" MODIFIED="1571924108222" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>diaballik.GameElements.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/diaballik_backend$GameBoardTest_cannotMoveBall.ic" NAME="GameBoardTest.cannotMoveBall Coverage Results" MODIFIED="1572273148545" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>diaballik.GameElements.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="breakpointCondition">
+      <expression>
+        <expression-string>true</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/resource/MyExceptionMapper.java">
@@ -937,18 +961,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/GameElements/Pawn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="75" column="57" selection-start-line="75" selection-start-column="57" selection-end-line="75" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1834#1835#0" expanded="true" />
-            <element signature="e#1863#1864#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/diaballik/resource/TestGameResource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -973,27 +985,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Coordinates/Coordinate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="125" column="6" selection-start-line="125" selection-start-column="6" selection-end-line="125" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/HumanPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1299">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1050,7 +1045,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Supervisors/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
+        <state>
           <caret line="80" column="24" selection-start-line="80" selection-start-column="24" selection-end-line="80" selection-end-column="24" />
         </state>
       </provider>
@@ -1065,10 +1060,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/PlayerFactory.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/Algorithms/Algo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="38" column="24" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
+        <state relative-caret-position="68">
+          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1077,38 +1072,100 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/diaballik/Coordinates/CoordinateTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="49" lean-forward="true" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
+        <state relative-caret-position="34">
+          <caret line="5" column="49" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/Algorithms/Algo.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/PlayerFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1300">
-          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+        <state relative-caret-position="561">
+          <caret line="38" column="24" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.5.1/junit-platform-commons-1.5.1.jar!/org/junit/platform/commons/util/ReflectionUtils.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="354" selection-start-line="354" selection-end-line="354" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.5.1/junit-jupiter-engine-5.5.1.jar!/org/junit/jupiter/engine/execution/MethodInvocation.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.5.1/junit-jupiter-engine-5.5.1.jar!/org/junit/jupiter/engine/execution/InvocationInterceptorChain.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-13.0.1/lib/src.zip!/java.base/java/lang/Integer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="1143" selection-start-line="1143" selection-end-line="1143" />
+          <folding>
+            <element signature="e#45713#45714#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Coordinates/Coordinate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="73" selection-start-line="73" selection-end-line="73" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1985#1986#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/GameElements/Pawn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1834#1835#0" expanded="true" />
+            <element signature="e#1863#1864#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/GameElements/GameBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-927">
-          <caret line="147" column="5" lean-forward="true" selection-start-line="147" selection-start-column="5" selection-end-line="147" selection-end-column="5" />
+        <state relative-caret-position="-2172">
+          <caret line="66" column="31" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#playerPawnCoordinates#0;class#GameBoard#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/diaballik/GameElements/GameBoardTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="77" column="10" selection-start-line="77" selection-start-column="10" selection-end-line="77" selection-end-column="10" />
+        <state relative-caret-position="311">
+          <caret line="103" column="111" selection-start-line="103" selection-start-column="111" selection-end-line="103" selection-end-column="111" />
         </state>
       </provider>
     </entry>
