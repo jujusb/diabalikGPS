@@ -1,5 +1,7 @@
 package diaballik.Coordinates;
 
+import java.util.Objects;
+
 /**
  * class ActionCoord
  * A pair of Coordinate representing a move on the GameBoard.
@@ -61,5 +63,23 @@ public class ActionCoord {
         final Coordinate tmp = getSource();
         this.source = target;
         this.target = tmp;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final ActionCoord that = (ActionCoord) o;
+        return source.equals(that.getSource()) &&
+                target.equals(that.getTarget());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(source, target);
     }
 }

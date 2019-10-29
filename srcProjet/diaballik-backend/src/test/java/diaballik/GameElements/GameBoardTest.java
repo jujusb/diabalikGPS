@@ -37,19 +37,6 @@ class GameBoardTest {
     }
 
     @Test
-    void testGetPawn() {
-        assertEquals(board.getHumanPlayer().getPawns().get(0), board.getPawn(board.getHumanPlayer().getPawns().get(0).getPosition()).get());
-        assertEquals(p2.getPawns().get(0), board.getPawn(p2.getPawns().get(0).getPosition()).get());
-
-        assertEquals(board.getPawn(new Coordinate(3,3)), Optional.empty());
-        assertEquals(board.getPawn(new Coordinate(-1,3)), Optional.empty());
-        assertEquals(board.getPawn(new Coordinate(7,3)), Optional.empty());
-        assertEquals(board.getPawn(new Coordinate(3,-1)), Optional.empty());
-        assertEquals(board.getPawn(new Coordinate(3,7)), Optional.empty());
-
-    }
-
-    @Test
     void testConstructor() {
         assertTrue(board.getPawn(new Coordinate(3, 0)).get().isBallOwner()); //check the ball for player 1
         assertTrue(board.getPawn(new Coordinate(3, 6)).get().isBallOwner()); //check the ball for player 2
@@ -73,6 +60,24 @@ class GameBoardTest {
 
         assertTrue(board.getPawn(new Coordinate(3, 3)).isEmpty()); // check an empty position
         assertTrue(board.getPawn(new Coordinate(7,0)).isEmpty()); // check an invalid position
+    }
+
+    @Test
+    void testGetPawn() {
+        assertEquals(board.getHumanPlayer().getPawns().get(0), board.getPawn(board.getHumanPlayer().getPawns().get(0).getPosition()).get());
+        assertEquals(p2.getPawns().get(0), board.getPawn(p2.getPawns().get(0).getPosition()).get());
+
+        assertEquals(board.getPawn(new Coordinate(3,3)), Optional.empty());
+        assertEquals(board.getPawn(new Coordinate(-1,3)), Optional.empty());
+        assertEquals(board.getPawn(new Coordinate(7,3)), Optional.empty());
+        assertEquals(board.getPawn(new Coordinate(3,-1)), Optional.empty());
+        assertEquals(board.getPawn(new Coordinate(3,7)), Optional.empty());
+
+    }
+
+    @Test
+    void testGetHumanPlayer(){
+        assertEquals(p1,board.getHumanPlayer());
     }
 
     @Test
@@ -102,7 +107,6 @@ class GameBoardTest {
         //is not a valid ball move
         assertFalse(board.canMoveBall(board.getPawn(new Coordinate(3,0)).get(),board.getPawn(new Coordinate(1,6)).get()));
         assertFalse(board.canMoveBall(board.getPawn(new Coordinate(3,6)).get(),board.getPawn(new Coordinate(1,0)).get()));
-
     }
 
     @Test
@@ -110,6 +114,8 @@ class GameBoardTest {
         assertTrue(board.move(p1, new ActionCoord(new Coordinate(0, 0), new Coordinate(0, 1))));
         assertTrue(board.getPawn(new Coordinate(0, 1)).isPresent());
         assertTrue(board.getPawn(new Coordinate(0, 0)).isEmpty());
+        assertEquals(1,board.getUndoable_mode().size());
+        assertEquals(new ActionCoord(new Coordinate(0, 0), new Coordinate(0, 1)),board.getUndoable_mode().pop());
     }
 
     @Test
@@ -169,6 +175,9 @@ class GameBoardTest {
         board.undo();
         assertTrue(board.getPawn(new Coordinate(0, 1)).isEmpty());
         assertTrue(board.getPawn(new Coordinate(0, 0)).isPresent());
+        assertEquals(0,board.getUndoable_mode().size());
+        assertEquals(1,board.getRedoable_mode().size());
+        assertEquals(new ActionCoord(new Coordinate(0, 1), new Coordinate(0, 0)),board.getRedoable_mode().pop());
     }
 
     @Test
@@ -184,6 +193,9 @@ class GameBoardTest {
         board.redo();
         assertTrue(board.getPawn(new Coordinate(0, 1)).isPresent());
         assertTrue(board.getPawn(new Coordinate(0, 0)).isEmpty());
+        assertEquals(0,board.getRedoable_mode().size());
+        assertEquals(1,board.getUndoable_mode().size());
+        assertEquals(new ActionCoord(new Coordinate(0, 0), new Coordinate(0, 1)), board.getUndoable_mode().pop());
     }
 
     @Test
@@ -202,8 +214,49 @@ class GameBoardTest {
         board.undo();
         assertTrue(board.getPawn(new Coordinate(0, 1)).isEmpty());
         assertTrue(board.getPawn(new Coordinate(0, 0)).isPresent());
+        assertEquals(0,board.getUndoable_mode().size());
+        assertEquals(1,board.getRedoable_mode().size());
+        assertEquals(new ActionCoord(new Coordinate(0, 1), new Coordinate(0, 0)), board.getRedoable_mode().pop());
+    }
+    @Test
+    void testThreeUndo(){
+        assertTrue(board.move(p1,new ActionCoord(new Coordinate(0,0),new Coordinate(0,1))));
+        assertTrue(board.move(p1,new ActionCoord(new Coordinate(0,1),new Coordinate(0,2))));
+        assertTrue(board.move(p1,new ActionCoord(new Coordinate(0,2),new Coordinate(0,3))));
+        board.undo();
+        board.undo();
+        board.undo();
+        assertTrue(board.getPawn(new Coordinate(0,0)).isPresent());
+        assertTrue(board.getPawn(new Coordinate(0,3)).isEmpty());
+        assertEquals(0,board.getUndoable_mode().size());
+        assertEquals(3,board.getRedoable_mode().size());
+        assertEquals(new ActionCoord(new Coordinate(0,1),new Coordinate(0,0)),board.getRedoable_mode().pop());
+        assertEquals(new ActionCoord(new Coordinate(0,2),new Coordinate(0,1)),board.getRedoable_mode().pop());
+        assertEquals(new ActionCoord(new Coordinate(0,3),new Coordinate(0,2)),board.getRedoable_mode().pop());
     }
 
+    @Test
+    void testThreeRedo(){
+        assertTrue(board.move(p1,new ActionCoord(new Coordinate(0,0),new Coordinate(0,1))));
+        assertTrue(board.move(p1,new ActionCoord(new Coordinate(0,1),new Coordinate(0,2))));
+        assertTrue(board.move(p1,new ActionCoord(new Coordinate(0,2),new Coordinate(0,3))));
+        board.undo();
+        board.undo();
+        board.undo();
+        board.redo();
+        board.redo();
+        board.redo();
+        System.out.println(board.playerPawnCoordinates());
+        //Uncomment and modify when the questions about the redo() method are answered.
+        /*assertTrue(board.getPawn(new Coordinate(0,3)).isPresent());
+        assertTrue(board.getPawn(new Coordinate(0,0)).isEmpty());
+        assertEquals(0,board.getRedoable_mode().size());
+        assertEquals(3,board.getUndoable_mode().size());
+        assertEquals(new ActionCoord(new Coordinate(0,2),new Coordinate(0,3)),board.getRedoable_mode().pop());
+        assertEquals(new ActionCoord(new Coordinate(0,1),new Coordinate(0,2)),board.getRedoable_mode().pop());
+        assertEquals(new ActionCoord(new Coordinate(0,0),new Coordinate(0,1)),board.getRedoable_mode().pop());
+        */
+    }
     @Test
     void testCheckIfWonP1() {
         assertFalse(board.checkIfWon());

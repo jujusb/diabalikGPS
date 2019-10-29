@@ -258,8 +258,8 @@ public class GameBoard extends Do {
     public void redo() {
         if (!redoable_mode.isEmpty()) {
             final ActionCoord redoable = redoable_mode.pop();
-            redoable.invert();
-            moveNoCheck(redoable, true);
+            redoable.invert(); //TODO read below
+            moveNoCheck(redoable, true); // shall save be set to true ?
         }
     }
 
@@ -301,5 +301,13 @@ public class GameBoard extends Do {
         aux[0] += "Player 2\n";
         player2.getPawns().stream().forEach(p -> aux[0] += p.getPosition() + "\n");
         return aux[0];
+    }
+
+    public Deque<ActionCoord> getUndoable_mode() {
+        return undoable_mode;
+    }
+
+    public Deque<ActionCoord> getRedoable_mode() {
+        return redoable_mode;
     }
 }

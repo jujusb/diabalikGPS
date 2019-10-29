@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7585ac15-bdf7-4991-b90f-6e29ef50b625" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/diaballik/Coordinates/ActionCoord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diaballik/Coordinates/ActionCoord.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/diaballik/GameElements/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diaballik/GameElements/GameBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/diaballik/GameElements/GameBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/diaballik/GameElements/GameBoardTest.java" afterDir="false" />
     </list>
@@ -28,7 +29,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Supervisors/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="1224">
               <caret line="80" column="24" selection-start-line="80" selection-start-column="24" selection-end-line="80" selection-end-column="24" />
             </state>
           </provider>
@@ -49,38 +50,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/GameElements/GameBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2172">
-              <caret line="66" column="31" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
+            <state relative-caret-position="229">
+              <caret line="260" column="48" selection-start-line="260" selection-start-column="48" selection-end-line="260" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#GameBoard#0;class#GameBoard#0" />
+                <element signature="method#getPawn#0;class#GameBoard#0" />
+                <element signature="method#move#0;class#GameBoard#0" />
                 <element signature="method#playerPawnCoordinates#0;class#GameBoard#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/GameElements/Pawn.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1834#1835#0" expanded="true" />
-                <element signature="e#1863#1864#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="73" selection-start-line="73" selection-end-line="73" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1985#1986#0" expanded="true" />
+                <element signature="e#10838#10839#0" expanded="true" />
+                <element signature="e#10849#10850#0" expanded="true" />
+                <element signature="e#10884#10885#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -89,7 +69,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Coordinates/Coordinate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
+            <state relative-caret-position="-557">
               <caret line="28" selection-start-line="28" selection-end-line="28" />
             </state>
           </provider>
@@ -98,8 +78,23 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/diaballik/GameElements/GameBoardTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="103" column="111" selection-start-line="103" selection-start-column="111" selection-end-line="103" selection-end-column="111" />
+            <state relative-caret-position="124">
+              <caret line="249" column="87" selection-start-line="249" selection-start-column="87" selection-end-line="249" selection-end-column="87" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Coordinates/ActionCoord.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="277">
+              <caret line="83" column="5" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
+              <folding>
+                <element signature="e#832#833#0" expanded="true" />
+                <element signature="e#1009#1010#0" expanded="true" />
+                <element signature="e#1797#1798#0" expanded="true" />
+                <element signature="e#1848#1849#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -151,7 +146,6 @@
         <option value="$PROJECT_DIR$/src/main/java/diaballik/Players/Algorithms/NoobAlgo.java" />
         <option value="$PROJECT_DIR$/src/test/java/diaballik/Coordinates/CoordinateTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/diaballik/Coordinates/ActionCoordTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/diaballik/Coordinates/ActionCoord.java" />
         <option value="$PROJECT_DIR$/src/main/java/diaballik/Coordinates/Coordinate.java" />
         <option value="$PROJECT_DIR$/src/main/java/diaballik/Players/Algorithms/StartingAlgo.java" />
         <option value="$PROJECT_DIR$/src/main/java/diaballik/resource/Parser.java" />
@@ -164,6 +158,7 @@
         <option value="$PROJECT_DIR$/src/test/java/diaballik/Players/AiPlayerTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/diaballik/GameElements/PawnTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/diaballik/Players/PlayerFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/diaballik/Coordinates/ActionCoord.java" />
         <option value="$PROJECT_DIR$/src/main/java/diaballik/GameElements/GameBoard.java" />
         <option value="$PROJECT_DIR$/src/test/java/diaballik/GameElements/GameBoardTest.java" />
       </list>
@@ -287,7 +282,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="170" />
     <option name="y" value="91" />
     <option name="width" value="1026" />
@@ -299,8 +294,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -450,6 +443,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -493,8 +488,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.GameBoardTest.testMoveBallFalse">
-    <configuration name="GameBoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.GameBoardTest.testThreeRedo">
+    <configuration name="GameBoardTest.testRedo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="diaballik-backend" />
       <extension name="coverage">
         <pattern>
@@ -504,28 +499,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="diaballik.GameElements" />
       <option name="MAIN_CLASS_NAME" value="diaballik.GameElements.GameBoardTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GameBoardTest.testCannotMoveBall" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="diaballik-backend" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="diaballik.GameElements.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="diaballik.GameElements" />
-      <option name="MAIN_CLASS_NAME" value="diaballik.GameElements.GameBoardTest" />
-      <option name="METHOD_NAME" value="testCannotMoveBall" />
+      <option name="METHOD_NAME" value="testRedo" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameBoardTest.testConstructor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GameBoardTest.testThreeRedo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="diaballik-backend" />
       <extension name="coverage">
         <pattern>
@@ -535,13 +515,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="diaballik.GameElements" />
       <option name="MAIN_CLASS_NAME" value="diaballik.GameElements.GameBoardTest" />
-      <option name="METHOD_NAME" value="testConstructor" />
+      <option name="METHOD_NAME" value="testThreeRedo" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameBoardTest.testGetPawn" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GameBoardTest.testThreeUndo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="diaballik-backend" />
       <extension name="coverage">
         <pattern>
@@ -551,13 +531,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="diaballik.GameElements" />
       <option name="MAIN_CLASS_NAME" value="diaballik.GameElements.GameBoardTest" />
-      <option name="METHOD_NAME" value="testGetPawn" />
+      <option name="METHOD_NAME" value="testThreeUndo" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameBoardTest.testMoveBallFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GameBoardTest.testUndo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="diaballik-backend" />
       <extension name="coverage">
         <pattern>
@@ -567,7 +547,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="diaballik.GameElements" />
       <option name="MAIN_CLASS_NAME" value="diaballik.GameElements.GameBoardTest" />
-      <option name="METHOD_NAME" value="testMoveBallFalse" />
+      <option name="METHOD_NAME" value="testUndo" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameBoardTest.testUndoAfterRedo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="diaballik-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="diaballik.GameElements.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="diaballik.GameElements" />
+      <option name="MAIN_CLASS_NAME" value="diaballik.GameElements.GameBoardTest" />
+      <option name="METHOD_NAME" value="testUndoAfterRedo" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -575,11 +571,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.GameBoardTest.testMoveBallFalse" />
-        <item itemvalue="JUnit.GameBoardTest.testCannotMoveBall" />
-        <item itemvalue="JUnit.GameBoardTest.testGetPawn" />
-        <item itemvalue="JUnit.GameBoardTest" />
-        <item itemvalue="JUnit.GameBoardTest.testConstructor" />
+        <item itemvalue="JUnit.GameBoardTest.testThreeRedo" />
+        <item itemvalue="JUnit.GameBoardTest.testThreeUndo" />
+        <item itemvalue="JUnit.GameBoardTest.testUndoAfterRedo" />
+        <item itemvalue="JUnit.GameBoardTest.testRedo" />
+        <item itemvalue="JUnit.GameBoardTest.testUndo" />
       </list>
     </recent_temporary>
   </component>
@@ -609,7 +605,8 @@
       <workItem from="1572000057139" duration="1587000" />
       <workItem from="1572196284212" duration="2453000" />
       <workItem from="1572198802574" duration="4457000" />
-      <workItem from="1572271778373" duration="5998000" />
+      <workItem from="1572271778373" duration="6448000" />
+      <workItem from="1572367894859" duration="3673000" />
     </task>
     <task id="LOCAL-00001" summary="Création des fichiers back-end et des classes de Tests">
       <created>1570089834752</created>
@@ -636,45 +633,44 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="GameBoardTest_testConstructor - 2019.10.28 at 16h 35m 01s.xml">
-      <configuration name="GameBoardTest.testConstructor" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testUndo - 2019.10.29 at 18h 09m 27s.xml">
+      <configuration name="GameBoardTest.testUndo" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_testGetPawn - 2019.10.28 at 16h 37m 11s.xml">
-      <configuration name="GameBoardTest.testGetPawn" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testUndo - 2019.10.29 at 18h 10m 31s.xml">
+      <configuration name="GameBoardTest.testUndo" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_testGetPawn - 2019.10.28 at 16h 38m 17s.xml">
-      <configuration name="GameBoardTest.testGetPawn" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testRedo - 2019.10.29 at 18h 14m 05s.xml">
+      <configuration name="GameBoardTest.testRedo" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_testCannotMoveBall - 2019.10.28 at 16h 38m 42s.xml">
-      <configuration name="GameBoardTest.testCannotMoveBall" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testRedo - 2019.10.29 at 18h 14m 26s.xml">
+      <configuration name="GameBoardTest.testRedo" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_testConstructor - 2019.10.28 at 16h 38m 58s.xml">
-      <configuration name="GameBoardTest.testConstructor" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testUndoAfterRedo - 2019.10.29 at 18h 17m 30s.xml">
+      <configuration name="GameBoardTest.testUndoAfterRedo" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_testConstructor - 2019.10.28 at 16h 39m 25s.xml">
-      <configuration name="GameBoardTest.testConstructor" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testUndoAfterRedo - 2019.10.29 at 18h 17m 47s.xml">
+      <configuration name="GameBoardTest.testUndoAfterRedo" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest - 2019.10.28 at 16h 40m 44s.xml">
-      <configuration name="GameBoardTest" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testThreeUndo - 2019.10.29 at 18h 25m 24s.xml">
+      <configuration name="GameBoardTest.testThreeUndo" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_testMoveBallFalse - 2019.10.28 at 16h 41m 40s.xml">
-      <configuration name="GameBoardTest.testMoveBallFalse" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testThreeUndo - 2019.10.29 at 18h 26m 30s.xml">
+      <configuration name="GameBoardTest.testThreeUndo" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_testGetPawn - 2019.10.28 at 16h 45m 26s.xml">
-      <configuration name="GameBoardTest.testGetPawn" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testThreeRedo - 2019.10.29 at 18h 29m 50s.xml">
+      <configuration name="GameBoardTest.testThreeRedo" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GameBoardTest_testCannotMoveBall - 2019.10.28 at 16h 48m 22s.xml">
-      <configuration name="GameBoardTest.testCannotMoveBall" configurationId="JUnit" />
+    <history-entry file="GameBoardTest_testThreeRedo - 2019.10.29 at 18h 31m 12s.xml">
+      <configuration name="GameBoardTest.testThreeRedo" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65275000" />
+    <option name="totallyTimeSpent" value="69398000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30786687" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31240544" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -968,13 +964,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Coordinates/ActionCoord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="30" selection-start-column="30" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-11-oracle/lib/src.zip!/java.base/java/lang/Cloneable.java" />
     <entry file="jar:///usr/lib/jvm/java-11-oracle/lib/src.zip!/java.base/java/lang/Object.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/resource/Parser.java" />
@@ -1043,23 +1032,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Supervisors/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="80" column="24" selection-start-line="80" selection-start-column="24" selection-end-line="80" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/AiPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/Algorithms/Algo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1074,16 +1046,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="5" column="49" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/PlayerFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="38" column="24" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1121,16 +1083,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Coordinates/Coordinate.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Supervisors/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="1224">
+          <caret line="80" column="24" selection-start-line="80" selection-start-column="24" selection-end-line="80" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/AiPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
+        <state relative-caret-position="1105">
           <caret line="73" selection-start-line="73" selection-end-line="73" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1139,9 +1111,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/PlayerFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="38" column="24" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/GameElements/Pawn.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
+        <state relative-caret-position="646">
           <caret line="38" selection-start-line="38" selection-end-line="38" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1151,21 +1133,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Coordinates/Coordinate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-557">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Coordinates/ActionCoord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="83" column="5" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
+          <folding>
+            <element signature="e#832#833#0" expanded="true" />
+            <element signature="e#1009#1010#0" expanded="true" />
+            <element signature="e#1797#1798#0" expanded="true" />
+            <element signature="e#1848#1849#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/GameElements/GameBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2172">
-          <caret line="66" column="31" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
+        <state relative-caret-position="229">
+          <caret line="260" column="48" selection-start-line="260" selection-start-column="48" selection-end-line="260" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#GameBoard#0;class#GameBoard#0" />
+            <element signature="method#getPawn#0;class#GameBoard#0" />
+            <element signature="method#move#0;class#GameBoard#0" />
             <element signature="method#playerPawnCoordinates#0;class#GameBoard#0" />
+            <element signature="e#10838#10839#0" expanded="true" />
+            <element signature="e#10849#10850#0" expanded="true" />
+            <element signature="e#10884#10885#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/diaballik/GameElements/GameBoardTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="103" column="111" selection-start-line="103" selection-start-column="111" selection-end-line="103" selection-end-column="111" />
+        <state relative-caret-position="124">
+          <caret line="249" column="87" selection-start-line="249" selection-start-column="87" selection-end-line="249" selection-end-column="87" />
         </state>
       </provider>
     </entry>
