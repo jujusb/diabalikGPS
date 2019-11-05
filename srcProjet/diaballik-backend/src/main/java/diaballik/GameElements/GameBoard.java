@@ -110,7 +110,7 @@ public class GameBoard extends Do {
     @Override
     public boolean move(final Player p, final ActionCoord coords) {
         if (canMove(p, coords)) {
-            moveNoCheck(coords, true);
+            moveNoCheck(coords, true, true);
             return true;
         }
         return false;
@@ -120,10 +120,11 @@ public class GameBoard extends Do {
      * Execute the move represented by the ActionCoord and update the board.
      * The move to do must be valid because NO tests are made on this function.
      *
-     * @param coords an ActionCoord which represents the move to make
-     * @param save   true if we have to save the move in the undo list, false otherwise
+     * @param coords    an ActionCoord which represents the move to make
+     * @param save      true if we have to save the move in the undo list, false otherwise
+     * @param clearRedo true if we want to clear the redo list, in the case of a pawn or ball move (which is not a redo or a undo)
      */
-    public void moveNoCheck(final ActionCoord coords, final boolean save) {
+    public void moveNoCheck(final ActionCoord coords, final boolean save, final boolean clearRedo) {
         final Pawn source = getPawn(coords.getSource()).get();
 
         // checks if the ball moves or if it is a pawn
@@ -143,7 +144,7 @@ public class GameBoard extends Do {
             board.set(coords.getTarget().getPosX() + coords.getTarget().getPosY() * 7, source);
         }
         if (save) {
-            this.addUndo(coords);
+            this.addUndo(coords, clearRedo);
         }
     }
 
@@ -228,13 +229,16 @@ public class GameBoard extends Do {
     /**
      * To add to the list of UNDOABLEs
      *
-     * @param u the action we just done
+     * @param u         the action we just done
+     * @param clearRedo true if we want to clear the redo list (for example if we make a move)
      */
-    public void addUndo(final ActionCoord u) {
+    public void addUndo(final ActionCoord u, final boolean clearRedo) {
         if (undoable_mode.size() == size_max) {
             undoable_mode.removeLast();
         }
-        redoable_mode.clear();
+        if (clearRedo) {
+            redoable_mode.clear();
+        }
         undoable_mode.push(u);
     }
 
@@ -246,7 +250,7 @@ public class GameBoard extends Do {
         if (!undoable_mode.isEmpty()) {
             final ActionCoord undoable = undoable_mode.pop();
             undoable.invert();
-            moveNoCheck(undoable, false);
+            moveNoCheck(undoable, false, false);
             redoable_mode.push(undoable);
         }
     }
@@ -258,8 +262,8 @@ public class GameBoard extends Do {
     public void redo() {
         if (!redoable_mode.isEmpty()) {
             final ActionCoord redoable = redoable_mode.pop();
-            redoable.invert(); //TODO read below
-            moveNoCheck(redoable, true); // shall save be set to true ?
+            redoable.invert();
+            moveNoCheck(redoable, true, false);
         }
     }
 
