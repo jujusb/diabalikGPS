@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Random;
 
 public class NoobAlgo extends Algo {
-
-
     /**
      * Constructor of the algorith
      *
