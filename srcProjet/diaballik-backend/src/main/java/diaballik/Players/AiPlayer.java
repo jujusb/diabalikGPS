@@ -7,8 +7,9 @@ import diaballik.Players.Algorithms.EAiType;
 import diaballik.Players.Algorithms.NoobAlgo;
 import diaballik.Players.Algorithms.StartingAlgo;
 
-public class AiPlayer extends Player {
+import java.util.Objects;
 
+public class AiPlayer extends Player {
 
 
     /**
@@ -93,5 +94,26 @@ public class AiPlayer extends Player {
      */
     public Algo getAlgo() {
         return algo;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        final AiPlayer aiPlayer = (AiPlayer) o;
+        return currentTurn == aiPlayer.currentTurn &&
+                TURNS_BEFORE_SWAP == aiPlayer.TURNS_BEFORE_SWAP; //aucun test sur algo
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), algo, currentTurn, TURNS_BEFORE_SWAP);
     }
 }
