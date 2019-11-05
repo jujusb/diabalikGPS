@@ -6,15 +6,15 @@ import diaballik.Players.Algorithms.Algo;
 import diaballik.Players.Algorithms.EAiType;
 import diaballik.Players.Algorithms.NoobAlgo;
 import diaballik.Players.Algorithms.StartingAlgo;
-
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Objects;
 
+
 public class AiPlayer extends Player {
-
-
     /**
      * The algorithm used to determine a move
      */
+    @XmlTransient
     private Algo algo;
 
     /**
@@ -25,7 +25,7 @@ public class AiPlayer extends Player {
     /**
      * Indicates at which turn the algorithm should swap
      */
-    private final int TURNS_BEFORE_SWAP;
+    private int TURNS_BEFORE_SWAP;
 
     /**
      * Constructor of AiPlayer
@@ -52,6 +52,10 @@ public class AiPlayer extends Player {
         }
     }
 
+    public AiPlayer() {
+        super();
+    }
+
     /**
      * Method which swaps the type of Algo under a certain condition
      */
@@ -74,7 +78,8 @@ public class AiPlayer extends Player {
 
     /**
      * Defines the board for the algorithm which needs it
-      * @param board the current gameboard
+     *
+     * @param board the current gameboard
      */
     public void setBoard(final GameBoard board) {
         algo.setBoard(board);
@@ -82,6 +87,7 @@ public class AiPlayer extends Player {
 
     /**
      * Setter of the current turn
+     *
      * @param currentTurn the
      */
     public void setCurrentTurn(final int currentTurn) {
@@ -90,6 +96,7 @@ public class AiPlayer extends Player {
 
     /**
      * Getter of the algorithm
+     *
      * @return the current algorithm
      */
     public Algo getAlgo() {

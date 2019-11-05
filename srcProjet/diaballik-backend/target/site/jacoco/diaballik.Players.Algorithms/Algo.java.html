@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Algo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">diaballik-backend</a> &gt; <a href="index.source.html" class="el_package">diaballik.Players.Algorithms</a> &gt; <span class="el_source">Algo.java</span></div><h1>Algo.java</h1><pre class="source lang-java linenums">package diaballik.Players.Algorithms;
+
+import diaballik.Coordinates.ActionCoord;
+import diaballik.Coordinates.Coordinate;
+import diaballik.GameElements.GameBoard;
+import diaballik.GameElements.Pawn;
+import diaballik.Players.Player;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class Algo {
+    /**
+     * The current board of the game
+     */
+    GameBoard board;
+
+    /**
+     * The player who is the IA
+     */
+    Player player;
+
+<span class="fc" id="L23">    public Algo(final Player p) {</span>
+<span class="fc" id="L24">        board = null;</span>
+<span class="fc" id="L25">        player = p;</span>
+<span class="fc" id="L26">    }</span>
+
+    /**
+     * to get the board from the IA
+     *
+     * @return the current board
+     */
+    public GameBoard getBoard() {
+<span class="nc" id="L34">        return board;</span>
+    }
+
+    /**
+     * to set the board to the IA
+     *
+     * @param board the current board
+     */
+    public void setBoard(final GameBoard board) {
+<span class="nc" id="L43">        this.board = board;</span>
+<span class="nc" id="L44">    }</span>
+
+    /**
+     * Function which returns a move to execute
+     *
+     * @return an ActionCoord's instance, which defines the movement of the Player
+     */
+    public abstract ActionCoord decideMove();
+
+    /**
+     * Moves a coordinate and, if it is free, adds a move there in an ActionCoord list for a given pawn
+     *
+     * @param dx            the x displacement
+     * @param dy            the y displacement
+     * @param possibleMoves the list of currently possible moves
+     * @param dest          the coordinates we want to check
+     * @param source        the coordinates of the pawn that could move to c
+     */
+    void moveAndCheck(final int dx, final int dy, final List&lt;ActionCoord&gt; possibleMoves, final Coordinate dest, final Coordinate source) {
+<span class="nc" id="L63">        dest.moveOf(dx, dy);</span>
+<span class="nc bnc" id="L64" title="All 4 branches missed.">        if (board.checkCoord(dest) &amp;&amp; board.getPawn(dest).isEmpty()) {</span>
+<span class="nc" id="L65">            possibleMoves.add(new ActionCoord(source, dest));</span>
+        }
+<span class="nc" id="L67">    }</span>
+
+    /**
+     * Method which adds in a list all the possible pawn moves for a given player
+     * @param one a Player for which we want to know all the possible pawn moves
+     * @return a list containing all the possible pawn moves
+     */
+    public List&lt;ActionCoord&gt;  calculatePossiblePawnMoves(final Player one) {
+<span class="nc" id="L75">        final List&lt;ActionCoord&gt; possibleMoves = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L76">        final List&lt;Pawn&gt; pawns = one.getPawns();</span>
+        // gathers all the possible moves of pawns and balls in the list possibleMoves
+<span class="nc" id="L78">        pawns.stream()</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">                .filter(p -&gt; !p.isBallOwner())</span>
+<span class="nc" id="L80">                .forEach(p -&gt; {</span>
+<span class="nc" id="L81">                    final Coordinate c = (Coordinate) p.getPosition().clone();</span>
+<span class="nc" id="L82">                    moveAndCheck(1, 0, possibleMoves, c, p.getPosition());</span>
+<span class="nc" id="L83">                    moveAndCheck(-2, 0, possibleMoves, c, p.getPosition());</span>
+<span class="nc" id="L84">                    moveAndCheck(1, 1, possibleMoves, c, p.getPosition());</span>
+<span class="nc" id="L85">                    moveAndCheck(0, -2, possibleMoves, c, p.getPosition());</span>
+<span class="nc" id="L86">                });</span>
+<span class="nc" id="L87">        return possibleMoves;</span>
+    }
+
+    /**
+     * Method which adds in a list all the possible ball moves for a given player
+     * @param one a Player for which we want to know all the possible ball moves
+     * @return a list containing all the possible ball moves
+     */
+    public List&lt;ActionCoord&gt; calculatePossibleBallMoves(final Player one) {
+<span class="nc" id="L96">        final List&lt;ActionCoord&gt; possibleMoves = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L97">        final Pawn ball = one.getBall();</span>
+<span class="nc" id="L98">        final List&lt;Pawn&gt; pawns = one.getPawns();</span>
+        // gathers all the possible moves of balls in the list possibleMoves
+<span class="nc" id="L100">        pawns.stream()</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">                .filter(p -&gt; !p.isBallOwner())</span>
+<span class="nc" id="L102">                .forEach(p -&gt; {</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">                    if (board.canMoveBall(ball, p)) {</span>
+<span class="nc" id="L104">                        possibleMoves.add(new ActionCoord(ball.getPosition(), p.getPosition()));</span>
+                    }
+<span class="nc" id="L106">                });</span>
+<span class="nc" id="L107">        return possibleMoves;</span>
+    }
+
+    /**
+     * Method which adds in a list all the possible moves for a given player. Uses the two other possibilities computation functions
+     * @param one a Player for which we want to know all the possible  moves
+     * @return a list containing all the possible moves
+     */
+    public List&lt;ActionCoord&gt; calculatePossibleMoves(final Player one) {
+        final List&lt;ActionCoord&gt; possibleMoves;
+<span class="nc" id="L117">        possibleMoves = calculatePossiblePawnMoves(player); // add the pawn moves</span>
+<span class="nc" id="L118">        possibleMoves.addAll(calculatePossibleBallMoves(player)); //add the ball moves</span>
+<span class="nc" id="L119">        return possibleMoves;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

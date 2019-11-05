@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PlayerFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">diaballik-backend</a> &gt; <a href="index.source.html" class="el_package">diaballik.Players</a> &gt; <span class="el_source">PlayerFactory.java</span></div><h1>PlayerFactory.java</h1><pre class="source lang-java linenums">package diaballik.Players;
+
+import diaballik.Players.Algorithms.EAiType;
+
+import java.util.Optional;
+import java.util.Random;
+
+<span class="fc" id="L8">public final class PlayerFactory {</span>
+
+    /**
+     * Creates a human player with some caracteristics
+     *
+     * @param name  the name of the player
+     * @param color the color of the player, white if true black otherwise
+     * @return the new human player
+     */
+    public Player createHuman(final String name, final boolean color) {
+<span class="fc" id="L18">        return new HumanPlayer(name, color);</span>
+    }
+
+
+    /**
+     * Creates an AI player with some caracteristics
+     *
+     * @param type  the type of the AI algorithm in String format
+     * @param color the color of the player, white if true black otherwise
+     * @param name  the name of the AI if it has one already defined
+     * @return the new AI player
+     */
+    public Player createAi(final String type, final boolean color, final Optional&lt;String&gt; name) {
+<span class="fc" id="L31">        final EAiType t = EAiType.valueOf(type);</span>
+<span class="fc" id="L32">        final boolean c = color;</span>
+        final String n;
+
+
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (name.isEmpty()) {</span>
+<span class="fc" id="L37">            final int rndm = new Random().nextInt(10);</span>
+<span class="pc bpc" id="L38" title="9 of 10 branches missed.">            switch (rndm) {</span>
+                case 0 :
+<span class="nc" id="L40">                    n = &quot;GlaDos&quot;;</span>
+<span class="nc" id="L41">                    break;</span>
+                case 1:
+<span class="fc" id="L43">                    n = &quot;Bébert&quot;;</span>
+<span class="fc" id="L44">                    break;</span>
+                case 2:
+<span class="nc" id="L46">                    n = &quot;Tuco&quot;;</span>
+<span class="nc" id="L47">                    break;</span>
+                case 3:
+<span class="nc" id="L49">                    n = &quot;Toto&quot;;</span>
+<span class="nc" id="L50">                    break;</span>
+                case 4:
+<span class="nc" id="L52">                    n = &quot;Isaac&quot;;</span>
+<span class="nc" id="L53">                    break;</span>
+                case 5:
+<span class="nc" id="L55">                    n = &quot;Patrick&quot;;</span>
+<span class="nc" id="L56">                    break;</span>
+                case 6:
+<span class="nc" id="L58">                    n = &quot;Garry Kasparov&quot;;</span>
+<span class="nc" id="L59">                    break;</span>
+                case 7:
+<span class="nc" id="L61">                    n = &quot;Alex&quot;;</span>
+<span class="nc" id="L62">                    break;</span>
+                case 8:
+<span class="nc" id="L64">                    n = &quot;Maître des Ténèbres&quot;;</span>
+<span class="nc" id="L65">                    break;</span>
+                default:
+<span class="nc" id="L67">                    n = &quot;Bob&quot;;</span>
+            }
+<span class="fc" id="L69">        } else {</span>
+<span class="fc" id="L70">            n = name.get();</span>
+        }
+<span class="fc" id="L72">        return new AiPlayer(t, n, c);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

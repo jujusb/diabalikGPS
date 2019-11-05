@@ -2,9 +2,16 @@ package diaballik.Players;
 
 import diaballik.Coordinates.ActionCoord;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class HumanPlayer extends Player {
+    @XmlTransient
     private ActionCoord currentAction;
-    private Object sema = new Object();
 
     /**
      * Constructor of HumanPlayer
@@ -14,6 +21,10 @@ public class HumanPlayer extends Player {
      */
     public HumanPlayer(final String n, final boolean c) {
         super(n, c);
+    }
+
+    public HumanPlayer() {
+        super();
     }
 
     /**

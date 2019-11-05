@@ -5,7 +5,161 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7585ac15-bdf7-4991-b90f-6e29ef50b625" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/diaballik/Players/Algorithms/AiAlgoAdaptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/diaballik/Players/PlayerFactoryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/checkstyle-cachefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/checkstyle-checker.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/checkstyle-result.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/Coordinates/ActionCoord.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/Coordinates/Coordinate.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/GameElements/Do.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/GameElements/GameBoard.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/GameElements/Pawn.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/GameElements/Undoable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/Players/AiPlayer$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/Players/AiPlayer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/Players/Algorithms/Algo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/Players/Algorithms/EAiType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/Players/Algorithms/NoobAlgo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/Players/Algorithms/StartingAlgo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/Players/HumanPlayer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/Players/Player.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/Players/PlayerFactory.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/Supervisors/Game.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/resource/GameResource.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/resource/MyExceptionMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/diaballik/resource/Parser.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/swag/favicon-16x16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/swag/favicon-32x32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/swag/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/swag/oauth2-redirect.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/swag/swagger-ui-bundle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/swag/swagger-ui-bundle.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/swag/swagger-ui-standalone-preset.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/swag/swagger-ui-standalone-preset.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/swag/swagger-ui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/swag/swagger-ui.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/swag/swagger-ui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/swag/swagger-ui.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/diaballik-backend-1.1.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/jacoco.exec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/original-diaballik-backend-1.1.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/checkstyle.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/checkstyle.rss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/images/rss.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Coordinates/ActionCoord.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Coordinates/ActionCoord.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Coordinates/Coordinate.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Coordinates/Coordinate.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Coordinates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Coordinates/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.GameElements/Do.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.GameElements/Do.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.GameElements/GameBoard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.GameElements/GameBoard.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.GameElements/Pawn.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.GameElements/Pawn.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.GameElements/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.GameElements/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players.Algorithms/Algo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players.Algorithms/Algo.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players.Algorithms/EAiType.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players.Algorithms/EAiType.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players.Algorithms/NoobAlgo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players.Algorithms/NoobAlgo.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players.Algorithms/StartingAlgo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players.Algorithms/StartingAlgo.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players.Algorithms/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players.Algorithms/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players/AiPlayer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players/AiPlayer.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players/HumanPlayer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players/HumanPlayer.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players/Player.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players/Player.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players/PlayerFactory.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players/PlayerFactory.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Players/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Supervisors/Game.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Supervisors/Game.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Supervisors/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.Supervisors/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.resource/GameResource.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.resource/GameResource.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.resource/MyExceptionMapper.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.resource/MyExceptionMapper.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.resource/Parser.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.resource/Parser.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.resource/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik.resource/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik/Main.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik/Main.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/diaballik/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/branchfc.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/branchnc.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/branchpc.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/bundle.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/class.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/down.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/greenbar.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/group.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/method.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/package.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/prettify.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/prettify.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/redbar.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/report.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/report.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/session.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/sort.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/sort.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/source.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/up.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/spotbugs-exclude.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/spotbugsXml.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-diaballik.Coordinates.ActionCoordTest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-diaballik.Coordinates.CoordinateTest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-diaballik.GameElements.GameBoardTest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-diaballik.GameElements.PawnTest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-diaballik.Players.PlayerFactoryTest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-diaballik.model.TestMarshalling.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-diaballik.resource.TestGameResource.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/diaballik.Coordinates.ActionCoordTest.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/diaballik.Coordinates.CoordinateTest.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/diaballik.GameElements.GameBoardTest.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/diaballik.GameElements.PawnTest.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/diaballik.Players.PlayerFactoryTest.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/diaballik.model.TestMarshalling.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/diaballik.resource.TestGameResource.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/diaballik/Coordinates/ActionCoordTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/diaballik/Coordinates/CoordinateTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/diaballik/GameElements/GameBoardTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/diaballik/GameElements/PawnTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/diaballik/Players/PlayerFactoryTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/diaballik/model/TestMarshalling.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/diaballik/resource/TestGameResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/diaballik/GameElements/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diaballik/GameElements/GameBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/diaballik/Players/AiPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diaballik/Players/AiPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/diaballik/Players/Algorithms/NoobAlgo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diaballik/Players/Algorithms/NoobAlgo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/diaballik/Players/Algorithms/StartingAlgo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diaballik/Players/Algorithms/StartingAlgo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/diaballik/Players/HumanPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diaballik/Players/HumanPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/diaballik/Players/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diaballik/Players/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/diaballik/Supervisors/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diaballik/Supervisors/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/diaballik/GameElements/GameBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/diaballik/GameElements/GameBoardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/diaballik/model/TestMarshalling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/diaballik/model/TestMarshalling.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -32,17 +186,22 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/AiPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="111" column="86" selection-start-line="111" selection-start-column="86" selection-end-line="111" selection-end-column="86" />
+            <state relative-caret-position="-281">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1927#1928#0" expanded="true" />
-                <element signature="e#2131#2132#0" expanded="true" />
-                <element signature="e#2314#2315#0" expanded="true" />
-                <element signature="e#2454#2455#0" expanded="true" />
+                <element signature="e#1592#1593#0" expanded="true" />
+                <element signature="e#1615#1616#0" expanded="true" />
+                <element signature="e#2103#2104#0" expanded="true" />
+                <element signature="e#2143#2144#0" expanded="true" />
+                <element signature="e#2317#2318#0" expanded="true" />
+                <element signature="e#2353#2354#0" expanded="true" />
+                <element signature="e#2497#2498#0" expanded="true" />
+                <element signature="e#2543#2544#0" expanded="true" />
+                <element signature="e#2579#2580#0" expanded="true" />
                 <element signature="e#3002#3003#0" expanded="true" />
                 <element signature="e#3093#3094#0" expanded="true" />
               </folding>
@@ -74,11 +233,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/diaballik/Players/PlayerFactoryTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="26" column="85" selection-start-line="26" selection-start-column="85" selection-end-line="26" selection-end-column="85" />
+            <state relative-caret-position="306">
+              <caret line="28" column="55" selection-start-line="28" selection-start-column="55" selection-end-line="28" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -86,12 +245,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-119">
-              <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+            <state relative-caret-position="51">
+              <caret line="24" column="7" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1985#1986#0" expanded="true" />
-                <element signature="e#2013#2014#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -101,7 +258,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/HumanPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
-              <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+              <caret line="29" column="7" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -155,8 +312,8 @@
         <option value="$PROJECT_DIR$/src/main/java/diaballik/GameElements/GameBoard.java" />
         <option value="$PROJECT_DIR$/src/test/java/diaballik/GameElements/GameBoardTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/diaballik/Players/HumanPlayer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/diaballik/Players/AiPlayer.java" />
         <option value="$PROJECT_DIR$/src/test/java/diaballik/Players/PlayerFactoryTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/diaballik/Players/AiPlayer.java" />
       </list>
     </option>
   </component>
@@ -507,7 +664,7 @@
       <workItem from="1572198802574" duration="4457000" />
       <workItem from="1572271778373" duration="6448000" />
       <workItem from="1572367894859" duration="3673000" />
-      <workItem from="1572975614526" duration="3320000" />
+      <workItem from="1572975614526" duration="4046000" />
     </task>
     <task id="LOCAL-00001" summary="Création des fichiers back-end et des classes de Tests">
       <created>1570089834752</created>
@@ -534,12 +691,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="GameBoardTest_testThreeUndo - 2019.10.29 at 18h 25m 24s.xml">
-      <configuration name="GameBoardTest.testThreeUndo" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GameBoardTest_testThreeUndo - 2019.10.29 at 18h 26m 30s.xml">
-      <configuration name="GameBoardTest.testThreeUndo" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="GameBoardTest_testThreeRedo - 2019.10.29 at 18h 29m 50s.xml">
       <configuration name="GameBoardTest.testThreeRedo" configurationId="JUnit" />
     </history-entry>
@@ -564,9 +715,15 @@
     <history-entry file="PlayerFactoryTest_testCreateAiWithName - 2019.11.05 at 19h 36m 09s.xml">
       <configuration name="PlayerFactoryTest.testCreateAiWithName" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="PlayerFactoryTest_testCreateAiWithName - 2019.11.05 at 19h 36m 13s.xml">
+      <configuration name="PlayerFactoryTest.testCreateAiWithName" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PlayerFactoryTest - 2019.11.05 at 19h 36m 30s.xml">
+      <configuration name="PlayerFactoryTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72718000" />
+    <option name="totallyTimeSpent" value="73444000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -596,7 +753,7 @@
       <window_info anchor="bottom" id="CheckStyle" order="14" weight="0.32569557" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="1" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="2" sideWeight="0.5334346" weight="0.20347957" />
+      <window_info anchor="right" id="Maven" order="2" sideWeight="0.5334346" visible="true" weight="0.20347957" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="right" id="Database" order="5" />
@@ -1015,12 +1172,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-119">
-          <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+        <state relative-caret-position="51">
+          <caret line="24" column="7" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1985#1986#0" expanded="true" />
-            <element signature="e#2013#2014#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1028,7 +1183,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/HumanPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
-          <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+          <caret line="29" column="7" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -1070,22 +1225,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/AiPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="111" column="86" selection-start-line="111" selection-start-column="86" selection-end-line="111" selection-end-column="86" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1927#1928#0" expanded="true" />
-            <element signature="e#2131#2132#0" expanded="true" />
-            <element signature="e#2314#2315#0" expanded="true" />
-            <element signature="e#2454#2455#0" expanded="true" />
-            <element signature="e#3002#3003#0" expanded="true" />
-            <element signature="e#3093#3094#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/PlayerFactory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-527">
@@ -1098,8 +1237,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/diaballik/Players/PlayerFactoryTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="26" column="85" selection-start-line="26" selection-start-column="85" selection-end-line="26" selection-end-column="85" />
+        <state relative-caret-position="306">
+          <caret line="28" column="55" selection-start-line="28" selection-start-column="55" selection-end-line="28" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/diaballik/Players/AiPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-281">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1592#1593#0" expanded="true" />
+            <element signature="e#1615#1616#0" expanded="true" />
+            <element signature="e#2103#2104#0" expanded="true" />
+            <element signature="e#2143#2144#0" expanded="true" />
+            <element signature="e#2317#2318#0" expanded="true" />
+            <element signature="e#2353#2354#0" expanded="true" />
+            <element signature="e#2497#2498#0" expanded="true" />
+            <element signature="e#2543#2544#0" expanded="true" />
+            <element signature="e#2579#2580#0" expanded="true" />
+            <element signature="e#3002#3003#0" expanded="true" />
+            <element signature="e#3093#3094#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

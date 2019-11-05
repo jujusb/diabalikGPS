@@ -122,7 +122,7 @@ public class StartingAlgo extends Algo {
      * @return the heuristic of the move according to the previously given rules
      */
     public Double computeHeuristic(final ActionCoord m, final Player adversary) {
-        board.moveNoCheck(m, true);
+        board.moveNoCheck(m, true, false);
 
         // we have to calculate the move possibilities of the player now to avoid computing it several times
         final List<ActionCoord> ballMoves = calculatePossibleBallMoves(player);

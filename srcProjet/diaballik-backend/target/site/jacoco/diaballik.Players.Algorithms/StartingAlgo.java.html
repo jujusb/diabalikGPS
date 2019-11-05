@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StartingAlgo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">diaballik-backend</a> &gt; <a href="index.source.html" class="el_package">diaballik.Players.Algorithms</a> &gt; <span class="el_source">StartingAlgo.java</span></div><h1>StartingAlgo.java</h1><pre class="source lang-java linenums">package diaballik.Players.Algorithms;
+
+import diaballik.Coordinates.ActionCoord;
+import diaballik.Players.Player;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.HashMap;
+
+public class StartingAlgo extends Algo {
+
+    /**
+     * Coefficient for the sum of the height of the pawns of the adversary
+     */
+    private final double k1;
+
+    /**
+     * Coefficient for the sum of the height of our pawns
+     */
+    private final double k2;
+
+    /**
+     * Coefficient for the number of the possible moves of the adversary
+     */
+    private final double k3;
+
+    /**
+     * Coefficient for the number of our possible moves
+     */
+    private final double k4;
+
+    /**
+     * Coefficient for the proportion of victorious ball moves over our possible ball moves
+     */
+    private final double k5;
+
+    /**
+     * Coefficient for the height of the adversary's ball
+     */
+    private final double k6;
+
+    /**
+     * Coefficient for the height of our ball
+     */
+    private final double k7;
+
+    /**
+     * Constructor of the algorithm
+     *
+     * @param p the IA player.
+     */
+    public StartingAlgo(final Player p) {
+<span class="fc" id="L54">        super(p);</span>
+<span class="fc" id="L55">        k1 = createCoeff(-1.5, 0.5);</span>
+<span class="fc" id="L56">        k2 = createCoeff(-1.5, 0.5);</span>
+<span class="fc" id="L57">        k3 = createCoeff(-2.0, 0.7);</span>
+<span class="fc" id="L58">        k4 = createCoeff(-2.0, 0.7);</span>
+<span class="fc" id="L59">        k5 = createCoeff(60.0, 20.0);</span>
+<span class="fc" id="L60">        k6 = createCoeff(-10.0, 3.4);</span>
+<span class="fc" id="L61">        k7 = createCoeff(-10.0, 3.4);</span>
+<span class="fc" id="L62">    }</span>
+
+    /**
+     * Create a coefficent randomnly by picking a number in a Gauss law distribution
+     * with parameters mean and standard deviation
+     *
+     * @param mean           the mean of your Gaussian Law
+     * @param std_derivation the standard deviation of your Gaussian Law
+     * @return a random coefficient
+     */
+    private double createCoeff(final double mean, final double std_derivation) {
+<span class="fc" id="L73">        final Random ra = new Random();</span>
+<span class="fc" id="L74">        return ra.nextGaussian() * std_derivation + mean;</span>
+    }
+
+    /**
+     * Function which returns a move to execute
+     *
+     * @return an instance of ActionCoord, which defines the movement of the Player
+     */
+    @Override
+    public ActionCoord decideMove() {
+<span class="nc" id="L84">        final Player adversary = board.getHumanPlayer();</span>
+        final List&lt;ActionCoord&gt; moves;
+        final List&lt;ActionCoord&gt; ballMoves;
+
+<span class="nc" id="L88">        final Map&lt;ActionCoord, Double&gt; heuristics = new HashMap&lt;&gt;();</span>
+        //we calculate all the possible moves
+<span class="nc" id="L90">        moves = calculatePossiblePawnMoves(player);</span>
+<span class="nc" id="L91">        ballMoves = calculatePossibleBallMoves(player);</span>
+<span class="nc" id="L92">        moves.addAll(ballMoves);</span>
+        //for each move, we're looking at the heuristic if the move is made, and add it to a list
+<span class="nc" id="L94">        moves.forEach(m -&gt; heuristics.put(m, computeHeuristic(m, adversary)));</span>
+
+        // sorts the move list by the heuristics
+<span class="nc" id="L97">        moves.sort((o1, o2) -&gt; Double.compare(heuristics.get(o1), heuristics.get(o2)));</span>
+
+        //after, we're taking the best move given our heuristic
+        //Check if it's a ball move. If it is, return a random ball move previously calculated
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (board.getPawn(moves.get(0).getSource()).get().isBallOwner()) {</span>
+<span class="nc" id="L102">            final Random rdm = new Random();</span>
+<span class="nc" id="L103">            return ballMoves.get(rdm.nextInt(ballMoves.size()));</span>
+        }
+        //Else, return the best move
+<span class="nc" id="L106">        return moves.get(0);</span>
+    }
+
+    /**
+     * Computes the heuristic of a move
+     * heuristic for a move =
+     * k1 * sum(height of opponent's pawns)      k1&lt;0
+     * + k2 * sum(height of our pawns)       k2&lt;0||k2&gt;0 if we play in a defensive way
+     * + k3 * sum(opponent's possible moves)   k3&lt;0
+     * + k4 * sum(our possible moves)        k4&gt;0
+     * + k5 * proportion of winning ball moves over the possible ball moves  k5&gt;&gt;0
+     * + k6 * height of the ball of the opponent          k6&lt;0
+     * + k7 * height of our ball     k7&lt;0
+     *
+     * @param m         the move we want to examine
+     * @param adversary the adversary of the AI
+     * @return the heuristic of the move according to the previously given rules
+     */
+    public Double computeHeuristic(final ActionCoord m, final Player adversary) {
+<span class="nc" id="L125">        board.moveNoCheck(m, true);</span>
+
+        // we have to calculate the move possibilities of the player now to avoid computing it several times
+<span class="nc" id="L128">        final List&lt;ActionCoord&gt; ballMoves = calculatePossibleBallMoves(player);</span>
+<span class="nc" id="L129">        final List&lt;ActionCoord&gt; moves = calculatePossiblePawnMoves(player);</span>
+<span class="nc" id="L130">        moves.addAll(ballMoves);</span>
+
+
+<span class="nc" id="L133">        final double heuristic = k1 * adversary.heightSum() +</span>
+<span class="nc" id="L134">                k2 * player.heightSum() +</span>
+<span class="nc" id="L135">                k3 * calculatePossibleMoves(adversary).size() +</span>
+<span class="nc" id="L136">                k4 * moves.size() +</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">                k5 * ballMoves.stream().filter(a -&gt; a.getTarget().getPosY() == 0).count() / ballMoves.size() +</span>
+<span class="nc" id="L138">                k6 * adversary.getBall().getPosition().getPosY() +</span>
+<span class="nc" id="L139">                k7 * player.getBall().getPosition().getPosY();</span>
+
+<span class="nc" id="L141">        board.undo();</span>
+
+<span class="nc" id="L143">        return heuristic;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

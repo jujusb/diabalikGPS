@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameResource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">diaballik-backend</a> &gt; <a href="index.source.html" class="el_package">diaballik.resource</a> &gt; <span class="el_source">GameResource.java</span></div><h1>GameResource.java</h1><pre class="source lang-java linenums">package diaballik.resource;
+
+import diaballik.Coordinates.ActionCoord;
+import diaballik.Players.Player;
+import diaballik.Supervisors.Game;
+import io.swagger.annotations.Api;
+
+import javax.inject.Singleton;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.HashMap;
+import java.util.Map;
+
+@Singleton
+@Path(&quot;game&quot;)
+@Api(value = &quot;game&quot;)
+public class GameResource {
+<span class="nc" id="L23">    private Game game = new Game();</span>
+
+    public GameResource() {
+<span class="nc" id="L26">        super();</span>
+<span class="nc" id="L27">    }</span>
+
+    /**
+     * POST /game/newPvP/{name1}/{name2}/{colour1}
+     * Creates a new Player vs Player game with the name of both players and the colour of the first one (the other will have the opposite)
+     */
+    @POST
+    @Path(&quot;/newPvP/{name1}/{name2}/{colour1}&quot;)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createGamePvP(@PathParam(&quot;name1&quot;) final String name1, @PathParam(&quot;colour1&quot;) final String colour1, @PathParam(&quot;name2&quot;) final String name2) {
+<span class="nc" id="L37">        final Map&lt;String, String&gt; gameDescriptor = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L38">        gameDescriptor.put(&quot;namePlayer1&quot;, name1);</span>
+<span class="nc" id="L39">        gameDescriptor.put(&quot;namePlayer2&quot;, name2);</span>
+<span class="nc" id="L40">        gameDescriptor.put(&quot;colourPlayer1&quot;, colour1);</span>
+
+<span class="nc" id="L42">        game.initializeGame(gameDescriptor);</span>
+<span class="nc" id="L43">        game.start();</span>
+
+<span class="nc" id="L45">        return Response.status(Response.Status.OK).entity(game).build();</span>
+    }
+
+    /**
+     * POST /game/newPvE/{name1}/{colour1}/{level}
+     * Creates a new Player vs Entity game with the name and colour of the first player (the name of the second will be random and its colour the opposite) and the AI level
+     */
+    @POST
+    @Path(&quot;/newPvE/{name1}/{colour1}/{level}&quot;)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createGamePvE(@PathParam(&quot;name1&quot;) final String name1, @PathParam(&quot;colour1&quot;) final String colour1, @PathParam(&quot;level&quot;) final String level) {
+<span class="nc" id="L56">        final Map&lt;String, String&gt; gameDescriptor = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L57">        gameDescriptor.put(&quot;namePlayer1&quot;, name1);</span>
+<span class="nc" id="L58">        gameDescriptor.put(&quot;aiLevel&quot;, level);</span>
+<span class="nc" id="L59">        gameDescriptor.put(&quot;colourPlayer1&quot;, colour1);</span>
+
+<span class="nc" id="L61">        game.initializeGame(gameDescriptor);</span>
+<span class="nc" id="L62">        game.start();</span>
+
+<span class="nc" id="L64">        return Response.status(Response.Status.OK).entity(game).build();</span>
+    }
+
+    /**
+     * POST /game/newPvE/{name1}/{name2}/{colour1}/{level}
+     * Creates a new Player vs Entity game with the name of both players and the colour of the first one (the other will have the opposite) and the AI level
+     */
+    @POST
+    @Path(&quot;/newPvE/{name1}/{name2}/{colour1}/{level}&quot;)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createGamePvEWithName(@PathParam(&quot;name1&quot;) final String name1, @PathParam(&quot;colour1&quot;) final String colour1, @PathParam(&quot;name2&quot;) final String name2, @PathParam(&quot;level&quot;) final String level) {
+<span class="nc" id="L75">        final Map&lt;String, String&gt; gameDescriptor = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L76">        gameDescriptor.put(&quot;namePlayer1&quot;, name1);</span>
+<span class="nc" id="L77">        gameDescriptor.put(&quot;namePlayer2&quot;, name2);</span>
+<span class="nc" id="L78">        gameDescriptor.put(&quot;aiLevel&quot;, level);</span>
+<span class="nc" id="L79">        gameDescriptor.put(&quot;colourPlayer1&quot;, colour1);</span>
+
+<span class="nc" id="L81">        game.initializeGame(gameDescriptor);</span>
+<span class="nc" id="L82">        game.start();</span>
+
+<span class="nc" id="L84">        return Response.status(Response.Status.OK).entity(game).build();</span>
+    }
+
+    /**
+     * POST /game/action/move/{x1}/{y1}/{x2}/{y2}
+     * Sends a move proposal to the game so that it checks if it is legal or not and, if so, it will play it
+     */
+    @POST
+    @Path(&quot;/action/move/{x1}/{y1}/{x2}/{y2}&quot;)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response move(@PathParam(&quot;x1&quot;) final String x1, @PathParam(&quot;y1&quot;) final String y1, @PathParam(&quot;x2&quot;) final String x2, @PathParam(&quot;y2&quot;) final String y2) {
+<span class="nc" id="L95">        final ActionCoord move = new ActionCoord(</span>
+<span class="nc" id="L96">                Parser.parseCoordinate(x1, y1),</span>
+<span class="nc" id="L97">                Parser.parseCoordinate(x2, y2));</span>
+<span class="nc" id="L98">        final Player p = game.getCurrentPlayer();</span>
+<span class="nc" id="L99">        final boolean color = game.getCurrentPlayer().getColor();</span>
+
+        // tells the player to try this action and let it tell the game
+<span class="nc" id="L102">        game.moveOfPlayer(move);</span>
+
+        // if it was the last action of the player
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (p.getColor() == color) {</span>
+<span class="nc" id="L106">            return Response.status(Response.Status.OK).entity(game).build();</span>
+        } else {
+            // code to say it is the end of the turn
+<span class="nc" id="L109">            return Response.status(Response.Status.RESET_CONTENT).entity(game).build();</span>
+        }
+    }
+
+    /**
+     * POST /game/endOfTurn
+     * Notifies of the end of the turn of the current playing player
+     */
+    @POST
+    @Path(&quot;/endOfTurn&quot;)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response endOfTurn() {
+<span class="nc" id="L121">        game.endOfTurn();</span>
+        // free the player so that it can tells
+<span class="nc" id="L123">        return Response.status(Response.Status.OK).entity(game).build();</span>
+    }
+
+    /**
+     * PUT /game/action/undo
+     * Sends an undo request
+     */
+    @PUT
+    @Path(&quot;/action/undo&quot;)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response undo() {
+<span class="nc" id="L134">        game.undo();</span>
+<span class="nc" id="L135">        return Response.status(Response.Status.OK).entity(game).build();</span>
+    }
+
+    /**
+     * PUT /game/action/redo
+     * Sends a redo request
+     */
+    @PUT
+    @Path(&quot;/action/redo&quot;)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response redo() {
+<span class="nc" id="L146">        game.redo();</span>
+<span class="nc" id="L147">        return Response.status(Response.Status.OK).entity(game).build();</span>
+    }
+
+    /**
+     * PUT /game/kill
+     * Kills the game
+     */
+    @PUT
+    @Path(&quot;/kill&quot;)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response kill() {
+<span class="nc" id="L158">        game.kill();</span>
+<span class="nc" id="L159">        game = null;</span>
+<span class="nc" id="L160">        return Response.status(Response.Status.OK).entity(game).build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

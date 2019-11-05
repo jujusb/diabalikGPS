@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameBoard.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">diaballik-backend</a> &gt; <a href="index.source.html" class="el_package">diaballik.GameElements</a> &gt; <span class="el_source">GameBoard.java</span></div><h1>GameBoard.java</h1><pre class="source lang-java linenums">package diaballik.GameElements;
+
+import diaballik.Coordinates.ActionCoord;
+import diaballik.Coordinates.Coordinate;
+import diaballik.Players.Player;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+public class GameBoard extends Do {
+    /**
+     * The boundary of the board
+     */
+    private static final int BOUNDARY = 7;
+
+    /**
+     * The queue of an undoable move in case the player want to undo his move
+     */
+    private Deque&lt;ActionCoord&gt; undoable_mode;
+
+    /**
+     * The queue of a redoable moves in case the player want to redo his move undo before
+     */
+    private Deque&lt;ActionCoord&gt; redoable_mode;
+
+    /**
+     * The max size of the 2 queues
+     */
+    private int size_max;
+
+    /**
+     * List of pawn who represent the board
+     */
+    private List&lt;Pawn&gt; board;
+
+    /**
+     * Player 1
+     */
+    private Player player1;
+
+    /**
+     * Player 2
+     */
+    private Player player2;
+
+    /**
+     * constructor of the game
+     *
+     * @param p1 player 1
+     * @param p2 player 2
+     */
+    public GameBoard(final Player p1, final Player p2) {
+<span class="fc" id="L57">        super();</span>
+<span class="fc" id="L58">        undoable_mode = new ArrayDeque&lt;&gt;();</span>
+<span class="fc" id="L59">        redoable_mode = new ArrayDeque&lt;&gt;();</span>
+<span class="fc" id="L60">        size_max = 3;</span>
+<span class="fc" id="L61">        player1 = p1;</span>
+<span class="fc" id="L62">        player2 = p2;</span>
+
+<span class="fc" id="L64">        board = new ArrayList&lt;&gt;(BOUNDARY * BOUNDARY);</span>
+        // initialisation of the board
+        //for raw values with BOUNDARY = 7 : 7,3,7,6,45
+<span class="fc" id="L67">        Stream.iterate(0, n -&gt; n + 1)</span>
+<span class="fc" id="L68">                .limit(BOUNDARY * BOUNDARY)</span>
+<span class="fc" id="L69">                .forEach(n -&gt; {</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">                    if (n &lt; BOUNDARY) {</span>
+<span class="fc" id="L71">                        board.add(n, new Pawn(new Coordinate(n, 0), player1));</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">                    } else if (n &gt; BOUNDARY * (BOUNDARY - 1) - 1) {</span>
+<span class="fc" id="L73">                        board.add(n, new Pawn(new Coordinate(n - (BOUNDARY * (BOUNDARY - 1)), n / (BOUNDARY)), player2));</span>
+                    } else {
+<span class="fc" id="L75">                        board.add(n, null);</span>
+                    }
+<span class="fc" id="L77">                });</span>
+<span class="fc" id="L78">        getPawn(new Coordinate(Math.floorDiv(BOUNDARY, 2), 0)).get().setBallOwner(true); // top-middle</span>
+<span class="fc" id="L79">        getPawn(new Coordinate(Math.floorDiv(BOUNDARY, 2), BOUNDARY - 1)).get().setBallOwner(true); // bottom-middle*/</span>
+<span class="fc" id="L80">    }</span>
+
+    /**
+     * Get Human Player
+     */
+    public Player getHumanPlayer() {
+<span class="fc" id="L86">        return player1;</span>
+    }
+
+    /**
+     * Function which returns the pawn to the present coordinates. Returns null if the
+     * present coordinates are false (in the sense of function checkCoord(Coordinate)), and if
+     * there is no pawn at these coordinates on the board.
+     *
+     * @param c the chosen coordinates
+     * @return the pawn if he found him else return null
+     */
+    public Optional&lt;Pawn&gt; getPawn(final Coordinate c) {
+        //No check for out of bound ?And what if the pawn returned is null ?
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        final Pawn p = checkCoord(c) ? board.get(c.getPosY() * BOUNDARY + c.getPosX()) : null;</span>
+<span class="fc" id="L100">        return Optional.ofNullable(p);</span>
+    }
+
+    /**
+     * Method which moves the specified pawn if the move is correct
+     *
+     * @param p      the current player
+     * @param coords the coordinates of the source and the target
+     * @return true if the move went well false otherwise
+     */
+    @Override
+    public boolean move(final Player p, final ActionCoord coords) {
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        if (canMove(p, coords)) {</span>
+<span class="fc" id="L113">            moveNoCheck(coords, true);</span>
+<span class="fc" id="L114">            return true;</span>
+        }
+<span class="fc" id="L116">        return false;</span>
+    }
+
+    /**
+     * Execute the move represented by the ActionCoord and update the board.
+     * The move to do must be valid because NO tests are made on this function.
+     *
+     * @param coords an ActionCoord which represents the move to make
+     * @param save   true if we have to save the move in the undo list, false otherwise
+     */
+    public void moveNoCheck(final ActionCoord coords, final boolean save) {
+<span class="fc" id="L127">        final Pawn source = getPawn(coords.getSource()).get();</span>
+
+        // checks if the ball moves or if it is a pawn
+<span class="fc bfc" id="L130" title="All 2 branches covered.">        if (source.isBallOwner()) {</span>
+            // it is a ball move
+<span class="fc" id="L132">            final Pawn dest = getPawn(coords.getTarget()).get();</span>
+<span class="fc" id="L133">            dest.setBallOwner(true);</span>
+<span class="fc" id="L134">            source.setBallOwner(false);</span>
+            //Update of the reference of ball for the current Player
+<span class="fc" id="L136">            dest.getPlayer().setBall(dest);</span>
+            //No need to update the board
+<span class="fc" id="L138">        } else {</span>
+            // it is a pawn move
+<span class="fc" id="L140">            source.setPosition(coords.getTarget());</span>
+            //Update of board
+<span class="fc" id="L142">            board.set(coords.getSource().getPosX() + coords.getSource().getPosY() * 7, null);</span>
+<span class="fc" id="L143">            board.set(coords.getTarget().getPosX() + coords.getTarget().getPosY() * 7, source);</span>
+        }
+<span class="fc bfc" id="L145" title="All 2 branches covered.">        if (save) {</span>
+<span class="fc" id="L146">            this.addUndo(coords);</span>
+        }
+<span class="fc" id="L148">    }</span>
+
+
+    /**
+     * Verify if the move to do is OK
+     *
+     * @param p      the current player
+     * @param coords the coordinate of the source and the target
+     * @return true if OK false otherwise
+     */
+    @Override
+    public boolean canMove(final Player p, final ActionCoord coords) {
+
+<span class="fc" id="L161">        final Optional&lt;Pawn&gt; optSource = getPawn(coords.getSource());</span>
+        final Pawn source;
+
+<span class="pc bpc" id="L164" title="1 of 4 branches missed.">        if (!checkCoord(coords.getSource()) || !checkCoord(coords.getTarget())) {</span>
+<span class="fc" id="L165">            throw new IndexOutOfBoundsException(&quot;The coordinates are not in the gameboard&quot;);</span>
+        }
+
+        // checks that there is a pawn at source coordinates and that it is a &quot;friendly&quot; pawn
+<span class="pc bpc" id="L169" title="2 of 4 branches missed.">        if (optSource.isPresent() &amp;&amp; optSource.get().getPlayer() == p) {</span>
+<span class="fc" id="L170">            source = optSource.get();</span>
+
+            // checks if the ball moves or if it is a pawn
+<span class="fc bfc" id="L173" title="All 2 branches covered.">            if (source.isBallOwner()) {</span>
+                // it is a ball move
+<span class="fc" id="L175">                final Optional&lt;Pawn&gt; optDest = getPawn(coords.getTarget());</span>
+                // checks that there is a pawn at target coordinates and that it is a &quot;friendly&quot; pawn
+<span class="fc bfc" id="L177" title="All 4 branches covered.">                if (optDest.isPresent() &amp;&amp; optDest.get().getPlayer().equals(p)) {</span>
+<span class="fc" id="L178">                    final Pawn dest = optDest.get();</span>
+<span class="fc" id="L179">                    return canMoveBall(source, dest);</span>
+                }
+<span class="fc" id="L181">            } else {</span>
+                // it is a pawn move
+<span class="fc bfc" id="L183" title="All 2 branches covered.">                if (getPawn(coords.getTarget()).isEmpty()) {</span>
+                    // checks that the source and target are at an absolute distance of 1 (i.e. they are neighbors)
+<span class="fc bfc" id="L185" title="All 2 branches covered.">                    if (coords.getTarget().absoluteDistance(coords.getSource()) == 1) {</span>
+<span class="fc" id="L186">                        return true;</span>
+                    }
+                }
+            }
+        }
+<span class="fc" id="L191">        return false;</span>
+    }
+
+
+    /**
+     * Checks if we can move the ball from source to dest. Be sure that source
+     * and destination belongs to the same Player, because this condition is not
+     * tested.
+     *
+     * @param source      the source pawn, it is the pawn who carries the ball
+     * @param destination the ball catcher
+     * @return true if we can move the ball or false otherwise
+     */
+    public boolean canMoveBall(final Pawn source, final Pawn destination) {
+<span class="fc bfc" id="L205" title="All 2 branches covered.">        if (destination.getPosition().sameDiagonal(source.getPosition())</span>
+<span class="fc bfc" id="L206" title="All 2 branches covered.">                || destination.getPosition().sameHorizontal(source.getPosition())</span>
+<span class="fc bfc" id="L207" title="All 2 branches covered.">                || destination.getPosition().sameVertical(source.getPosition())) {</span>
+
+<span class="fc" id="L209">            final Coordinate sourceCo = (Coordinate) source.getPosition().clone();</span>
+
+            // checks that no object can be found between the two pawns
+<span class="fc" id="L212">            return Stream.iterate(0, n -&gt; n + 1)</span>
+                    // defines the quantity of moves that are necessary to check the line/diagonal. These two cases are different
+<span class="fc bfc" id="L214" title="All 2 branches covered.">                    .limit(destination.getPosition().sameDiagonal(source.getPosition()) ?</span>
+<span class="fc" id="L215">                            (destination.getPosition().absoluteDistance(source.getPosition()) / 2) - 1 :</span>
+<span class="fc" id="L216">                            destination.getPosition().absoluteDistance(source.getPosition()) - 1)</span>
+                    // checks that no object can be found on the line between source and target, that can whether be a diagonal or a &quot;simple line&quot;
+<span class="fc" id="L218">                    .noneMatch(n -&gt; {</span>
+<span class="fc" id="L219">                        final int deltaY = Integer.compare(destination.getPosition().getPosY(), source.getPosition().getPosY());</span>
+<span class="fc" id="L220">                        final int deltaX = Integer.compare(destination.getPosition().getPosX(), source.getPosition().getPosX());</span>
+<span class="fc" id="L221">                        sourceCo.moveOf(deltaX, deltaY);</span>
+<span class="fc" id="L222">                        return getPawn(sourceCo).isPresent();</span>
+                    });
+        }
+<span class="fc" id="L225">        return false;</span>
+    }
+
+    /**
+     * To add to the list of UNDOABLEs
+     *
+     * @param u the action we just done
+     */
+    public void addUndo(final ActionCoord u) {
+<span class="fc bfc" id="L234" title="All 2 branches covered.">        if (undoable_mode.size() == size_max) {</span>
+<span class="fc" id="L235">            undoable_mode.removeLast();</span>
+        }
+<span class="fc" id="L237">        redoable_mode.clear();</span>
+<span class="fc" id="L238">        undoable_mode.push(u);</span>
+<span class="fc" id="L239">    }</span>
+
+    /**
+     * Undoable a move
+     */
+    @Override
+    public void undo() {
+<span class="pc bpc" id="L246" title="1 of 2 branches missed.">        if (!undoable_mode.isEmpty()) {</span>
+<span class="fc" id="L247">            final ActionCoord undoable = undoable_mode.pop();</span>
+<span class="fc" id="L248">            undoable.invert();</span>
+<span class="fc" id="L249">            moveNoCheck(undoable, false);</span>
+<span class="fc" id="L250">            redoable_mode.push(undoable);</span>
+        }
+<span class="fc" id="L252">    }</span>
+
+    /**
+     * Redo a move after the undo : Return to the target coordinate after the undo
+     */
+    @Override
+    public void redo() {
+<span class="fc bfc" id="L259" title="All 2 branches covered.">        if (!redoable_mode.isEmpty()) {</span>
+<span class="fc" id="L260">            final ActionCoord redoable = redoable_mode.pop();</span>
+<span class="fc" id="L261">            redoable.invert(); //TODO read below</span>
+<span class="fc" id="L262">            moveNoCheck(redoable, true); // shall save be set to true ?</span>
+        }
+<span class="fc" id="L264">    }</span>
+
+    /**
+     * Checks that the coordinates are within the board
+     *
+     * @param c the coordinates we have to check
+     * @return true if the coordinate is ok and false otherwise
+     */
+    public boolean checkCoord(final Coordinate c) {
+<span class="fc bfc" id="L273" title="All 8 branches covered.">        return c.getPosY() &lt; BOUNDARY &amp;&amp; c.getPosY() &gt;= 0 &amp;&amp; c.getPosX() &lt; BOUNDARY &amp;&amp; c.getPosX() &gt;= 0;</span>
+    }
+
+    /**
+     * Checks if a player has won
+     *
+     * @return true if someone has won false otherwise
+     */
+    public Boolean checkIfWon() {
+<span class="fc bfc" id="L282" title="All 2 branches covered.">        if (player1.getBall().getPosition().getPosY() == 6) {</span>
+<span class="fc" id="L283">            return true;</span>
+        }
+<span class="fc bfc" id="L285" title="All 2 branches covered.">        if (player2.getBall().getPosition().getPosY() == 0) {</span>
+<span class="fc" id="L286">            return true;</span>
+        }
+<span class="fc" id="L288">        return false;</span>
+    }
+
+    public String playerPawnCoordinates() {
+<span class="fc" id="L292">        final String[] aux = {&quot;&quot;};</span>
+<span class="fc" id="L293">        aux[0] += &quot;Player 1\n&quot;;</span>
+<span class="fc" id="L294">        player1.getPawns().stream().forEach(p -&gt; aux[0] += p.getPosition() + &quot;\n&quot;);</span>
+<span class="fc" id="L295">        aux[0] += &quot;Player 2\n&quot;;</span>
+<span class="fc" id="L296">        player2.getPawns().stream().forEach(p -&gt; aux[0] += p.getPosition() + &quot;\n&quot;);</span>
+<span class="fc" id="L297">        return aux[0];</span>
+    }
+
+    public Deque&lt;ActionCoord&gt; getUndoable_mode() {
+<span class="fc" id="L301">        return undoable_mode;</span>
+    }
+
+    public Deque&lt;ActionCoord&gt; getRedoable_mode() {
+<span class="fc" id="L305">        return redoable_mode;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

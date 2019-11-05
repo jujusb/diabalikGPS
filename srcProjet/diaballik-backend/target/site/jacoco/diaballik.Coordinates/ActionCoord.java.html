@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ActionCoord.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">diaballik-backend</a> &gt; <a href="index.source.html" class="el_package">diaballik.Coordinates</a> &gt; <span class="el_source">ActionCoord.java</span></div><h1>ActionCoord.java</h1><pre class="source lang-java linenums">package diaballik.Coordinates;
+
+import java.util.Objects;
+
+/**
+ * class ActionCoord
+ * A pair of Coordinate representing a move on the GameBoard.
+ * @see Coordinate
+ */
+public class ActionCoord {
+
+    /**
+     *  The Coordinate of the Pawn to move
+     */
+    private Coordinate source;
+
+    /**
+     * The Coordinate where we want the Pawn to go
+     */
+    private Coordinate target;
+
+    /**
+     * Constructor of the class
+     * @param s the Coordinate of the Pawn to move
+     * @param t the Coordinate where we want the Pawn to go
+     */
+<span class="fc" id="L27">    public ActionCoord(final Coordinate s, final Coordinate t) {</span>
+<span class="fc" id="L28">        source = s;</span>
+<span class="fc" id="L29">        target = t;</span>
+<span class="fc" id="L30">    }</span>
+
+    /**
+     * Getter of source
+     * @return  source as a Coordinate
+     * @link ActionCoord.source
+     */
+    public Coordinate getSource() {
+<span class="fc" id="L38">        return source;</span>
+    }
+
+    /**
+     * Getter of target
+     * @return  target as a Coordinate
+     * @link ActionCoord.target
+     */
+    public Coordinate getTarget() {
+<span class="fc" id="L47">        return target;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L52">        return &quot;ActionCoord {&quot; +</span>
+                &quot;source =&quot; + source +
+                &quot; ; target=&quot; + target +
+                '}';
+    }
+
+
+    /**
+     * Invert the source and the target
+     */
+    public void invert() {
+<span class="fc" id="L63">        final Coordinate tmp = getSource();</span>
+<span class="fc" id="L64">        this.source = target;</span>
+<span class="fc" id="L65">        this.target = tmp;</span>
+<span class="fc" id="L66">    }</span>
+
+    @Override
+    public boolean equals(final Object o) {
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        if (this == o) {</span>
+<span class="nc" id="L71">            return true;</span>
+        }
+<span class="pc bpc" id="L73" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L74">            return false;</span>
+        }
+<span class="fc" id="L76">        final ActionCoord that = (ActionCoord) o;</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        return source.equals(that.getSource()) &amp;&amp;</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">                target.equals(that.getTarget());</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L83">        return Objects.hash(source, target);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -225,7 +225,7 @@ public class Game {
                 // swaps the AI algorithm if we have a progressive AI
                 ((AiPlayer) currentPlayer).swap();
                 Stream.iterate(0, i -> i < nbActionsPerTurn, i -> i + 1)
-                        .forEach(i -> gameBoard.moveNoCheck(((AiPlayer) currentPlayer).getMove(), true));
+                        .forEach(i -> gameBoard.moveNoCheck(((AiPlayer) currentPlayer).getMove(), true, true));
                 swapPlayer();
             }
         }

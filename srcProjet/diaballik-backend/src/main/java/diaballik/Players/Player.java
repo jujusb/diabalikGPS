@@ -2,10 +2,20 @@ package diaballik.Players;
 
 import diaballik.GameElements.Pawn;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@XmlRootElement
+// Should consider the attributes during the marshalling
+@XmlAccessorType(XmlAccessType.FIELD)
+// We have to identify the sub-classes to help the marshalling
+@XmlSeeAlso({HumanPlayer.class, AiPlayer.class})
 /**
  * class Player
  * Class used to specify the parameters and functions of a Player
@@ -26,11 +36,13 @@ public abstract class Player {
     /**
      * The different pawns a Player owns. The ball is included in this List.
      */
+    @XmlTransient
     List<Pawn> pawns; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
 
     /**
      * The Pawn which possesses the ball
      */
+    @XmlTransient
     Pawn ball; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
 
     /**
@@ -44,6 +56,13 @@ public abstract class Player {
         colour = c;
         pawns = new ArrayList<Pawn>();
         ball = null;
+    }
+
+    /**
+     * Consturctor of Player. The marshalling library we use require a default constructor (no arg).
+     */
+    Player() {
+        this(null, true);
     }
 
     /**
@@ -72,7 +91,6 @@ public abstract class Player {
     public void addPawn(final Pawn p) {
         pawns.add(p);
     }
-
 
 
     /**
