@@ -279,16 +279,10 @@ public class GameBoard extends Do {
      * @return true if someone has won false otherwise
      */
     public Boolean checkIfWon() {
-        if (player1
-                .getPawns()
-                .parallelStream()
-                .anyMatch(p -> p.getPosition().getPosY() == 6)) {
+        if (player1.getBall().getPosition().getPosY() == 6) {
             return true;
         }
-        if (player2
-                .getPawns()
-                .parallelStream()
-                .anyMatch(p -> p.getPosition().getPosY() == 0)) {
+        if (player2.getBall().getPosition().getPosY() == 0) {
             return true;
         }
         return false;
