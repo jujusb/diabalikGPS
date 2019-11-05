@@ -1,35 +1,25 @@
 package diaballik.Players.Algorithms;
 
-import diaballik.Players.Player;
-
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class AiAlgoAdaptor extends XmlAdapter<Integer, Algo> {
-    Player p;
+public class AiAlgoAdaptor extends XmlAdapter<String, Algo> {
+    Algo a;
 
     @Override
-    public Algo unmarshal(final Integer scenarioId) {
-        switch (scenarioId) {
-            case 1:
-                return new StartingAlgo(p);
-            // etc.
-            default:
-                return new NoobAlgo(p);
-        }
+    public Algo unmarshal(final String scenarioId) {
+        return a;
     }
 
     @Override
-    public Integer marshal(final Algo scenario) {
+    public String marshal(final Algo scenario) {
+        a = scenario;
         if (scenario instanceof NoobAlgo) {
-            p = scenario.player;
-            return 0;
+            return "Noob";
         }
         if (scenario instanceof StartingAlgo) {
-            p = scenario.player;
-            return 1;
+            return "Starting";
         }
         // etc.
-        p = scenario.player;
-        return 0;
+        return "Progressive";
     }
 }

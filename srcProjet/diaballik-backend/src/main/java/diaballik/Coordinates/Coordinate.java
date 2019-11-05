@@ -1,11 +1,16 @@
 package diaballik.Coordinates;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
  * @class Coordinate
  * Class used to handle the coordinates of the pawns in the game
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Coordinate implements Cloneable {
 
     /**
@@ -26,6 +31,8 @@ public class Coordinate implements Cloneable {
     public Coordinate(final int posX, final int posY) {
         this.posX = posX;
         this.posY = posY;
+    }
+    public Coordinate() {
     }
 
     /**

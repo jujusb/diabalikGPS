@@ -2,11 +2,13 @@ package diaballik.Players;
 
 import diaballik.Coordinates.ActionCoord;
 import diaballik.GameElements.GameBoard;
+import diaballik.Players.Algorithms.AiAlgoAdaptor;
 import diaballik.Players.Algorithms.Algo;
 import diaballik.Players.Algorithms.EAiType;
 import diaballik.Players.Algorithms.NoobAlgo;
 import diaballik.Players.Algorithms.StartingAlgo;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
 
@@ -14,17 +16,19 @@ public class AiPlayer extends Player {
     /**
      * The algorithm used to determine a move
      */
-    @XmlTransient
+    @XmlJavaTypeAdapter(AiAlgoAdaptor.class)
     private Algo algo;
 
     /**
      * Symbolizes the number of turns played
      */
+    @XmlTransient
     private int currentTurn = 0;
 
     /**
      * Indicates at which turn the algorithm should swap
      */
+    @XmlTransient
     private int TURNS_BEFORE_SWAP;
 
     /**

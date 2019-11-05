@@ -10,6 +10,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import diaballik.Coordinates.ActionCoord;
+import diaballik.Coordinates.Coordinate;
+import diaballik.GameElements.Pawn;
 import diaballik.Players.AiPlayer;
 import diaballik.Players.Algorithms.EAiType;
 import diaballik.Players.HumanPlayer;
@@ -49,11 +52,19 @@ public class TestMarshalling {
 
     Player p1;
     Player p2;
+    Coordinate c1;
+    Coordinate c2;
+    ActionCoord ac;
+    Pawn pawn1;
 
     @BeforeEach
     void setUp() {
         p1 = new HumanPlayer("foo", true);
-        p2 = new AiPlayer(EAiType.NOOB,"foo", true);
+        p2 = new AiPlayer(EAiType.NOOB, "foo", true);
+        c1 = new Coordinate(0, 0);
+        c2 = new Coordinate(0, 1);
+        ac = new ActionCoord(c1, c2);
+        pawn1 = new Pawn(c2,p1);
     }
 
     @Test
@@ -63,10 +74,34 @@ public class TestMarshalling {
         assertTrue(p.getColor());
     }
 
-//    @Test
-//    void testAiPlayer() throws IOException, JAXBException {
-//        final Player p = marshall(p2);
-//        assertEquals("foo", p.getName());
-//        assertTrue(p.getColor());
-//    }
+    @Test
+    void testAiPlayer() throws IOException, JAXBException {
+        final Player p = marshall(p2);
+        assertEquals("foo", p.getName());
+        assertTrue(p.getColor());
+    }
+
+    @Test
+    void testCoordinate() throws IOException, JAXBException {
+        final Coordinate c = marshall(c2);
+        assertEquals(0, c2.getPosX());
+        assertEquals(1, c2.getPosY());
+    }
+
+
+    @Test
+    void testActionCoord() throws IOException, JAXBException {
+        final ActionCoord c = marshall(ac);
+        assertEquals(c1, ac.getSource());
+        assertEquals(c2, ac.getTarget());
+    }
+
+    @Test
+    void testPawn() throws IOException, JAXBException {
+        pawn1.setBallOwner(true);
+        final Pawn p = marshall(pawn1);
+        assertEquals(p.getPlayer(), p1);
+        assertEquals(p.getPosition(),c2);
+        assertTrue(p.isBallOwner());
+    }
 }

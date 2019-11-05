@@ -2,11 +2,19 @@ package diaballik.GameElements;
 
 import diaballik.Coordinates.Coordinate;
 import diaballik.Players.Player;
+import diaballik.Players.PlayerAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * class Pawn
  * Class used to modelize a pawn on the GameBoard
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Pawn {
 
     /**
@@ -22,6 +30,7 @@ public class Pawn {
     /**
      * The player who owns the pawn
      */
+    @XmlJavaTypeAdapter(PlayerAdapter.class)
     private Player player;
 
     /**
@@ -38,6 +47,8 @@ public class Pawn {
         player.addPawn(this);
     }
 
+    public Pawn() {
+    }
     /**
      * Getter of position
      *

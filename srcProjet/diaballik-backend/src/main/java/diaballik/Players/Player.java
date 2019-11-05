@@ -1,5 +1,6 @@
 package diaballik.Players;
 
+import diaballik.GameElements.BallAdapter;
 import diaballik.GameElements.Pawn;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -7,6 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,13 +38,12 @@ public abstract class Player {
     /**
      * The different pawns a Player owns. The ball is included in this List.
      */
-    @XmlTransient
     List<Pawn> pawns; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
 
     /**
      * The Pawn which possesses the ball
      */
-    @XmlTransient
+    @XmlJavaTypeAdapter(BallAdapter.class)
     Pawn ball; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
 
     /**
@@ -62,7 +63,6 @@ public abstract class Player {
      * Consturctor of Player. The marshalling library we use require a default constructor (no arg).
      */
     Player() {
-        this(null, true);
     }
 
     /**

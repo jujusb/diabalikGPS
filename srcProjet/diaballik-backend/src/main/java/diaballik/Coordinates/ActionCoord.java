@@ -1,5 +1,8 @@
 package diaballik.Coordinates;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
@@ -7,6 +10,8 @@ import java.util.Objects;
  * A pair of Coordinate representing a move on the GameBoard.
  * @see Coordinate
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ActionCoord {
 
     /**
@@ -27,6 +32,9 @@ public class ActionCoord {
     public ActionCoord(final Coordinate s, final Coordinate t) {
         source = s;
         target = t;
+    }
+    
+    public ActionCoord() {
     }
 
     /**
