@@ -63,7 +63,7 @@ public class Game {
 
         // the player1 is always human
         String name = game.get("namePlayer1");
-        boolean colour = Boolean.getBoolean(game.get("colourPlayer1"));
+        final boolean colour = Boolean.getBoolean(game.get("colourPlayer1"));
         player1 = pf.createHuman(name, colour);
 
         final String typePlayer2 = game.getOrDefault("aiLevel", null);
