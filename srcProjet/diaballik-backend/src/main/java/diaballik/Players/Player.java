@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.Objects;
 // Should consider the attributes during the marshalling
 @XmlAccessorType(XmlAccessType.FIELD)
 // We have to identify the sub-classes to help the marshalling
-@XmlSeeAlso({HumanPlayer.class, AiPlayer.class})
+@XmlSeeAlso({AiPlayer.class, HumanPlayer.class})
 /**
  * class Player
  * Class used to specify the parameters and functions of a Player

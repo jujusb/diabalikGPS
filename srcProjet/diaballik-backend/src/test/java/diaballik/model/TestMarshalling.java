@@ -12,6 +12,7 @@ import javax.xml.bind.Unmarshaller;
 
 import diaballik.Coordinates.ActionCoord;
 import diaballik.Coordinates.Coordinate;
+import diaballik.GameElements.GameBoard;
 import diaballik.GameElements.Pawn;
 import diaballik.Players.AiPlayer;
 import diaballik.Players.Algorithms.EAiType;
@@ -52,19 +53,23 @@ public class TestMarshalling {
 
     Player p1;
     Player p2;
+    Player p3;
     Coordinate c1;
     Coordinate c2;
     ActionCoord ac;
     Pawn pawn1;
+    GameBoard board;
 
     @BeforeEach
     void setUp() {
         p1 = new HumanPlayer("foo", true);
-        p2 = new AiPlayer(EAiType.NOOB, "foo", true);
+        p3 = new HumanPlayer("Zack", true);
+        p2 = new AiPlayer(EAiType.PROGRESSIVE, "foo", false);
         c1 = new Coordinate(0, 0);
         c2 = new Coordinate(0, 1);
         ac = new ActionCoord(c1, c2);
-        pawn1 = new Pawn(c2,p1);
+        pawn1 = new Pawn(c2,p3);
+        board = new GameBoard(p1,p2);
     }
 
     @Test
@@ -100,8 +105,15 @@ public class TestMarshalling {
     void testPawn() throws IOException, JAXBException {
         pawn1.setBallOwner(true);
         final Pawn p = marshall(pawn1);
-        assertEquals(p.getPlayer(), p1);
+        assertEquals(p.getPlayer(), p3);
         assertEquals(p.getPosition(),c2);
         assertTrue(p.isBallOwner());
+    }
+
+    @Test
+    void testGameBoard() throws IOException, JAXBException {
+        final GameBoard g = marshall(board);
+        assertEquals(board.getUndoable_mode(),g.getUndoable_mode());
+        assertEquals(board.getRedoable_mode(),g.getRedoable_mode());
     }
 }

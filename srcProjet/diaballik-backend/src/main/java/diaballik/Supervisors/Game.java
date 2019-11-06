@@ -66,19 +66,17 @@ public class Game {
         boolean colour = Boolean.getBoolean(game.get("colourPlayer1"));
         player1 = pf.createHuman(name, colour);
 
-        colour = !colour; // the other player has the opposite color of the first one
-
         final String typePlayer2 = game.getOrDefault("aiLevel", null);
 
         // for the second player we have to check whether he is human or not
         if (typePlayer2 == null) {
             // we have a human
             name = game.get("namePlayer2");
-            player2 = pf.createHuman(name, colour);
+            player2 = pf.createHuman(name, !colour);
         } else {
             // we have an AI
             name = game.get("namePlayer2");
-            player2 = pf.createAi(typePlayer2, colour, Optional.ofNullable(name));
+            player2 = pf.createAi(typePlayer2, !colour, Optional.ofNullable(name));
         }
 
         gameBoard = new GameBoard(player1, player2);

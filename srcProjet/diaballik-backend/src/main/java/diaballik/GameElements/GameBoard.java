@@ -4,6 +4,11 @@ import diaballik.Coordinates.ActionCoord;
 import diaballik.Coordinates.Coordinate;
 import diaballik.Players.Player;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -11,7 +16,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class GameBoard extends Do {
+
     /**
      * The boundary of the board
      */
@@ -20,16 +28,19 @@ public class GameBoard extends Do {
     /**
      * The queue of an undoable move in case the player want to undo his move
      */
+    @XmlJavaTypeAdapter(UndoableDequeAdaptor.class)
     private Deque<ActionCoord> undoable_mode;
 
     /**
      * The queue of a redoable moves in case the player want to redo his move undo before
-     */
+    */
+    @XmlJavaTypeAdapter(RedoableDequeAdaptor.class)
     private Deque<ActionCoord> redoable_mode;
 
     /**
      * The max size of the 2 queues
      */
+    @XmlTransient
     private int size_max;
 
     /**
@@ -40,11 +51,13 @@ public class GameBoard extends Do {
     /**
      * Player 1
      */
+    @XmlTransient
     private Player player1;
 
     /**
      * Player 2
      */
+    @XmlTransient
     private Player player2;
 
     /**
@@ -77,6 +90,9 @@ public class GameBoard extends Do {
                 });
         getPawn(new Coordinate(Math.floorDiv(BOUNDARY, 2), 0)).get().setBallOwner(true); // top-middle
         getPawn(new Coordinate(Math.floorDiv(BOUNDARY, 2), BOUNDARY - 1)).get().setBallOwner(true); // bottom-middle*/
+    }
+
+    public GameBoard() {
     }
 
     /**

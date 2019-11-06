@@ -1,5 +1,7 @@
 package diaballik.Players.Algorithms;
 
+import diaballik.Players.AiPlayer;
+
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 public class AiAlgoAdaptor extends XmlAdapter<String, Algo> {
@@ -13,13 +15,13 @@ public class AiAlgoAdaptor extends XmlAdapter<String, Algo> {
     @Override
     public String marshal(final Algo scenario) {
         a = scenario;
-        if (scenario instanceof NoobAlgo) {
-            return "Noob";
+        if (((AiPlayer) a.player).getTURNS_BEFORE_SWAP() == -1) {
+            if (scenario instanceof NoobAlgo) {
+                return "Noob";
+            } else if (scenario instanceof StartingAlgo) {
+                return "Starting";
+            }
         }
-        if (scenario instanceof StartingAlgo) {
-            return "Starting";
-        }
-        // etc.
         return "Progressive";
     }
 }

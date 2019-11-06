@@ -7,11 +7,17 @@ import diaballik.Players.Algorithms.Algo;
 import diaballik.Players.Algorithms.EAiType;
 import diaballik.Players.Algorithms.NoobAlgo;
 import diaballik.Players.Algorithms.StartingAlgo;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class AiPlayer extends Player {
     /**
      * The algorithm used to determine a move
@@ -32,16 +38,23 @@ public class AiPlayer extends Player {
     private int TURNS_BEFORE_SWAP;
 
     /**
+     * Getter of the turn the algorithm should swap
+     */
+    public int getTURNS_BEFORE_SWAP() {
+        return TURNS_BEFORE_SWAP;
+    }
+
+    /**
      * Constructor of AiPlayer
      *
-     * @param type the type of the AiPlayer with the EAiTyoe format
-     * @param n    the name of the AiPlayer
-     * @param c    the colour of the AiPlayer
+     * @param t the type of the AiPlayer with the EAiTyoe format
+     * @param n the name of the AiPlayer
+     * @param c the colour of the AiPlayer
      */
-    public AiPlayer(final EAiType type, final String n, final boolean c) {
+    public AiPlayer(final EAiType t, final String n, final boolean c) {
         super(n, c);
         currentTurn = 0;
-        switch (type) {
+        switch (t) {
             case NOOB:
                 algo = new NoobAlgo(this);
                 TURNS_BEFORE_SWAP = -1;
