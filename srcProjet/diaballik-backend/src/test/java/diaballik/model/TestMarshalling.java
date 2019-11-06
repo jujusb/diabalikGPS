@@ -18,13 +18,13 @@ import diaballik.Players.AiPlayer;
 import diaballik.Players.Algorithms.EAiType;
 import diaballik.Players.HumanPlayer;
 import diaballik.Players.Player;
+import diaballik.Supervisors.Game;
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.eclipse.persistence.jaxb.JAXBContextProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class TestMarshalling {
@@ -59,17 +59,18 @@ public class TestMarshalling {
     ActionCoord ac;
     Pawn pawn1;
     GameBoard board;
+    Game game;
 
     @BeforeEach
     void setUp() {
         p1 = new HumanPlayer("foo", true);
-        p3 = new HumanPlayer("Zack", true);
         p2 = new AiPlayer(EAiType.PROGRESSIVE, "foo", false);
+        p3 = new HumanPlayer("Zack", true);
         c1 = new Coordinate(0, 0);
         c2 = new Coordinate(0, 1);
         ac = new ActionCoord(c1, c2);
-        pawn1 = new Pawn(c2,p3);
-        board = new GameBoard(p1,p2);
+        pawn1 = new Pawn(c2, p3);
+        game = new Game(p1, p2);
     }
 
     @Test
@@ -83,7 +84,7 @@ public class TestMarshalling {
     void testAiPlayer() throws IOException, JAXBException {
         final Player p = marshall(p2);
         assertEquals("foo", p.getName());
-        assertTrue(p.getColor());
+        assertFalse(p.getColor());
     }
 
     @Test
@@ -106,14 +107,23 @@ public class TestMarshalling {
         pawn1.setBallOwner(true);
         final Pawn p = marshall(pawn1);
         assertEquals(p.getPlayer(), p3);
-        assertEquals(p.getPosition(),c2);
+        assertEquals(p.getPosition(), c2);
         assertTrue(p.isBallOwner());
     }
 
     @Test
     void testGameBoard() throws IOException, JAXBException {
+        board = new GameBoard(p1, p2);
+        board.getUndoable_mode().add(ac);
+        board.getRedoable_mode().add(ac);
         final GameBoard g = marshall(board);
-        assertEquals(board.getUndoable_mode(),g.getUndoable_mode());
-        assertEquals(board.getRedoable_mode(),g.getRedoable_mode());
+        assertEquals(board.getUndoable_mode().size(), g.getUndoable_mode().size());
+        assertEquals(board.getRedoable_mode().size(), g.getRedoable_mode().size());
+    }
+
+    @Test
+    void testGame() throws IOException, JAXBException {
+        final Game g = marshall(game);
+        assertEquals(g.getCurrentPlayer(),p1);
     }
 }

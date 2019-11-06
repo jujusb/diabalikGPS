@@ -4,13 +4,20 @@ import diaballik.Coordinates.ActionCoord;
 import diaballik.GameElements.GameBoard;
 import diaballik.Players.AiPlayer;
 import diaballik.Players.Player;
+import diaballik.Players.PlayerAdapter;
 import diaballik.Players.PlayerFactory;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Game {
     /**
      * The number of actions that a player can do during a turn
@@ -45,8 +52,23 @@ public class Game {
     /**
      * The player that currently plays
      */
+    @XmlJavaTypeAdapter(PlayerAdapter.class)
     private Player currentPlayer;
 
+    public Game() {
+    }
+
+    public Game(final Player p1, final Player p2) {
+        player1 = p1;
+        player2 = p2;
+        gameBoard = new GameBoard(player1, player2);
+
+        if (player2 instanceof AiPlayer) {
+            ((AiPlayer) player2).setBoard(gameBoard);
+        }
+
+        currentPlayer = player1;
+    }
 
     /**
      * Builder of games, creates a game from a query
@@ -105,17 +127,6 @@ public class Game {
      */
     public void redo() {
         gameBoard.redo();
-    }
-
-    /**
-     * Kills the thread that computes the game
-     */
-    public void kill() {
-        try {
-            threadOfTheGame.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
