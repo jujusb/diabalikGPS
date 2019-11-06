@@ -1,0 +1,9 @@
+*.class
+.idea/
+target/
+*.iml
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
