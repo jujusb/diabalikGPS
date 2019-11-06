@@ -15,7 +15,7 @@ public final class Main {
 	// Base URI the Grizzly HTTP server will listen on
 	// When building docker images, replace the address with http://0.0.0.0:4444/
 	// http://localhost:4444/ is for testing purpose only.
-	public static final String HTTP_ADDRESS = "http://localhost:9998/";
+	public static final String HTTP_ADDRESS = "http://localhost:4444/";
 
 	private Main() {
 		super();
@@ -40,10 +40,10 @@ public final class Main {
 		final HttpServer server = startServer();
 		// Required to access the web pages stored in the webapp folder.
 		final ClassLoader loader = Main.class.getClassLoader();
-		final CLStaticHttpHandler docsHandler = new CLStaticHttpHandler(loader, "src/main/webapp/");
+		final CLStaticHttpHandler docsHandler = new CLStaticHttpHandler(loader, "swag/");
 		docsHandler.setFileCacheEnabled(false);
 
-		server.getServerConfiguration().addHttpHandler(docsHandler, "/diabalik/");
+		server.getServerConfiguration().addHttpHandler(docsHandler, "/swag/");
 		ClientBuilder.newClient().target(HTTP_ADDRESS);
 		System.in.read();
 		server.shutdownNow();
