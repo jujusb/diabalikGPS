@@ -138,6 +138,7 @@ public class Game {
         // if the player still has moves and if his choice is "legal"
         if (nbActions < nbActionsPerTurn && gameBoard.move(currentPlayer, move)) {
             nbActions++;
+            System.out.println(gameBoard);
         }
     }
 
@@ -166,7 +167,10 @@ public class Game {
                 // eventually swaps the AI algorithm if we have a progressive AI
                 ((AiPlayer) currentPlayer).swap();
                 Stream.iterate(0, i -> i < nbActionsPerTurn, i -> i + 1)
-                        .forEach(i -> gameBoard.moveNoCheck(((AiPlayer) currentPlayer).getMove(), true, true));
+                        .forEach(i -> {
+                            gameBoard.moveNoCheck(((AiPlayer) currentPlayer).getMove(), true, true);
+                            System.out.println(gameBoard);
+                        });
                 swapPlayer();
             }
         }
@@ -185,6 +189,7 @@ public class Game {
 
     /**
      * Gets the board
+     *
      * @return the gameboard
      */
     public GameBoard getGameBoard() {

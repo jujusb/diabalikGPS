@@ -140,6 +140,7 @@ public class GameBoard extends Do {
     public void moveNoCheck(final ActionCoord coords, final boolean save, final boolean clearRedo) {
         final Pawn source = getPawn(coords.getSource()).get();
 
+        System.out.println("coords = "+coords);
         // checks if the ball moves or if it is a pawn
         if (source.isBallOwner()) {
             // it is a ball move
@@ -150,11 +151,12 @@ public class GameBoard extends Do {
             dest.getPlayer().setBall(dest);
             //No need to update the board
         } else {
-            // it is a pawn move
-            source.setPosition(coords.getTarget());
             //Update of board
             board.set(coords.getSource().getPosX() + coords.getSource().getPosY() * 7, null);
             board.set(coords.getTarget().getPosX() + coords.getTarget().getPosY() * 7, source);
+
+            // it is a pawn move
+            source.setPosition(coords.getTarget());
         }
         if (save) {
             this.addUndo(coords, clearRedo);
@@ -188,7 +190,7 @@ public class GameBoard extends Do {
                 // it is a ball move
                 final Optional<Pawn> optDest = getPawn(coords.getTarget());
                 // checks that there is a pawn at target coordinates and that it is a "friendly" pawn
-                if (optDest.isPresent() && optDest.get().getPlayer().equals(p)) {
+                if (optDest.isPresent() && optDest.get().getPlayer().equals(p) && optDest.get() != (source)) {
                     final Pawn dest = optDest.get();
                     return canMoveBall(source, dest);
                 }
