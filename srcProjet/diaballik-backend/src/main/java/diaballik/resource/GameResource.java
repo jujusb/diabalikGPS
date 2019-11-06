@@ -152,7 +152,6 @@ public class GameResource {
     @Path("/kill")
     @Produces(MediaType.APPLICATION_JSON)
     public Response kill() {
-      //  game.kill();
         game = null;
         return Response.status(Response.Status.OK).entity(game).build();
     }
