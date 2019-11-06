@@ -140,7 +140,7 @@ public class GameBoard extends Do {
     public void moveNoCheck(final ActionCoord coords, final boolean save, final boolean clearRedo) {
         final Pawn source = getPawn(coords.getSource()).get();
 
-        System.out.println("coords = "+coords);
+        System.out.println("coords = " + coords);
         // checks if the ball moves or if it is a pawn
         if (source.isBallOwner()) {
             // it is a ball move
@@ -198,9 +198,9 @@ public class GameBoard extends Do {
                 // it is a pawn move
                 if (getPawn(coords.getTarget()).isEmpty()) {
                     // checks that the source and target are at an absolute distance of 1 (i.e. they are neighbors)
-                    if (coords.getTarget().absoluteDistance(coords.getSource()) == 1) {
+                   if (coords.getTarget().absoluteDistance(coords.getSource()) == 1) {
                         return true;
-                    }
+                   }
                 }
             }
         }

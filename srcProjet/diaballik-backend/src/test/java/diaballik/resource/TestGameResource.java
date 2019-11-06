@@ -49,12 +49,12 @@ public class TestGameResource {
     @BeforeEach
     void setUp() {
     }
-/*
+
     @Test
     void testNewGamePvP(final Client client, final URI baseUri) {
         final Response res = client
                 .target(baseUri)
-                .path("/newPvP/Bob/Bob2/true")
+                .path("/game/newPvP/Bob/Bob2/true")
                 .request()
                 .post(Entity.text(""));
 
@@ -82,7 +82,7 @@ public class TestGameResource {
     void testNewGamePvE(final Client client, final URI baseUri) {
         final Response res = client
                 .target(baseUri)
-                .path("/newPvE/Bob/true/NOOB")
+                .path("/game/newPvE/Bob/true/NOOB")
                 .request()
                 .post(Entity.text(""));
 
@@ -91,7 +91,7 @@ public class TestGameResource {
         final Game game = LogJSONAndUnmarshallValue(res, Game.class);
         assertNotNull(game);
 
-        // checks we have a human white player with the right name
+        //checks we have a human white player with the right name
         assertTrue(game.getCurrentPlayer() instanceof HumanPlayer);
         assertTrue(game.getCurrentPlayer().getColor());
         assertEquals("Bob", game.getCurrentPlayer().getName());
@@ -109,7 +109,7 @@ public class TestGameResource {
     void testNewGamePvEWithName(final Client client, final URI baseUri) {
         final Response res = client
                 .target(baseUri)
-                .path("/newPvP/Bob/Bob2/true/NOOB")
+                .path("/game/newPvP/Bob/Bob2/true/NOOB")
                 .request()
                 .post(Entity.text(""));
 
@@ -137,19 +137,19 @@ public class TestGameResource {
     void testMove(final Client client, final URI baseUri) {
         client
                 .target(baseUri)
-                .path("/newPvP/Bob/Bob2/true/NOOB")
+                .path("/game/newPvP/Bob/Bob2/true/NOOB")
                 .request()
                 .post(Entity.text(""));
 
         client
                 .target(baseUri)
-                .path("/action/move/0/3/0/4")
+                .path("/game/action/move/0/3/0/4")
                 .request()
                 .post(Entity.text(""));
 
         final Response res = client
                 .target(baseUri)
-                .path("/action/move/0/3/1/3")
+                .path("/game/action/move/0/3/1/3")
                 .request()
                 .post(Entity.text(""));
 
@@ -163,19 +163,19 @@ public class TestGameResource {
     void testEndOfTurn(final Client client, final URI baseUri) {
         client
                 .target(baseUri)
-                .path("/newPvP/Bob/Bob2/true/NOOB")
+                .path("/game/newPvP/Bob/Bob2/true/NOOB")
                 .request()
                 .post(Entity.text(""));
 
         client
                 .target(baseUri)
-                .path("/action/move/0/3/0/4")
+                .path("/game/action/move/0/3/0/4")
                 .request()
                 .post(Entity.text(""));
 
         final Response res = client
                 .target(baseUri)
-                .path("/action/move/0/3/1/3")
+                .path("/game/action/move/0/3/1/3")
                 .request()
                 .post(Entity.text(""));
 
@@ -189,19 +189,19 @@ public class TestGameResource {
     void testUndo(final Client client, final URI baseUri) {
         client
                 .target(baseUri)
-                .path("/newPvP/Bob/Bob2/true/NOOB")
+                .path("/game/newPvP/Bob/Bob2/true/NOOB")
                 .request()
                 .post(Entity.text(""));
 
         client
                 .target(baseUri)
-                .path("/action/move/0/3/0/4")
+                .path("/game/action/move/0/3/0/4")
                 .request()
                 .post(Entity.text(""));
 
         final Response res = client
                 .target(baseUri)
-                .path("/action/move/0/3/1/3")
+                .path("/game/action/move/0/3/1/3")
                 .request()
                 .post(Entity.text(""));
 
@@ -215,19 +215,19 @@ public class TestGameResource {
     void testRedo(final Client client, final URI baseUri) {
         client
                 .target(baseUri)
-                .path("/newPvP/Bob/Bob2/true/NOOB")
+                .path("/game/newPvP/Bob/Bob2/true/NOOB")
                 .request()
                 .post(Entity.text(""));
 
         client
                 .target(baseUri)
-                .path("/action/move/0/3/0/4")
+                .path("/game/action/move/0/3/0/4")
                 .request()
                 .post(Entity.text(""));
 
         final Response res = client
                 .target(baseUri)
-                .path("/action/move/0/3/1/3")
+                .path("/game/action/move/0/3/1/3")
                 .request()
                 .post(Entity.text(""));
 
@@ -241,19 +241,19 @@ public class TestGameResource {
     void testKill(final Client client, final URI baseUri) {
         client
                 .target(baseUri)
-                .path("/newPvP/Bob/Bob2/true/NOOB")
+                .path("/game/newPvP/Bob/Bob2/true/NOOB")
                 .request()
                 .post(Entity.text(""));
 
         client
                 .target(baseUri)
-                .path("/action/move/0/3/0/4")
+                .path("/game/action/move/0/3/0/4")
                 .request()
                 .post(Entity.text(""));
 
         final Response res = client
                 .target(baseUri)
-                .path("/action/move/0/3/1/3")
+                .path("/game/action/move/0/3/1/3")
                 .request()
                 .post(Entity.text(""));
 
@@ -262,5 +262,4 @@ public class TestGameResource {
 
         // TODO
     }
- */
 }
