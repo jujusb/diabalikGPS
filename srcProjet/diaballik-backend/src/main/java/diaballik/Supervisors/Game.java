@@ -108,17 +108,6 @@ public class Game {
     }
 
     /**
-     * Kills the thread that computes the game
-     */
-    public void kill() {
-        try {
-            threadOfTheGame.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Tries to move a pawn or a ball of a human player
      *
      * @param move the move that is tried

@@ -42,6 +42,8 @@ class GameBoardTest {
         assertTrue(board.getPawn(new Coordinate(3, 6)).get().isBallOwner()); //check the ball for player 2
         assertFalse(board.getPawn(new Coordinate(2, 6)).get().isBallOwner()); //check if another pawn does not have the ball
 
+        System.out.println(board);
+
         assertTrue(board.getPawn( new Coordinate(0,0)).isPresent());    //check all the pawns of player1
         assertTrue(board.getPawn( new Coordinate(1,0)).isPresent());
         assertTrue(board.getPawn( new Coordinate(2,0)).isPresent());

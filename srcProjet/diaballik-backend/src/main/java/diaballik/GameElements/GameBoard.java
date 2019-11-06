@@ -308,20 +308,60 @@ public class GameBoard extends Do {
         return false;
     }
 
+    /**
+     * Returns the pawns of the game, classified by the player.
+     * @return a String with format "Player 1" followed by the list of pawn of the player,
+     * and the same for the second player.
+     */
     public String playerPawnCoordinates() {
         final String[] aux = {""};
         aux[0] += "Player 1\n";
-        player1.getPawns().stream().forEach(p -> aux[0] += p.getPosition() + "\n");
+        player1.getPawns().forEach(p -> aux[0] += p.getPosition() + "\n");
         aux[0] += "Player 2\n";
-        player2.getPawns().stream().forEach(p -> aux[0] += p.getPosition() + "\n");
+        player2.getPawns().forEach(p -> aux[0] += p.getPosition() + "\n");
         return aux[0];
     }
 
+    /**
+     * Getter of undoable_mode
+     * @return a reference on undoable_mode
+     */
     public Deque<ActionCoord> getUndoable_mode() {
         return undoable_mode;
     }
 
+    /**
+     * Getter of redoable_mode
+     * @return a reference on redoable_mode
+     */
     public Deque<ActionCoord> getRedoable_mode() {
         return redoable_mode;
+    }
+
+    /**
+     * Returns a view of the GameBoard
+     * @return a String view of the GameBoard,
+     * by default the first player is in the top of the view
+     */
+    @Override
+    public String toString() {
+        final String[] s = {""};
+        s[0] = "._._._._._._._.\n";
+        final int[] i = {1};
+        i[0] = 0;
+        board.forEach(p -> {
+            s[0] += "|";
+            if (p != null) {
+                final String aux = p.getPlayer().getColor() ? "o" : "x";
+                s[0] += p.isBallOwner() ? aux.toUpperCase() : aux;
+            } else {
+                s[0] += " ";
+            }
+            if ((i[0]++) % 7 == 6) {
+                s[0] += "|\n";
+            }
+        });
+        s[0] += "*-*-*-*-*-*-*-*";
+        return s[0];
     }
 }
