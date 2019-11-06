@@ -107,16 +107,7 @@ public class Game {
         gameBoard.redo();
     }
 
-    /**
-     * Kills the thread that computes the game
-     */
-    public void kill() {
-        try {
-            threadOfTheGame.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     /**
      * Tries to move a pawn or a ball of a human player
@@ -170,5 +161,13 @@ public class Game {
         } else {
             currentPlayer = player1;
         }
+    }
+
+    /**
+     * Gets the board
+     * @return the gameboard
+     */
+    public GameBoard getGameBoard() {
+        return gameBoard;
     }
 }

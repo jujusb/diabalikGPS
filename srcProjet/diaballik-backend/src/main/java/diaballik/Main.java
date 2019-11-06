@@ -15,7 +15,7 @@ public final class Main {
 	// Base URI the Grizzly HTTP server will listen on
 	// When building docker images, replace the address with http://0.0.0.0:4444/
 	// http://localhost:4444/ is for testing purpose only.
-	public static final String HTTP_ADDRESS = "http://localhost:4444/";
+	public static final String HTTP_ADDRESS = "http://localhost:9998/";
 
 	private Main() {
 		super();
