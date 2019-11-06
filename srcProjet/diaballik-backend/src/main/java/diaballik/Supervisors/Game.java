@@ -47,11 +47,6 @@ public class Game {
      */
     private Player currentPlayer;
 
-    /**
-     * The thread in which we execute the game
-     */
-    private Thread threadOfTheGame;
-
 
     /**
      * Builder of games, creates a game from a query
@@ -86,72 +81,8 @@ public class Game {
         }
 
         currentPlayer = player1;
-        threadOfTheGame = new Thread(() -> runGame());
     }
 
-    /**
-     * game computing
-     */
-    private void runGame() {
-        // while nobody has won
-
-
-        // TODO transformer le code suivant en streams (bon courage :D) :
-        /*
-        while (!gameBoard.checkIfWon()) {
-            // makes player1 play
-            for (int i = 0; i < nbActions; i++) {
-                // if the move that the player tries is not legal
-                if (!gameBoard.move(player1, player1.getMove())) {
-                    // does one iteration more to let the player try something else
-                    i--;
-                    if(undo) {gameBoard.undo(); i--; undo=false;}
-                    if(redo) {gameBoard.redo(); i++; redo=false;}
-                } else {
-                    // if the player has won during his turn
-                    if (gameBoard.checkIfWon()) {
-                        return;
-                    }
-                }
-                if(i==nbActions-1){
-                    player1.waitEndOfTurn();
-                    if(undo) {gameBoard.undo(); i--; undo=false;}
-                    if(redo) {gameBoard.redo(); i++; redo=false;}
-                }
-            }
-
-           currentPlayer=player2;
-
-            // and then makes player2 play
-            for (int i = 0; i < nbActions; i++) {
-                // if the move that the player tries is not legal
-                if (!gameBoard.move(player2, player2.getMove())) {
-                    // does one iteration more to let the player try something else
-                    i--;
-                    if(undo) {gameBoard.undo(); i--; undo=false;}
-                    if(redo) {gameBoard.redo(); i++; redo=false;}
-                } else {
-                    // if the player has won during his turn
-                    if (gameBoard.checkIfWon()) {
-                        return;
-                    }
-                }
-                if(i==nbActions-1){
-                    player2.waitEndOfTurn();
-                    if(undo) {gameBoard.undo(); i--; undo=false;}
-                    if(redo) {gameBoard.redo(); i++; redo=false;}
-                }
-            }
-            currentPlayer=player1
-        }*/
-    }
-
-    /**
-     * Launches the game in a new thread
-     */
-    public void start() {
-        threadOfTheGame.start();
-    }
 
     /**
      * Getter of the current Player
@@ -193,7 +124,8 @@ public class Game {
      * @param move the move that is tried
      */
     public void moveOfPlayer(final ActionCoord move) {
-        if (nbActions != nbActionsPerTurn && gameBoard.move(currentPlayer, move)) {
+        // if the player still has moves and if his choice is "legal"
+        if (nbActions < nbActionsPerTurn && gameBoard.move(currentPlayer, move)) {
             nbActions++;
         }
     }
@@ -220,7 +152,7 @@ public class Game {
 
             // if it is an AI we make it play instantly
             if (currentPlayer instanceof AiPlayer) {
-                // swaps the AI algorithm if we have a progressive AI
+                // eventually swaps the AI algorithm if we have a progressive AI
                 ((AiPlayer) currentPlayer).swap();
                 Stream.iterate(0, i -> i < nbActionsPerTurn, i -> i + 1)
                         .forEach(i -> gameBoard.moveNoCheck(((AiPlayer) currentPlayer).getMove(), true, true));

@@ -40,7 +40,6 @@ public class GameResource {
         gameDescriptor.put("colourPlayer1", colour1);
 
         game.initializeGame(gameDescriptor);
-        game.start();
 
         return Response.status(Response.Status.OK).entity(game).build();
     }
@@ -59,7 +58,6 @@ public class GameResource {
         gameDescriptor.put("colourPlayer1", colour1);
 
         game.initializeGame(gameDescriptor);
-        game.start();
 
         return Response.status(Response.Status.OK).entity(game).build();
     }
@@ -79,7 +77,6 @@ public class GameResource {
         gameDescriptor.put("colourPlayer1", colour1);
 
         game.initializeGame(gameDescriptor);
-        game.start();
 
         return Response.status(Response.Status.OK).entity(game).build();
     }
