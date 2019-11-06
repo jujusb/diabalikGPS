@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -28,13 +27,11 @@ public class GameBoard extends Do {
     /**
      * The queue of an undoable move in case the player want to undo his move
      */
-    @XmlJavaTypeAdapter(UndoableDequeAdaptor.class)
     private Deque<ActionCoord> undoable_mode;
 
     /**
      * The queue of a redoable moves in case the player want to redo his move undo before
     */
-    @XmlJavaTypeAdapter(RedoableDequeAdaptor.class)
     private Deque<ActionCoord> redoable_mode;
 
     /**

@@ -36,8 +36,8 @@ public class GameResource {
     public Response createGamePvP(@PathParam("name1") final String name1, @PathParam("colour1") final String colour1, @PathParam("name2") final String name2) {
         final Map<String, String> gameDescriptor = new HashMap<>();
         gameDescriptor.put("namePlayer1", name1);
-        gameDescriptor.put("namePlayer2", name2);
         gameDescriptor.put("colourPlayer1", colour1);
+        gameDescriptor.put("namePlayer2", name2);
 
         game.initializeGame(gameDescriptor);
 
@@ -71,10 +71,10 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createGamePvEWithName(@PathParam("name1") final String name1, @PathParam("colour1") final String colour1, @PathParam("name2") final String name2, @PathParam("level") final String level) {
         final Map<String, String> gameDescriptor = new HashMap<>();
-        gameDescriptor.put("namePlayer1", name1);
-        gameDescriptor.put("namePlayer2", name2);
         gameDescriptor.put("aiLevel", level);
+        gameDescriptor.put("namePlayer1", name1);
         gameDescriptor.put("colourPlayer1", colour1);
+        gameDescriptor.put("namePlayer2", name2);
 
         game.initializeGame(gameDescriptor);
 

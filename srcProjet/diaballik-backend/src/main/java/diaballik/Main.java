@@ -40,10 +40,10 @@ public final class Main {
 		final HttpServer server = startServer();
 		// Required to access the web pages stored in the webapp folder.
 		final ClassLoader loader = Main.class.getClassLoader();
-		final CLStaticHttpHandler docsHandler = new CLStaticHttpHandler(loader, "src/main/webapp/");
+		final CLStaticHttpHandler docsHandler = new CLStaticHttpHandler(loader, "swag/");
 		docsHandler.setFileCacheEnabled(false);
 
-		server.getServerConfiguration().addHttpHandler(docsHandler, "/diabalik/");
+		server.getServerConfiguration().addHttpHandler(docsHandler, "/swag/");
 		ClientBuilder.newClient().target(HTTP_ADDRESS);
 		System.in.read();
 		server.shutdownNow();
