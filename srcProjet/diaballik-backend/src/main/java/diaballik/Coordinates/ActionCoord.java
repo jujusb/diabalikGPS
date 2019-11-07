@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ActionCoord {
+public class ActionCoord implements Cloneable {
 
     /**
      *  The Coordinate of the Pawn to move
@@ -90,4 +90,19 @@ public class ActionCoord {
     public int hashCode() {
         return Objects.hash(source, target);
     }
+
+    /**
+     * Clones an actionCoord
+     * @return a new actionCoord with the same source and dest
+     */
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

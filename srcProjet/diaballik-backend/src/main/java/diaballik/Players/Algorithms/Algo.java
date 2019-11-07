@@ -68,27 +68,36 @@ public abstract class Algo {
 
     /**
      * Method which adds in a list all the possible pawn moves for a given player
+     *
      * @param one a Player for which we want to know all the possible pawn moves
      * @return a list containing all the possible pawn moves
      */
-    public List<ActionCoord>  calculatePossiblePawnMoves(final Player one) {
+    public List<ActionCoord> calculatePossiblePawnMoves(final Player one) {
         final List<ActionCoord> possibleMoves = new ArrayList<>();
         final List<Pawn> pawns = one.getPawns();
         // gathers all the possible moves of pawns and balls in the list possibleMoves
-        pawns.stream()
-                .filter(p -> !p.isBallOwner())
-                .forEach(p -> {
-                    final Coordinate c = (Coordinate) p.getPosition().clone();
-                    moveAndCheck(1, 0, possibleMoves, c, p.getPosition());
-                    moveAndCheck(-2, 0, possibleMoves, c, p.getPosition());
-                    moveAndCheck(1, 1, possibleMoves, c, p.getPosition());
-                    moveAndCheck(0, -2, possibleMoves, c, p.getPosition());
-                });
+        pawns.forEach(p -> {
+            if (!p.isBallOwner()) {
+                final Coordinate source = (Coordinate) p.getPosition().clone();
+                final Coordinate c1 = (Coordinate) p.getPosition().clone();
+                final Coordinate c2 = (Coordinate) p.getPosition().clone();
+                final Coordinate c3 = (Coordinate) p.getPosition().clone();
+                final Coordinate c4 = (Coordinate) p.getPosition().clone();
+
+                moveAndCheck(1, 0, possibleMoves, c1, source);
+                moveAndCheck(-1, 0, possibleMoves, c2, source);
+                moveAndCheck(0, 1, possibleMoves, c3, source);
+                moveAndCheck(0, -1, possibleMoves, c4, source);
+            }
+        });
+
+
         return possibleMoves;
     }
 
     /**
      * Method which adds in a list all the possible ball moves for a given player
+     *
      * @param one a Player for which we want to know all the possible ball moves
      * @return a list containing all the possible ball moves
      */
@@ -97,18 +106,19 @@ public abstract class Algo {
         final Pawn ball = one.getBall();
         final List<Pawn> pawns = one.getPawns();
         // gathers all the possible moves of balls in the list possibleMoves
-        pawns.stream()
-                .filter(p -> !p.isBallOwner())
-                .forEach(p -> {
-                    if (board.canMoveBall(ball, p)) {
-                        possibleMoves.add(new ActionCoord(ball.getPosition(), p.getPosition()));
-                    }
-                });
+        pawns.forEach(p -> {
+            if (!p.isBallOwner()) {
+                if (board.canMoveBall(ball, p)) {
+                    possibleMoves.add(new ActionCoord((Coordinate) ball.getPosition().clone(), (Coordinate) p.getPosition().clone()));
+                }
+            }
+        });
         return possibleMoves;
     }
 
     /**
      * Method which adds in a list all the possible moves for a given player. Uses the two other possibilities computation functions
+     *
      * @param one a Player for which we want to know all the possible  moves
      * @return a list containing all the possible moves
      */

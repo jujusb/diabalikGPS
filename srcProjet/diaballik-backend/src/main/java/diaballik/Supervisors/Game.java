@@ -80,7 +80,7 @@ public class Game {
 
         // the player1 is always human
         String name = game.get("namePlayer1");
-        final boolean colour = Boolean.getBoolean(game.get("colourPlayer1"));
+        final boolean colour = Boolean.valueOf(game.get("colourPlayer1"));
         player1 = pf.createHuman(name, colour);
 
         final String typePlayer2 = game.getOrDefault("aiLevel", null);
@@ -119,14 +119,18 @@ public class Game {
      * Tells the game there is an undo request
      */
     public void undo() {
-        gameBoard.undo();
+        if (gameBoard.undo()) {
+            nbActions--;
+        }
     }
 
     /**
      * Tells the game there is a redo request
      */
     public void redo() {
-        gameBoard.redo();
+        if (gameBoard.redo()) {
+            nbActions++;
+        }
     }
 
     /**

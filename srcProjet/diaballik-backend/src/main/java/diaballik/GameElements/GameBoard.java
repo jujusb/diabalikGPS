@@ -247,7 +247,10 @@ public class GameBoard extends Do {
      * @param u         the action we just done
      * @param clearRedo true if we want to clear the redo list (for example if we make a move)
      */
-    public void addUndo(final ActionCoord u, final boolean clearRedo) {
+    public void addUndo(ActionCoord u, final boolean clearRedo) {
+        // makes a copy of ActionCoord to avoid breaking the moves that the algorithms study
+        u = (ActionCoord) u.clone();
+
         if (undoable_mode.size() == size_max) {
             undoable_mode.removeLast();
         }
@@ -261,25 +264,29 @@ public class GameBoard extends Do {
      * Undoable a move
      */
     @Override
-    public void undo() {
+    public boolean undo() {
         if (!undoable_mode.isEmpty()) {
-            final ActionCoord undoable = undoable_mode.pop();
+            ActionCoord undoable = undoable_mode.pop();
             undoable.invert();
             moveNoCheck(undoable, false, false);
             redoable_mode.push(undoable);
+            return true;
         }
+        return false;
     }
 
     /**
      * Redo a move after the undo : Return to the target coordinate after the undo
      */
     @Override
-    public void redo() {
+    public boolean redo() {
         if (!redoable_mode.isEmpty()) {
             final ActionCoord redoable = redoable_mode.pop();
             redoable.invert();
             moveNoCheck(redoable, true, false);
+            return true;
         }
+        return false;
     }
 
     /**

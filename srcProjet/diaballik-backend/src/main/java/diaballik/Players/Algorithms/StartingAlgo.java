@@ -3,6 +3,7 @@ package diaballik.Players.Algorithms;
 import diaballik.Coordinates.ActionCoord;
 import diaballik.Players.Player;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -36,14 +37,20 @@ public class StartingAlgo extends Algo {
     private final double k5;
 
     /**
-     * Coefficient for the height of the adversary's ball
+     * Coefficient for the proportion of victorious ball moves over the opponent possible ball moves
      */
     private final double k6;
 
     /**
-     * Coefficient for the height of our ball
+     * Coefficient for the height of the adversary's ball
      */
     private final double k7;
+
+    /**
+     * Coefficient for the height of our ball
+     */
+    private final double k8;
+
 
     /**
      * Constructor of the algorithm
@@ -55,10 +62,11 @@ public class StartingAlgo extends Algo {
         k1 = createCoeff(-1.5, 0.5);
         k2 = createCoeff(-1.5, 0.5);
         k3 = createCoeff(-2.0, 0.7);
-        k4 = createCoeff(-2.0, 0.7);
+        k4 = createCoeff(2.0, 0.7);
         k5 = createCoeff(60.0, 20.0);
-        k6 = createCoeff(-10.0, 3.4);
+        k6 = createCoeff(-60.0, 20.0);
         k7 = createCoeff(-10.0, 3.4);
+        k8 = createCoeff(-10.0, 3.4);
     }
 
     /**
@@ -94,7 +102,7 @@ public class StartingAlgo extends Algo {
         moves.forEach(m -> heuristics.put(m, computeHeuristic(m, adversary)));
 
         // sorts the move list by the heuristics
-        moves.sort((o1, o2) -> Double.compare(heuristics.get(o1), heuristics.get(o2)));
+        moves.sort(Comparator.comparingDouble(m -> -1 * heuristics.get(m)));
 
         //after, we're taking the best move given our heuristic
         //Check if it's a ball move. If it is, return a random ball move previously calculated
@@ -122,10 +130,11 @@ public class StartingAlgo extends Algo {
      * @return the heuristic of the move according to the previously given rules
      */
     public Double computeHeuristic(final ActionCoord m, final Player adversary) {
-        board.moveNoCheck(m, true, false);
+        board.moveNoCheck(m, true, true);
 
         // we have to calculate the move possibilities of the player now to avoid computing it several times
         final List<ActionCoord> ballMoves = calculatePossibleBallMoves(player);
+        final List<ActionCoord> adversaryBallMoves = calculatePossibleBallMoves(adversary);
         final List<ActionCoord> moves = calculatePossiblePawnMoves(player);
         moves.addAll(ballMoves);
 
@@ -134,9 +143,10 @@ public class StartingAlgo extends Algo {
                 k2 * player.heightSum() +
                 k3 * calculatePossibleMoves(adversary).size() +
                 k4 * moves.size() +
-                k5 * ballMoves.stream().filter(a -> a.getTarget().getPosY() == 0).count() / ballMoves.size() +
-                k6 * adversary.getBall().getPosition().getPosY() +
-                k7 * player.getBall().getPosition().getPosY();
+                k5 * ballMoves.stream().filter(a -> a.getTarget().getPosY() == 0).count() / (ballMoves.size() + 1) + //the addition is to avoid division by zero
+                k6 * adversaryBallMoves.stream().filter(a -> a.getTarget().getPosY() == 0).count() / (adversaryBallMoves.size() + 1) +
+                k7 * adversary.getBall().getPosition().getPosY() +
+                k8 * player.getBall().getPosition().getPosY();
 
         board.undo();
 

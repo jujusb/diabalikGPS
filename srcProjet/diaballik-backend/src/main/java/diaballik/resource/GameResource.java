@@ -56,7 +56,6 @@ public class GameResource {
         gameDescriptor.put("namePlayer1", name1);
         gameDescriptor.put("aiLevel", level);
         gameDescriptor.put("colourPlayer1", colour1);
-
         game.initializeGame(gameDescriptor);
 
         return Response.status(Response.Status.OK).entity(game).build();
