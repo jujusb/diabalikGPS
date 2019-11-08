@@ -52,7 +52,7 @@ public class Game {
     /**
      * The player that currently plays
      */
-    @XmlJavaTypeAdapter(PlayerAdapter.class)
+    @XmlJavaTypeAdapter(CurrentPlayerAdapter.class)
     private Player currentPlayer;
 
     public Game() {
