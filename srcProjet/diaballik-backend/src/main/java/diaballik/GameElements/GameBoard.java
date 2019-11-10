@@ -247,9 +247,9 @@ public class GameBoard extends Do {
      * @param u         the action we just done
      * @param clearRedo true if we want to clear the redo list (for example if we make a move)
      */
-    public void addUndo(ActionCoord u, final boolean clearRedo) {
+    public void addUndo(final ActionCoord u, final boolean clearRedo) {
         // makes a copy of ActionCoord to avoid breaking the moves that the algorithms study
-        u = (ActionCoord) u.clone();
+        final ActionCoord v = (ActionCoord) u.clone();
 
         if (undoable_mode.size() == size_max) {
             undoable_mode.removeLast();
@@ -257,7 +257,7 @@ public class GameBoard extends Do {
         if (clearRedo) {
             redoable_mode.clear();
         }
-        undoable_mode.push(u);
+        undoable_mode.push(v);
     }
 
     /**
@@ -266,7 +266,7 @@ public class GameBoard extends Do {
     @Override
     public boolean undo() {
         if (!undoable_mode.isEmpty()) {
-            ActionCoord undoable = undoable_mode.pop();
+            final ActionCoord undoable = undoable_mode.pop();
             undoable.invert();
             moveNoCheck(undoable, false, false);
             redoable_mode.push(undoable);

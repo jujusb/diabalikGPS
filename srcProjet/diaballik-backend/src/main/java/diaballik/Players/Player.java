@@ -36,6 +36,11 @@ public abstract class Player {
     private boolean colour; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
 
     /**
+     * The turn of the Player. True if the player has the hand, and false if he hasn't.
+     */
+    private boolean hashand;
+
+    /**
      * The different pawns a Player owns. The ball is included in this List.
      */
     @XmlTransient
@@ -58,10 +63,21 @@ public abstract class Player {
         colour = c;
         pawns = new ArrayList<Pawn>();
         ball = null;
+        hashand = false;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", colour=" + colour +
+                ", pawns=" + pawns +
+                ", ball=" + ball +
+                '}';
     }
 
     /**
-     * Consturctor of Player. The marshalling library we use require a default constructor (no arg).
+     * Constructor of Player. The marshalling library we use require a default constructor (no arg).
      */
     Player() {
     }
@@ -82,6 +98,24 @@ public abstract class Player {
      */
     public void setBall(final Pawn p) {
         ball = p;
+    }
+
+
+    /**
+     * Getter of if it's his turn
+     *
+     */
+    public boolean hasHand() {
+        return hashand;
+    }
+
+    /**
+     * Setter of if it's his turn
+     *
+     * @param hashand : true if it's turn, false anyway
+     */
+    public void setHasHand(final boolean hashand) {
+        this.hashand = hashand;
     }
 
     /**

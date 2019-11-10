@@ -4,13 +4,12 @@ import diaballik.Coordinates.ActionCoord;
 import diaballik.GameElements.GameBoard;
 import diaballik.Players.AiPlayer;
 import diaballik.Players.Player;
-import diaballik.Players.PlayerAdapter;
 import diaballik.Players.PlayerFactory;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+//import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -29,6 +28,14 @@ public class Game {
      */
     private int nbActions;
 
+    public int getNbActions() {
+        return nbActions;
+    }
+
+    public int getCurrentTurn() {
+        return currentTurn;
+    }
+
     /**
      * The number of turns that have been achieved
      */
@@ -38,6 +45,14 @@ public class Game {
      * The current gameboard
      */
     private GameBoard gameBoard;
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
 
     /**
      * The first player (white)
@@ -52,7 +67,7 @@ public class Game {
     /**
      * The player that currently plays
      */
-    @XmlJavaTypeAdapter(CurrentPlayerAdapter.class)
+    //@XmlJavaTypeAdapter(CurrentPlayerAdapter.class)
     private Player currentPlayer;
 
     public Game() {
@@ -103,6 +118,7 @@ public class Game {
         }
 
         currentPlayer = player1;
+        player1.setHasHand(true);
     }
 
 
@@ -149,7 +165,7 @@ public class Game {
     /**
      * Notifies the player wants to end his turn
      */
-    public void endOfTurn() {
+    public void endOfTurn() { //TODO endOfTurn devrait réinitialiser les tableau des undoables et des redoables du gameBoard.
         // if it is really the turn of the other player
         if (nbActions == nbActionsPerTurn) {
             // updates the current player
@@ -176,6 +192,7 @@ public class Game {
                             System.out.println(gameBoard);
                         });
                 swapPlayer();
+                currentTurn++;
             }
         }
     }
@@ -185,9 +202,13 @@ public class Game {
      */
     public void swapPlayer() {
         if (currentPlayer == player1) {
+            player1.setHasHand(false);
             currentPlayer = player2;
+            player2.setHasHand(true);
         } else {
+            player2.setHasHand(false);
             currentPlayer = player1;
+            player1.setHasHand(true);
         }
     }
 
@@ -198,5 +219,18 @@ public class Game {
      */
     public GameBoard getGameBoard() {
         return gameBoard;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "nbActionsPerTurn=" + nbActionsPerTurn +
+                ", nbActions=" + nbActions +
+                ", currentTurn=" + currentTurn +
+                ", gameBoard=" + gameBoard +
+                ", player1=" + player1 +
+                ", player2=" + player2 +
+                ", currentPlayer=" + currentPlayer +
+                '}';
     }
 }

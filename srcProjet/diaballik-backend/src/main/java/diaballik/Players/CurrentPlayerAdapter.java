@@ -1,18 +1,23 @@
 package diaballik.Players;
 
+public class CurrentPlayerAdapter {
+}
+
+/*
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class CurrentPlayerAdapter extends XmlAdapter<String, Player> {
+public class CurrentPlayerAdapter extends XmlAdapter<Player, Player> {
     Player p;
 
     @Override
-    public Player unmarshal(final String color) throws Exception {
+    public Player unmarshal(final Player toString) throws Exception {
         return p;
     }
 
     @Override
-    public String marshal(final Player player) throws Exception {
+    public Player marshal(final Player player) throws Exception {
         p = player;
-        return player.getName()+"a la main" ;
+        return player;
     }
 }
+*/

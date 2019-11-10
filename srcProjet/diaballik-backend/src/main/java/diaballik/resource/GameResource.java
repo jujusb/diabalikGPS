@@ -92,13 +92,13 @@ public class GameResource {
                 Parser.parseCoordinate(x1, y1),
                 Parser.parseCoordinate(x2, y2));
         final Player p = game.getCurrentPlayer();
-        final boolean color = game.getCurrentPlayer().getColor();
+        final boolean color = p.getColor();
 
         // tells the player to try this action and let it tell the game
         game.moveOfPlayer(move);
 
         // if it was the last action of the player
-        if (p.getColor() == color) {
+        if (color == p.getColor()) { //TODO it's the same think color and p.getColor()
             return Response.status(Response.Status.OK).entity(game).build();
         } else {
             // code to say it is the end of the turn

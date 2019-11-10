@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 
 import diaballik.Coordinates.ActionCoord;
 import diaballik.Coordinates.Coordinate;
+import diaballik.GameElements.Pawn;
 import diaballik.Supervisors.Game;
 import diaballik.Players.Player;
 import diaballik.Players.HumanPlayer;
@@ -57,25 +58,26 @@ public class TestGameResource {
                 .path("/game/newPvP/Bob/Bob2/true")
                 .request()
                 .post(Entity.text(""));
-
+        System.out.println(res);
         assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
 
         final Game game = LogJSONAndUnmarshallValue(res, Game.class);
         assertNotNull(game);
 
         // checks we have a human white player with the right name
-        assertTrue(game.getCurrentPlayer() instanceof HumanPlayer);
-        assertTrue(game.getCurrentPlayer().getColor());
+        Player p = game.getPlayer1();
+        System.out.println(p);
+        assertEquals(p, game.getPlayer1());
+        assertTrue(p instanceof HumanPlayer);
+        assertTrue(p.getColor());
         assertEquals("Bob", game.getCurrentPlayer().getName());
 
-        game.moveOfPlayer(new ActionCoord(new Coordinate(0, 3), new Coordinate(0, 4)));
-        game.moveOfPlayer(new ActionCoord(new Coordinate(0, 3), new Coordinate(1, 3)));
-        game.moveOfPlayer(new ActionCoord(new Coordinate(1, 3), new Coordinate(2, 3)));
-
         // checks we have a human black player with the right name
-        assertTrue(game.getCurrentPlayer() instanceof HumanPlayer);
-        assertFalse(game.getCurrentPlayer().getColor());
-        assertEquals("Bob2", game.getCurrentPlayer().getName());
+        Player p2 = game.getPlayer2();
+        System.out.println(p2);
+        assertTrue(p2 instanceof HumanPlayer);
+        assertFalse(p2.getColor());
+        assertEquals("Bob2", p2.getName());
     }
 
     @Test
@@ -92,24 +94,23 @@ public class TestGameResource {
         assertNotNull(game);
 
         //checks we have a human white player with the right name
-        assertTrue(game.getCurrentPlayer() instanceof HumanPlayer);
-        assertTrue(game.getCurrentPlayer().getColor());
-        assertEquals("Bob", game.getCurrentPlayer().getName());
-
-        game.moveOfPlayer(new ActionCoord(new Coordinate(0, 3), new Coordinate(0, 4)));
-        game.moveOfPlayer(new ActionCoord(new Coordinate(0, 3), new Coordinate(1, 3)));
-        game.moveOfPlayer(new ActionCoord(new Coordinate(1, 3), new Coordinate(2, 3)));
+        Player p1 = game.getPlayer1();
+        assertTrue(p1 instanceof HumanPlayer);
+        assertEquals(p1, game.getCurrentPlayer());
+        assertTrue(p1.getColor());
+        assertEquals("Bob", p1.getName());
 
         // checks we have an AI black player
-        assertTrue(game.getCurrentPlayer() instanceof AiPlayer);
-        assertFalse(game.getCurrentPlayer().getColor());
+        Player p2 = game.getPlayer2();
+        assertTrue(p2 instanceof AiPlayer);
+        assertFalse(p2.getColor());
     }
 
     @Test
     void testNewGamePvEWithName(final Client client, final URI baseUri) {
         final Response res = client
                 .target(baseUri)
-                .path("/game/newPvP/Bob/Bob2/true/NOOB")
+                .path("/game/newPvE/Bob/Bob2/true/NOOB")
                 .request()
                 .post(Entity.text(""));
 
@@ -119,147 +120,368 @@ public class TestGameResource {
         assertNotNull(game);
 
         // checks we have a human white player with the right name
-        assertTrue(game.getCurrentPlayer() instanceof HumanPlayer);
-        assertTrue(game.getCurrentPlayer().getColor());
-        assertEquals("Bob", game.getCurrentPlayer().getName());
-
-        game.moveOfPlayer(new ActionCoord(new Coordinate(0, 3), new Coordinate(0, 4)));
-        game.moveOfPlayer(new ActionCoord(new Coordinate(0, 3), new Coordinate(1, 3)));
-        game.moveOfPlayer(new ActionCoord(new Coordinate(1, 3), new Coordinate(2, 3)));
+        assertTrue(game.getPlayer1() instanceof HumanPlayer);
+        assertEquals(game.getPlayer1(), game.getCurrentPlayer());
+        assertTrue(game.getPlayer1().getColor());
+        assertEquals("Bob", game.getPlayer1().getName());
 
         // checks we have an AI black player with the right name
-        assertTrue(game.getCurrentPlayer() instanceof AiPlayer);
-        assertFalse(game.getCurrentPlayer().getColor());
-        assertEquals("Bob2", game.getCurrentPlayer().getName());
+        assertTrue(game.getPlayer2() instanceof AiPlayer);
+        assertFalse(game.getPlayer2().getColor());
+        assertEquals("Bob2", game.getPlayer2().getName());
     }
 
     @Test
     void testMove(final Client client, final URI baseUri) {
         client
                 .target(baseUri)
-                .path("/game/newPvP/Bob/Bob2/true/NOOB")
+                .path("/game/newPvE/Bob/Bob2/true/NOOB")
                 .request()
                 .post(Entity.text(""));
 
-        client
+        Response res = client
                 .target(baseUri)
-                .path("/game/action/move/0/3/0/4")
+                .path("/game/action/move/0/0/0/1")
                 .request()
                 .post(Entity.text(""));
 
-        final Response res = client
-                .target(baseUri)
-                .path("/game/action/move/0/3/1/3")
-                .request()
-                .post(Entity.text(""));
+        assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
 
         final Game game = LogJSONAndUnmarshallValue(res, Game.class);
         assertNotNull(game);
 
-        // TODO
+        assertEquals(1, game.getNbActions());
+        assertEquals(0, game.getCurrentTurn());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 1)).isPresent());
+        assertEquals(new ActionCoord(new Coordinate(0, 0), new Coordinate(0, 1)), game.getGameBoard().getUndoable_mode().getFirst());
     }
 
     @Test
-    void testEndOfTurn(final Client client, final URI baseUri) {
+    void test3Move(final Client client, final URI baseUri) {
         client
                 .target(baseUri)
-                .path("/game/newPvP/Bob/Bob2/true/NOOB")
+                .path("/game/newPvP/Bob/Bob2/true")
                 .request()
                 .post(Entity.text(""));
 
         client
+                .target(baseUri)
+                .path("/game/action/move/0/0/0/1")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/1/0/2")
+                .request()
+                .post(Entity.text(""));
+
+        Response res = client
+                .target(baseUri)
+                .path("/game/action/move/0/2/0/3")
+                .request()
+                .post(Entity.text(""));
+
+        assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
+
+        final Game game = LogJSONAndUnmarshallValue(res, Game.class);
+        assertNotNull(game);
+
+        assertEquals(3, game.getNbActions());
+        assertEquals(0, game.getCurrentTurn());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 3)).isPresent());
+        assertEquals(new ActionCoord(new Coordinate(0, 2), new Coordinate(0, 3)), game.getGameBoard().getUndoable_mode().getFirst());
+    }
+    @Test
+    void test4MoveEOTPvP(final Client client, final URI baseUri) {
+        client
+                .target(baseUri)
+                .path("/game/newPvP/Bob/Bob2/true")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/0/0/1")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/1/0/2")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/2/0/3")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/endOfTurn")
+                .request()
+                .post(Entity.text(""));
+
+        Response res = client
                 .target(baseUri)
                 .path("/game/action/move/0/3/0/4")
                 .request()
                 .post(Entity.text(""));
 
-        final Response res = client
-                .target(baseUri)
-                .path("/game/action/move/0/3/1/3")
-                .request()
-                .post(Entity.text(""));
+        assertEquals(Response.Status.RESET_CONTENT.getStatusCode(), res.getStatus()); //TODO la méthode n'y accède jamais à cette réponse car it's the same think color and p.getColor()
 
         final Game game = LogJSONAndUnmarshallValue(res, Game.class);
         assertNotNull(game);
 
-        // TODO
+        assertEquals(0, game.getNbActions());
+        assertEquals(0, game.getCurrentTurn());
+        assertTrue(game.getPlayer2().hasHand());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 3)).isPresent());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 4)).isEmpty());
+        assertTrue(game.getGameBoard().getUndoable_mode().isEmpty()); //TODO endOfTurn devrait réinitialiser les tableau des undoables et des redoables du gameBoard quand c'est à un joueur humain de jouer.
+    }
+
+    @Test
+    void testEndOfTurnPvE(final Client client, final URI baseUri) {
+        client
+                .target(baseUri)
+                .path("/game/newPvE/Bob/Bob2/true/NOOB")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/0/0/1")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/1/0/2")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/2/0/3")
+                .request()
+                .post(Entity.text(""));
+
+        final Response res = client
+                .target(baseUri)
+                .path("/game/endOfTurn")
+                .request()
+                .post(Entity.text(""));
+
+        assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
+
+        final Game game = LogJSONAndUnmarshallValue(res, Game.class);
+        assertNotNull(game);
+
+        assertEquals(0, game.getNbActions());
+        assertEquals(1, game.getCurrentTurn());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 3)).isPresent());
+    }
+
+    @Test
+    void test4MoveEOTPvE(final Client client, final URI baseUri) {
+        client
+                .target(baseUri)
+                .path("/game/newPvE/Bob/Bob2/true/NOOB")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/0/0/1")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/1/0/2")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/2/0/3")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/endOfTurn")
+                .request()
+                .post(Entity.text(""));
+
+        Response res = client
+                .target(baseUri)
+                .path("/game/action/move/0/3/0/4")
+                .request()
+                .post(Entity.text(""));
+
+        assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
+
+        final Game game = LogJSONAndUnmarshallValue(res, Game.class);
+        assertNotNull(game);
+
+        assertEquals(1, game.getNbActions());
+        assertEquals(1, game.getCurrentTurn());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 4)).isPresent());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 3)).isEmpty());
+        assertEquals(new ActionCoord(new Coordinate(0, 3), new Coordinate(0, 4)), game.getGameBoard().getUndoable_mode().getFirst());
+    }
+
+
+    @Test
+    void testEndOfTurnPvP(final Client client, final URI baseUri) {
+        client
+                .target(baseUri)
+                .path("/game/newPvP/Bob/Bob2/true")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/0/0/1")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/1/0/2")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/2/0/3")
+                .request()
+                .post(Entity.text(""));
+
+        final Response res = client
+                .target(baseUri)
+                .path("/game/endOfTurn")
+                .request()
+                .post(Entity.text(""));
+
+        assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
+
+        final Game game = LogJSONAndUnmarshallValue(res, Game.class);
+        assertNotNull(game);
+
+        assertEquals(0, game.getNbActions());
+        assertEquals(0, game.getCurrentTurn());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 3)).isPresent());
+        System.out.println(game.getGameBoard().getUndoable_mode());
+        assertTrue(game.getGameBoard().getUndoable_mode().isEmpty()); //TODO endOfTurn devrait réinitialiser les tableau des undoables et des redoables du gameBoard quand c'est à un joueur humain de jouer.
     }
 
     @Test
     void testUndo(final Client client, final URI baseUri) {
         client
                 .target(baseUri)
-                .path("/game/newPvP/Bob/Bob2/true/NOOB")
+                .path("/game/newPvE/Bob/Bob2/true/NOOB")
                 .request()
                 .post(Entity.text(""));
 
         client
                 .target(baseUri)
-                .path("/game/action/move/0/3/0/4")
+                .path("/game/action/move/0/0/0/1")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/1/0/2")
                 .request()
                 .post(Entity.text(""));
 
         final Response res = client
                 .target(baseUri)
-                .path("/game/action/move/0/3/1/3")
+                .path("/game/action/undo")
                 .request()
                 .post(Entity.text(""));
+
+        assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
 
         final Game game = LogJSONAndUnmarshallValue(res, Game.class);
         assertNotNull(game);
 
-        // TODO
+        assertEquals(1, game.getNbActions());
+        assertEquals(0, game.getCurrentTurn());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 1)).isPresent());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 2)).isEmpty());
+        assertEquals(new ActionCoord(new Coordinate(0, 0), new Coordinate(0, 1)), game.getGameBoard().getUndoable_mode().getFirst());
+        assertEquals(new ActionCoord(new Coordinate(0, 1), new Coordinate(0, 2)), game.getGameBoard().getRedoable_mode().getFirst());
     }
 
     @Test
     void testRedo(final Client client, final URI baseUri) {
         client
+            .target(baseUri)
+            .path("/game/newPvE/Bob/Bob2/true/NOOB")
+            .request()
+            .post(Entity.text(""));
+
+        client
                 .target(baseUri)
-                .path("/game/newPvP/Bob/Bob2/true/NOOB")
+                .path("/game/action/move/0/0/0/1")
                 .request()
                 .post(Entity.text(""));
 
         client
                 .target(baseUri)
-                .path("/game/action/move/0/3/0/4")
+                .path("/game/action/move/0/1/0/2")
                 .request()
                 .post(Entity.text(""));
 
-        final Response res = client
+        client
                 .target(baseUri)
-                .path("/game/action/move/0/3/1/3")
+                .path("/game/action/undo")
                 .request()
                 .post(Entity.text(""));
+
+        final Response res =         client
+                .target(baseUri)
+                .path("/game/action/redo")
+                .request()
+                .post(Entity.text(""));
+
+        assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
 
         final Game game = LogJSONAndUnmarshallValue(res, Game.class);
         assertNotNull(game);
 
-        // TODO
+        assertEquals(2, game.getNbActions());
+        assertEquals(0, game.getCurrentTurn());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 2)).isPresent());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 1)).isEmpty());
+        assertEquals(new ActionCoord(new Coordinate(0, 1), new Coordinate(0, 2)), game.getGameBoard().getUndoable_mode().getFirst());
+        assertTrue(game.getGameBoard().getRedoable_mode().isEmpty());
     }
 
     @Test
     void testKill(final Client client, final URI baseUri) {
-        client
+        final Response r = client
                 .target(baseUri)
-                .path("/game/newPvP/Bob/Bob2/true/NOOB")
+                .path("/game/newPvE/Bob/Bob2/true/NOOB")
                 .request()
                 .post(Entity.text(""));
 
-        client
-                .target(baseUri)
-                .path("/game/action/move/0/3/0/4")
-                .request()
-                .post(Entity.text(""));
+        final Game g = LogJSONAndUnmarshallValue(r, Game.class);
+        assertNotNull(g);
 
         final Response res = client
                 .target(baseUri)
-                .path("/game/action/move/0/3/1/3")
+                .path("/game/kill/")
                 .request()
                 .post(Entity.text(""));
 
         final Game game = LogJSONAndUnmarshallValue(res, Game.class);
-        assertNotNull(game);
-
-        // TODO
+        assertNull(game);
     }
 }
