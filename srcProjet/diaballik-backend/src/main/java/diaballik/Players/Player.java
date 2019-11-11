@@ -80,6 +80,7 @@ public abstract class Player {
      * Constructor of Player. The marshalling library we use require a default constructor (no arg).
      */
     Player() {
+        hashand = true;
     }
 
     /**

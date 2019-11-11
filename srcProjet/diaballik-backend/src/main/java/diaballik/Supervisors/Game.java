@@ -5,6 +5,7 @@ import diaballik.GameElements.GameBoard;
 import diaballik.Players.AiPlayer;
 import diaballik.Players.Player;
 import diaballik.Players.PlayerFactory;
+import diaballik.resource.MyExceptionMapper;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -21,7 +22,11 @@ public class Game {
     /**
      * The number of actions that a player can do during a turn
      */
-    private int nbActionsPerTurn = 3;
+    private final int nbActionsPerTurn = 3;
+
+    public int getNbActionsPerTurn() {
+        return nbActionsPerTurn;
+    }
 
     /**
      * The number of actions that have been played, from 0 to nbActionsPerTurn
@@ -39,7 +44,7 @@ public class Game {
     /**
      * The number of turns that have been achieved
      */
-    private int currentTurn = 0;
+    private int currentTurn;
 
     /**
      * The current gameboard
@@ -71,6 +76,8 @@ public class Game {
     private Player currentPlayer;
 
     public Game() {
+        currentTurn = -1;
+        nbActions = -1;
     }
 
     public Game(final Player p1, final Player p2) {
@@ -81,7 +88,8 @@ public class Game {
         if (player2 instanceof AiPlayer) {
             ((AiPlayer) player2).setBoard(gameBoard);
         }
-
+        currentTurn = 0;
+        nbActions = 0;
         currentPlayer = player1;
     }
 
@@ -95,7 +103,7 @@ public class Game {
 
         // the player1 is always human
         String name = game.get("namePlayer1");
-        final boolean colour = Boolean.valueOf(game.get("colourPlayer1"));
+        final boolean colour = Boolean.parseBoolean(game.get("colourPlayer1"));
         player1 = pf.createHuman(name, colour);
 
         final String typePlayer2 = game.getOrDefault("aiLevel", null);
@@ -116,9 +124,11 @@ public class Game {
         if (player2 instanceof AiPlayer) {
             ((AiPlayer) player2).setBoard(gameBoard);
         }
-
+        currentTurn = 0;
+        nbActions = 0;
         currentPlayer = player1;
         player1.setHasHand(true);
+        player2.setHasHand(false);
     }
 
 
@@ -165,12 +175,13 @@ public class Game {
     /**
      * Notifies the player wants to end his turn
      */
-    public void endOfTurn() { //TODO endOfTurn devrait réinitialiser les tableau des undoables et des redoables du gameBoard.
+    public void endOfTurn() {
         // if it is really the turn of the other player
         if (nbActions == nbActionsPerTurn) {
             // updates the current player
             swapPlayer();
-
+            //clear the Undo and Redos
+            gameBoard.endOfTurn();
             // updates the nb of actions
             nbActions = 0;
             // increases the number of turns only if we came back to player1
@@ -192,6 +203,8 @@ public class Game {
                             System.out.println(gameBoard);
                         });
                 swapPlayer();
+                //clear the Undo and Redos of the IA
+                gameBoard.endOfTurn();
                 currentTurn++;
             }
         }
@@ -227,8 +240,8 @@ public class Game {
                 "nbActionsPerTurn=" + nbActionsPerTurn +
                 ", nbActions=" + nbActions +
                 ", currentTurn=" + currentTurn +
-                ", gameBoard=" + gameBoard +
-                ", player1=" + player1 +
+                ", \ngameBoard=" + gameBoard.getUndoable_mode() + gameBoard.getRedoable_mode() +
+                ", \nplayer1=" + player1 +
                 ", player2=" + player2 +
                 ", currentPlayer=" + currentPlayer +
                 '}';

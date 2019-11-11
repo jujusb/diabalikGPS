@@ -31,7 +31,7 @@ public class GameBoard extends Do {
 
     /**
      * The queue of a redoable moves in case the player want to redo his move undo before
-    */
+     */
     private Deque<ActionCoord> redoable_mode;
 
     /**
@@ -163,7 +163,6 @@ public class GameBoard extends Do {
         }
     }
 
-
     /**
      * Verify if the move to do is OK
      *
@@ -184,29 +183,39 @@ public class GameBoard extends Do {
         // checks that there is a pawn at source coordinates and that it is a "friendly" pawn
         if (optSource.isPresent() && optSource.get().getPlayer() == p) {
             source = optSource.get();
-
-            // checks if the ball moves or if it is a pawn
-            if (source.isBallOwner()) {
-                // it is a ball move
-                final Optional<Pawn> optDest = getPawn(coords.getTarget());
-                // checks that there is a pawn at target coordinates and that it is a "friendly" pawn
-                if (optDest.isPresent() && optDest.get().getPlayer().equals(p) && optDest.get() != (source)) {
-                    final Pawn dest = optDest.get();
-                    return canMoveBall(source, dest);
-                }
-            } else {
-                // it is a pawn move
-                if (getPawn(coords.getTarget()).isEmpty()) {
-                    // checks that the source and target are at an absolute distance of 1 (i.e. they are neighbors)
-                   if (coords.getTarget().absoluteDistance(coords.getSource()) == 1) {
-                        return true;
-                   }
+            return checkCanMove(p, coords, source);
+        }
+        return false;
+    }
+    /**
+     * Check if the move to do is OK
+     *
+     * @param p      the current player
+     * @param coords the coordinate of the source and the target
+     * @param source the source Pawn
+     * @return true if OK false otherwise
+     */
+    public boolean checkCanMove(final Player p, final ActionCoord coords, final Pawn source) {
+        // checks if the ball moves or if it is a pawn
+        if (source.isBallOwner()) {
+            // it is a ball move
+            final Optional<Pawn> optDest = getPawn(coords.getTarget());
+            // checks that there is a pawn at target coordinates and that it is a "friendly" pawn
+            if (optDest.isPresent() && optDest.get().getPlayer().equals(p) && optDest.get() != (source)) {
+                final Pawn dest = optDest.get();
+                return canMoveBall(source, dest);
+            }
+        } else {
+            // it is a pawn move
+            if (getPawn(coords.getTarget()).isEmpty()) {
+                // checks that the source and target are at an absolute distance of 1 (i.e. they are neighbors)
+                if (coords.getTarget().absoluteDistance(coords.getSource()) == 1) {
+                    return true;
                 }
             }
         }
         return false;
     }
-
 
     /**
      * Checks if we can move the ball from source to dest. Be sure that source
@@ -290,6 +299,18 @@ public class GameBoard extends Do {
     }
 
     /**
+     * End Of Turn. Clears the redos and undos.
+     */
+    public boolean endOfTurn() {
+        if (undoable_mode.size() == 3) {
+            redoable_mode.clear();
+            undoable_mode.clear();
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Checks that the coordinates are within the board
      *
      * @param c the coordinates we have to check
@@ -316,6 +337,7 @@ public class GameBoard extends Do {
 
     /**
      * Returns the pawns of the game, classified by the player.
+     *
      * @return a String with format "Player 1" followed by the list of pawn of the player,
      * and the same for the second player.
      */
@@ -330,6 +352,7 @@ public class GameBoard extends Do {
 
     /**
      * Getter of undoable_mode
+     *
      * @return a reference on undoable_mode
      */
     public Deque<ActionCoord> getUndoable_mode() {
@@ -338,6 +361,7 @@ public class GameBoard extends Do {
 
     /**
      * Getter of redoable_mode
+     *
      * @return a reference on redoable_mode
      */
     public Deque<ActionCoord> getRedoable_mode() {
@@ -346,6 +370,7 @@ public class GameBoard extends Do {
 
     /**
      * Returns a view of the GameBoard
+     *
      * @return a String view of the GameBoard,
      * by default the first player is in the top of the view
      */

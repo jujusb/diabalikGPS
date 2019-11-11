@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class HumanPlayer extends Player {
     @XmlTransient
-    private ActionCoord currentAction;
+    ActionCoord currentAction;
 
     /**
      * Constructor of HumanPlayer

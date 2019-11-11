@@ -191,7 +191,9 @@ public class TestGameResource {
         assertEquals(0, game.getCurrentTurn());
         assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 3)).isPresent());
         assertEquals(new ActionCoord(new Coordinate(0, 2), new Coordinate(0, 3)), game.getGameBoard().getUndoable_mode().getFirst());
+        System.out.println(game);
     }
+
     @Test
     void test4MoveEOTPvP(final Client client, final URI baseUri) {
         client
@@ -240,7 +242,7 @@ public class TestGameResource {
         assertTrue(game.getPlayer2().hasHand());
         assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 3)).isPresent());
         assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 4)).isEmpty());
-        assertTrue(game.getGameBoard().getUndoable_mode().isEmpty()); //TODO endOfTurn devrait réinitialiser les tableau des undoables et des redoables du gameBoard quand c'est à un joueur humain de jouer.
+        assertTrue(game.getGameBoard().getUndoable_mode().isEmpty());
     }
 
     @Test
@@ -377,7 +379,7 @@ public class TestGameResource {
         assertEquals(0, game.getCurrentTurn());
         assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 3)).isPresent());
         System.out.println(game.getGameBoard().getUndoable_mode());
-        assertTrue(game.getGameBoard().getUndoable_mode().isEmpty()); //TODO endOfTurn devrait réinitialiser les tableau des undoables et des redoables du gameBoard quand c'est à un joueur humain de jouer.
+        assertTrue(game.getGameBoard().getUndoable_mode().isEmpty());
     }
 
     @Test
@@ -404,7 +406,7 @@ public class TestGameResource {
                 .target(baseUri)
                 .path("/game/action/undo")
                 .request()
-                .post(Entity.text(""));
+                .put(Entity.text(""));
 
         assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
 
@@ -416,16 +418,76 @@ public class TestGameResource {
         assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 1)).isPresent());
         assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 2)).isEmpty());
         assertEquals(new ActionCoord(new Coordinate(0, 0), new Coordinate(0, 1)), game.getGameBoard().getUndoable_mode().getFirst());
-        assertEquals(new ActionCoord(new Coordinate(0, 1), new Coordinate(0, 2)), game.getGameBoard().getRedoable_mode().getFirst());
+        assertEquals(new ActionCoord(new Coordinate(0, 2), new Coordinate(0, 1)), game.getGameBoard().getRedoable_mode().getFirst());
+    }
+
+    @Test
+    void test3Undo(final Client client, final URI baseUri) {
+        client
+                .target(baseUri)
+                .path("/game/newPvE/Bob/Bob2/true/NOOB")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/0/0/1")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/1/0/2")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/2/0/3")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/undo")
+                .request()
+                .put(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/undo")
+                .request()
+                .put(Entity.text(""));
+
+        final Response res = client
+                .target(baseUri)
+                .path("/game/action/undo")
+                .request()
+                .put(Entity.text(""));
+
+        assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
+
+        final Game game = LogJSONAndUnmarshallValue(res, Game.class);
+        assertNotNull(game);
+
+        assertEquals(0, game.getNbActions());
+        assertEquals(0, game.getCurrentTurn());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 0)).isPresent());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 1)).isEmpty());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 2)).isEmpty());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 3)).isEmpty());
+        assertEquals(new ActionCoord(new Coordinate(0, 1), new Coordinate(0, 0)), game.getGameBoard().getRedoable_mode().getFirst());
+        assertTrue(game.getGameBoard().getUndoable_mode().isEmpty());
+        assertEquals(game.getGameBoard().getRedoable_mode().size(), 3);
     }
 
     @Test
     void testRedo(final Client client, final URI baseUri) {
         client
-            .target(baseUri)
-            .path("/game/newPvE/Bob/Bob2/true/NOOB")
-            .request()
-            .post(Entity.text(""));
+                .target(baseUri)
+                .path("/game/newPvE/Bob/Bob2/true/NOOB")
+                .request()
+                .post(Entity.text(""));
 
         client
                 .target(baseUri)
@@ -443,13 +505,13 @@ public class TestGameResource {
                 .target(baseUri)
                 .path("/game/action/undo")
                 .request()
-                .post(Entity.text(""));
+                .put(Entity.text(""));
 
-        final Response res =         client
+        final Response res = client
                 .target(baseUri)
                 .path("/game/action/redo")
                 .request()
-                .post(Entity.text(""));
+                .put(Entity.text(""));
 
         assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
 
@@ -465,6 +527,78 @@ public class TestGameResource {
     }
 
     @Test
+    void test3Undo2Redo(final Client client, final URI baseUri) {
+        client
+                .target(baseUri)
+                .path("/game/newPvE/Bob/Bob2/true/NOOB")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/0/0/1")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/1/0/2")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/2/0/3")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/undo")
+                .request()
+                .put(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/undo")
+                .request()
+                .put(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/undo")
+                .request()
+                .put(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/redo")
+                .request()
+                .put(Entity.text(""));
+
+        final Response res = client
+                .target(baseUri)
+                .path("/game/action/redo")
+                .request()
+                .put(Entity.text(""));
+
+        assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
+
+        final Game game = LogJSONAndUnmarshallValue(res, Game.class);
+        assertNotNull(game);
+
+        assertEquals(2, game.getNbActions());
+        assertEquals(0, game.getCurrentTurn());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 2)).isPresent());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 0)).isEmpty());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 1)).isEmpty());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 3)).isEmpty());
+        assertEquals(new ActionCoord(new Coordinate(0, 1), new Coordinate(0, 2)), game.getGameBoard().getUndoable_mode().getFirst());
+        assertEquals(2, game.getGameBoard().getUndoable_mode().size());
+        assertEquals(1, game.getGameBoard().getRedoable_mode().size());
+    }
+
+    @Test
     void testKill(final Client client, final URI baseUri) {
         final Response r = client
                 .target(baseUri)
@@ -477,11 +611,19 @@ public class TestGameResource {
 
         final Response res = client
                 .target(baseUri)
-                .path("/game/kill/")
+                .path("/game/kill")
                 .request()
-                .post(Entity.text(""));
+                .put(Entity.text(""));
+
+        assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
 
         final Game game = LogJSONAndUnmarshallValue(res, Game.class);
-        assertNull(game);
+        assertNull(game.getGameBoard());
+        assertNull(game.getCurrentPlayer());
+        assertNull(game.getPlayer1());
+        assertNull(game.getPlayer2());
+        assertEquals(-1, game.getNbActions());
+        assertEquals(-1, game.getCurrentTurn());
+        assertEquals(3, game.getNbActionsPerTurn());
     }
 }
