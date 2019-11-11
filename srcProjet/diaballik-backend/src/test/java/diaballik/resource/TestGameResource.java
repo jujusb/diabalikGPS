@@ -284,6 +284,7 @@ public class TestGameResource {
 
         assertEquals(0, game.getNbActions());
         assertEquals(1, game.getCurrentTurn());
+        assertTrue(game.getPlayer1().hasHand());
         assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 3)).isPresent());
     }
 
@@ -523,6 +524,58 @@ public class TestGameResource {
         assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 2)).isPresent());
         assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 1)).isEmpty());
         assertEquals(new ActionCoord(new Coordinate(0, 1), new Coordinate(0, 2)), game.getGameBoard().getUndoable_mode().getFirst());
+        assertTrue(game.getGameBoard().getRedoable_mode().isEmpty());
+    }
+
+    @Test
+    void testUndoRedoAction(final Client client, final URI baseUri) {
+        client
+                .target(baseUri)
+                .path("/game/newPvE/Bob/Bob2/true/NOOB")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/0/0/1")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/1/0/2")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/undo")
+                .request()
+                .put(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/redo")
+                .request()
+                .put(Entity.text(""));
+
+        final Response res = client
+                .target(baseUri)
+                .path("/game/action/move/0/2/1/2")
+                .request()
+                .post(Entity.text(""));
+
+        assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
+
+        final Game game = LogJSONAndUnmarshallValue(res, Game.class);
+        assertNotNull(game);
+
+        assertEquals(3, game.getNbActions());
+        assertEquals(0, game.getCurrentTurn());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(1, 2)).isPresent());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 2)).isEmpty());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 1)).isEmpty());
+        assertEquals(new ActionCoord(new Coordinate(0, 2), new Coordinate(1, 2)), game.getGameBoard().getUndoable_mode().getFirst());
         assertTrue(game.getGameBoard().getRedoable_mode().isEmpty());
     }
 

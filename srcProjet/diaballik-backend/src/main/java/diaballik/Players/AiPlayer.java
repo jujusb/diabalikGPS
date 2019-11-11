@@ -29,7 +29,7 @@ public class AiPlayer extends Player {
      * Symbolizes the number of turns played
      */
     @XmlTransient
-    private int currentTurn = 0;
+    int currentTurn = 0;
 
     /**
      * Indicates at which turn the algorithm should swap
