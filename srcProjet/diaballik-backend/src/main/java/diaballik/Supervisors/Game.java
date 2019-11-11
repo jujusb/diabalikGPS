@@ -5,12 +5,10 @@ import diaballik.GameElements.GameBoard;
 import diaballik.Players.AiPlayer;
 import diaballik.Players.Player;
 import diaballik.Players.PlayerFactory;
-import diaballik.resource.MyExceptionMapper;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-//import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -22,7 +20,7 @@ public class Game {
     /**
      * The number of actions that a player can do during a turn
      */
-    private final int nbActionsPerTurn = 3;
+    private static final int nbActionsPerTurn = 3;
 
     public int getNbActionsPerTurn() {
         return nbActionsPerTurn;
@@ -72,7 +70,6 @@ public class Game {
     /**
      * The player that currently plays
      */
-    //@XmlJavaTypeAdapter(CurrentPlayerAdapter.class)
     private Player currentPlayer;
 
     public Game() {
