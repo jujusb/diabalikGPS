@@ -1,7 +1,6 @@
 package diaballik.resource;
 
 import diaballik.Coordinates.ActionCoord;
-import diaballik.Players.Player;
 import diaballik.Supervisors.Game;
 import io.swagger.annotations.Api;
 
@@ -91,18 +90,13 @@ public class GameResource {
         final ActionCoord move = new ActionCoord(
                 Parser.parseCoordinate(x1, y1),
                 Parser.parseCoordinate(x2, y2));
-        final Player p = game.getCurrentPlayer();
-        final boolean color = p.getColor();
-
+        final boolean moveOk = game.moveOfPlayer(move);
         // tells the player to try this action and let it tell the game
-        game.moveOfPlayer(move);
-
-        // if it was the last action of the player
-        if (color == p.getColor()) { //TODO it's the same think color and p.getColor()
+        if(moveOk) {
             return Response.status(Response.Status.OK).entity(game).build();
         } else {
-            // code to say it is the end of the turn
-            return Response.status(Response.Status.RESET_CONTENT).entity(game).build();
+            // code to say the move was wrong
+            return Response.status(Response.Status.BAD_REQUEST).entity(game).build();
         }
     }
 

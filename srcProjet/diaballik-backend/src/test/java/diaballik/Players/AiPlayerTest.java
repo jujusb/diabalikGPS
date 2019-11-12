@@ -34,6 +34,7 @@ class AiPlayerTest {
         assertEquals(3, p3.getTURNS_BEFORE_SWAP());
     }
 
+
     @Test
     void swap() {
         p3.setCurrentTurn(2);
@@ -45,10 +46,13 @@ class AiPlayerTest {
     }
 
     @Test
-    void getMove() {
-        ActionCoord ac = p2.getMove();
-        System.out.println(ac);
-        //TODO
+    void swapAlreadyStarting() {
+        p2.setCurrentTurn(2);
+        p2.swap();
+        assertTrue(p2.getAlgo() instanceof StartingAlgo);
+        p2.setCurrentTurn(3);
+        p2.swap();
+        assertTrue(p2.getAlgo() instanceof StartingAlgo);
     }
 
     @Test

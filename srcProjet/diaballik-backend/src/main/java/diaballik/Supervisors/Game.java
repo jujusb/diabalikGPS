@@ -144,6 +144,7 @@ public class Game {
     public void undo() {
         if (gameBoard.undo()) {
             nbActions--;
+            System.out.println(gameBoard);
         }
     }
 
@@ -153,6 +154,7 @@ public class Game {
     public void redo() {
         if (gameBoard.redo()) {
             nbActions++;
+            System.out.println(gameBoard);
         }
     }
 
@@ -161,12 +163,14 @@ public class Game {
      *
      * @param move the move that is tried
      */
-    public void moveOfPlayer(final ActionCoord move) {
+    public boolean moveOfPlayer(final ActionCoord move) {
         // if the player still has moves and if his choice is "legal"
         if (nbActions < nbActionsPerTurn && gameBoard.move(currentPlayer, move)) {
             nbActions++;
             System.out.println(gameBoard);
+            return true;
         }
+        return false;
     }
 
     /**

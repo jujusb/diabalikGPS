@@ -232,14 +232,13 @@ public class TestGameResource {
                 .request()
                 .post(Entity.text(""));
 
-        assertEquals(Response.Status.RESET_CONTENT.getStatusCode(), res.getStatus()); //TODO la méthode n'y accède jamais à cette réponse car it's the same think color and p.getColor()
+        assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), res.getStatus()); //TODO la méthode n'y accède jamais à cette réponse car it's the same think color and p.getColor()
 
         final Game game = LogJSONAndUnmarshallValue(res, Game.class);
         assertNotNull(game);
 
         assertEquals(0, game.getNbActions());
         assertEquals(0, game.getCurrentTurn());
-        assertTrue(game.getPlayer2().hasHand());
         assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 3)).isPresent());
         assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 4)).isEmpty());
         assertTrue(game.getGameBoard().getUndoable_mode().isEmpty());
@@ -249,7 +248,7 @@ public class TestGameResource {
     void testEndOfTurnPvE(final Client client, final URI baseUri) {
         client
                 .target(baseUri)
-                .path("/game/newPvE/Bob/Bob2/true/NOOB")
+                .path("/game/newPvE/Bob/Bob2/true/STARTING")
                 .request()
                 .post(Entity.text(""));
 
@@ -284,7 +283,6 @@ public class TestGameResource {
 
         assertEquals(0, game.getNbActions());
         assertEquals(1, game.getCurrentTurn());
-        assertTrue(game.getPlayer1().hasHand());
         assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 3)).isPresent());
     }
 

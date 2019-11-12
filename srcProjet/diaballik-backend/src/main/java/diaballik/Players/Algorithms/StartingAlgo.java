@@ -70,6 +70,23 @@ public class StartingAlgo extends Algo {
     }
 
     /**
+     * Determinist constructor of the algorithm (its heuristic coef are not random)
+     *
+     * @param p the IA player
+     */
+    public StartingAlgo(final Player p, final double k1, final double k2, final double k3, final double k4, final double k5, final double k6, final double k7, final double k8) {
+        super(p);
+        this.k1 = k1;
+        this.k2 = k2;
+        this.k3 = k3;
+        this.k4 = k4;
+        this.k5 = k5;
+        this.k6 = k6;
+        this.k7 = k7;
+        this.k8 = k8;
+    }
+
+    /**
      * Create a coefficent randomnly by picking a number in a Gauss law distribution
      * with parameters mean and standard deviation
      *

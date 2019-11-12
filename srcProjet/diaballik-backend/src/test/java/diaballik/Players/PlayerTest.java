@@ -44,18 +44,6 @@ class PlayerTest {
     }
 
     @Test
-    void hasHand() {
-        assertFalse(p.hasHand());
-    }
-
-    @Test
-    void setHasHand() {
-        assertFalse(p.hasHand());
-        p.setHasHand(true);
-        assertTrue(p.hasHand());
-    }
-
-    @Test
     void addPawn() {
         Pawn pawn = new Pawn(new Coordinate(0, 0), p);
         assertEquals(p.pawns.get(0), pawn);
@@ -112,6 +100,5 @@ class PlayerTest {
     void constructeur2() {
         Player a = new HumanPlayer();
         assertNull(a.getPawns());
-        assertEquals(false, p.hasHand());
     }
 }

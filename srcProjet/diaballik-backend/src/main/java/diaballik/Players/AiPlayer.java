@@ -120,6 +120,16 @@ public class AiPlayer extends Player {
         return algo;
     }
 
+
+    /**
+     * Setter of the algorithm
+     *
+     * @param a the algorithm we want to set
+     */
+    public void setAlgo(final Algo a) {
+        this.algo = a;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
