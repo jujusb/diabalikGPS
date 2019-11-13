@@ -1,7 +1,7 @@
-package diaballik.Players;
+package diaballik.players;
 
-import diaballik.Players.Algorithms.EAiType;
-import diaballik.Players.Algorithms.NoobAlgo;
+import diaballik.players.algorithms.EAiType;
+import diaballik.players.algorithms.NoobAlgo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;

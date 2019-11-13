@@ -1,4 +1,4 @@
-package diaballik.Coordinates;
+package diaballik.coordinates;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

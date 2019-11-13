@@ -1,7 +1,7 @@
 package diaballik.resource;
 
-import diaballik.Coordinates.ActionCoord;
-import diaballik.Supervisors.Game;
+import diaballik.coordinates.ActionCoord;
+import diaballik.supervisors.Game;
 import io.swagger.annotations.Api;
 
 import javax.inject.Singleton;

@@ -1,13 +1,11 @@
-package diaballik.Players;
+package diaballik.players;
 
-import diaballik.Coordinates.ActionCoord;
-import diaballik.Coordinates.Coordinate;
-import diaballik.GameElements.Pawn;
-import diaballik.Supervisors.Game;
+import diaballik.coordinates.ActionCoord;
+import diaballik.coordinates.Coordinate;
+import diaballik.gameElements.Pawn;
+import diaballik.supervisors.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import javax.sound.midi.Soundbank;
 
 import static org.junit.jupiter.api.Assertions.*;
 

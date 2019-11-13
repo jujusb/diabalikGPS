@@ -1,6 +1,6 @@
 package diaballik.resource;
 
-import diaballik.Coordinates.Coordinate;
+import diaballik.coordinates.Coordinate;
 
 public final class Parser {
 

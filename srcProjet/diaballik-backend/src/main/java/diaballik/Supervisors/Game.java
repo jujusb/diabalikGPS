@@ -1,10 +1,10 @@
-package diaballik.Supervisors;
+package diaballik.supervisors;
 
-import diaballik.Coordinates.ActionCoord;
-import diaballik.GameElements.GameBoard;
-import diaballik.Players.AiPlayer;
-import diaballik.Players.Player;
-import diaballik.Players.PlayerFactory;
+import diaballik.coordinates.ActionCoord;
+import diaballik.gameElements.GameBoard;
+import diaballik.players.AiPlayer;
+import diaballik.players.Player;
+import diaballik.players.PlayerFactory;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

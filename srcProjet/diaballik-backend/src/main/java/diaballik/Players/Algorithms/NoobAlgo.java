@@ -1,7 +1,7 @@
-package diaballik.Players.Algorithms;
+package diaballik.players.algorithms;
 
-import diaballik.Coordinates.ActionCoord;
-import diaballik.Players.Player;
+import diaballik.coordinates.ActionCoord;
+import diaballik.players.Player;
 
 import java.util.List;
 import java.util.Random;

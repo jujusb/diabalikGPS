@@ -1,11 +1,10 @@
-package diaballik.Players;
+package diaballik.players;
 
-import diaballik.Coordinates.ActionCoord;
-import diaballik.GameElements.GameBoard;
-import diaballik.Players.Algorithms.EAiType;
-import diaballik.Players.Algorithms.NoobAlgo;
-import diaballik.Players.Algorithms.StartingAlgo;
-import diaballik.Supervisors.Game;
+import diaballik.gameElements.GameBoard;
+import diaballik.players.algorithms.EAiType;
+import diaballik.players.algorithms.NoobAlgo;
+import diaballik.players.algorithms.StartingAlgo;
+import diaballik.supervisors.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

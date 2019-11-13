@@ -1,7 +1,7 @@
-package diaballik.Players.Algorithms;
+package diaballik.players.algorithms;
 
-import diaballik.Coordinates.ActionCoord;
-import diaballik.Players.Player;
+import diaballik.coordinates.ActionCoord;
+import diaballik.players.Player;
 
 import java.util.Comparator;
 import java.util.List;
@@ -138,9 +138,10 @@ public class StartingAlgo extends Algo {
      * + k2 * sum(height of our pawns)       k2<0||k2>0 if we play in a defensive way
      * + k3 * sum(opponent's possible moves)   k3<0
      * + k4 * sum(our possible moves)        k4>0
-     * + k5 * proportion of winning ball moves over the possible ball moves  k5>>0
-     * + k6 * height of the ball of the opponent          k6<0
-     * + k7 * height of our ball     k7<0
+     * + k5 * proportion of winning ball moves over our possible ball moves  k5>>0
+     * + k6 * proportion of winning ball moves over the oponent's possible ball moves k6<<0
+     * + k7 * height of the ball of the opponent          k6<0
+     * + k8 * height of our ball     k7<0
      *
      * @param m         the move we want to examine
      * @param adversary the adversary of the AI
@@ -161,7 +162,7 @@ public class StartingAlgo extends Algo {
                 k3 * calculatePossibleMoves(adversary).size() +
                 k4 * moves.size() +
                 k5 * ballMoves.stream().filter(a -> a.getTarget().getPosY() == 0).count() / (ballMoves.size() + 1) + //the addition is to avoid division by zero
-                k6 * adversaryBallMoves.stream().filter(a -> a.getTarget().getPosY() == 0).count() / (adversaryBallMoves.size() + 1) +
+                k6 * adversaryBallMoves.stream().filter(a -> a.getTarget().getPosY() == 6).count() / (adversaryBallMoves.size() + 1) +
                 k7 * adversary.getBall().getPosition().getPosY() +
                 k8 * player.getBall().getPosition().getPosY();
 

@@ -1,7 +1,7 @@
-package diaballik.Players;
+package diaballik.players;
 
-import diaballik.GameElements.BallAdapter;
-import diaballik.GameElements.Pawn;
+import diaballik.gameElements.BallAdapter;
+import diaballik.gameElements.Pawn;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

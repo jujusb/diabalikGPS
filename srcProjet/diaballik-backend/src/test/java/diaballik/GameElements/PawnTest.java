@@ -1,12 +1,13 @@
-package diaballik.GameElements;
+package diaballik.gameElements;
 
-import diaballik.Coordinates.Coordinate;
-import diaballik.Players.HumanPlayer;
-import diaballik.Players.Player;
+import diaballik.coordinates.Coordinate;
+import diaballik.players.HumanPlayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PawnTest {
 

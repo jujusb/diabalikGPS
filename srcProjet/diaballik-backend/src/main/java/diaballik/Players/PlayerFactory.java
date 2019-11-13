@@ -1,6 +1,6 @@
-package diaballik.Players;
+package diaballik.players;
 
-import diaballik.Players.Algorithms.EAiType;
+import diaballik.players.algorithms.EAiType;
 
 import java.util.Optional;
 import java.util.Random;

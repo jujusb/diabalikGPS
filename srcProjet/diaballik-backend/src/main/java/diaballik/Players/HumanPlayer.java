@@ -1,6 +1,6 @@
-package diaballik.Players;
+package diaballik.players;
 
-import diaballik.Coordinates.ActionCoord;
+import diaballik.coordinates.ActionCoord;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

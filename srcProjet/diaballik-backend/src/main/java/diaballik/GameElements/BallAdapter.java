@@ -1,4 +1,4 @@
-package diaballik.GameElements;
+package diaballik.gameElements;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

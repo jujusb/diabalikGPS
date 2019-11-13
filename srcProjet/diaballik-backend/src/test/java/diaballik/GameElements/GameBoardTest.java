@@ -1,13 +1,11 @@
-package diaballik.GameElements;
+package diaballik.gameElements;
 
-import diaballik.Coordinates.ActionCoord;
-import diaballik.Coordinates.Coordinate;
-import diaballik.Players.HumanPlayer;
-import diaballik.Players.Player;
+import diaballik.coordinates.ActionCoord;
+import diaballik.coordinates.Coordinate;
+import diaballik.players.HumanPlayer;
+import diaballik.players.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import javax.swing.*;
 
 import java.util.Optional;
 

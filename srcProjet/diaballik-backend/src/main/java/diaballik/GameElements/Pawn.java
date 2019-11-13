@@ -1,8 +1,8 @@
-package diaballik.GameElements;
+package diaballik.gameElements;
 
-import diaballik.Coordinates.Coordinate;
-import diaballik.Players.Player;
-import diaballik.Players.PlayerAdapter;
+import diaballik.coordinates.Coordinate;
+import diaballik.players.Player;
+import diaballik.players.PlayerAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

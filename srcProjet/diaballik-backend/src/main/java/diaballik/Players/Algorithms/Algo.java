@@ -1,10 +1,10 @@
-package diaballik.Players.Algorithms;
+package diaballik.players.algorithms;
 
-import diaballik.Coordinates.ActionCoord;
-import diaballik.Coordinates.Coordinate;
-import diaballik.GameElements.GameBoard;
-import diaballik.GameElements.Pawn;
-import diaballik.Players.Player;
+import diaballik.coordinates.ActionCoord;
+import diaballik.coordinates.Coordinate;
+import diaballik.gameElements.GameBoard;
+import diaballik.gameElements.Pawn;
+import diaballik.players.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,8 +124,8 @@ public abstract class Algo {
      */
     public List<ActionCoord> calculatePossibleMoves(final Player one) {
         final List<ActionCoord> possibleMoves;
-        possibleMoves = calculatePossiblePawnMoves(player); // add the pawn moves
-        possibleMoves.addAll(calculatePossibleBallMoves(player)); //add the ball moves
+        possibleMoves = calculatePossiblePawnMoves(one); // add the pawn moves
+        possibleMoves.addAll(calculatePossibleBallMoves(one)); //add the ball moves
         return possibleMoves;
     }
 }

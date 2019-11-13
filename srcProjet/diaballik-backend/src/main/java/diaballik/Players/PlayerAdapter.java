@@ -1,4 +1,4 @@
-package diaballik.Players;
+package diaballik.players;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

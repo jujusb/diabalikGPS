@@ -1,6 +1,6 @@
-package diaballik.Players.Algorithms;
+package diaballik.players.algorithms;
 
-import diaballik.Players.AiPlayer;
+import diaballik.players.AiPlayer;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

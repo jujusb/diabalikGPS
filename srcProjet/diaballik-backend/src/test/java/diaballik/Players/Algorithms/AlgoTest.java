@@ -1,14 +1,16 @@
-package diaballik.Players.Algorithms;
+package diaballik.players.algorithms;
 
-import diaballik.Coordinates.ActionCoord;
-import diaballik.Coordinates.Coordinate;
-import diaballik.GameElements.GameBoard;
-import diaballik.Players.AiPlayer;
-import diaballik.Players.HumanPlayer;
-import diaballik.Players.Player;
-import diaballik.Supervisors.Game;
+import diaballik.coordinates.ActionCoord;
+import diaballik.coordinates.Coordinate;
+import diaballik.gameElements.GameBoard;
+import diaballik.players.AiPlayer;
+import diaballik.players.HumanPlayer;
+import diaballik.players.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,44 +19,15 @@ class AlgoTest {
     Player p1;
     AiPlayer p2;
     AiPlayer p3;
+    GameBoard b;
 
     @BeforeEach
     void setUp() {
         p1 = new HumanPlayer("Bob", true);
         p2 = new AiPlayer(EAiType.STARTING, "Caroline", false);
         p3 = new AiPlayer(EAiType.NOOB, "John", false);
-        p2.setBoard(new GameBoard(p1, p2));
-    }
-
-    @Test
-    void getBoard() {
-        GameBoard board = p2.getAlgo().getBoard();
-        assertNotNull(board);
-        assertTrue(board.getPawn(new Coordinate(3, 0)).get().isBallOwner()); //check the ball for player 1
-        assertTrue(board.getPawn(new Coordinate(3, 6)).get().isBallOwner()); //check the ball for player 2
-        assertFalse(board.getPawn(new Coordinate(2, 6)).get().isBallOwner()); //check if another pawn does not have the ball
-
-        System.out.println(board);
-
-        assertTrue(board.getPawn(new Coordinate(0, 0)).isPresent());    //check all the pawns of player1
-        assertTrue(board.getPawn(new Coordinate(1, 0)).isPresent());
-        assertTrue(board.getPawn(new Coordinate(2, 0)).isPresent());
-        assertTrue(board.getPawn(new Coordinate(3, 0)).isPresent());
-        assertTrue(board.getPawn(new Coordinate(4, 0)).isPresent());
-        assertTrue(board.getPawn(new Coordinate(5, 0)).isPresent());
-        assertTrue(board.getPawn(new Coordinate(6, 0)).isPresent());
-
-        assertTrue(board.getPawn(new Coordinate(0, 6)).isPresent());    //check all the pawns of player 2
-        assertTrue(board.getPawn(new Coordinate(1, 6)).isPresent());
-        assertTrue(board.getPawn(new Coordinate(2, 6)).isPresent());
-        assertTrue(board.getPawn(new Coordinate(3, 6)).isPresent());
-        assertTrue(board.getPawn(new Coordinate(4, 6)).isPresent());
-        assertTrue(board.getPawn(new Coordinate(5, 6)).isPresent());
-        assertTrue(board.getPawn(new Coordinate(6, 6)).isPresent());
-
-        System.out.println(board.playerPawnCoordinates());
-
-        assertTrue(board.getPawn(new Coordinate(3, 3)).isEmpty()); // check an empty position
+        b = new GameBoard(p1, p2);
+        p2.setBoard(b);
     }
 
     @Test
@@ -69,32 +42,74 @@ class AlgoTest {
     @Test
     void computeHeuristicStarting() {
         p2.setAlgo(new StartingAlgo(p2, -1, -1, -1, 1, 1, -1, -1, -1));
-        p2.setBoard(new GameBoard(p1, p2));
-        //TODO
+        p2.setBoard(b);
 
         final ActionCoord action = new ActionCoord(new Coordinate(3, 6), new Coordinate(4, 6));
-        //final double h = ((StartingAlgo) p2.getAlgo()).computeHeuristic(action, p1);
+        final double h = ((StartingAlgo) p2.getAlgo()).computeHeuristic(action, p1);
 
-        //assertEquals(0 - 7*6 - 8 + 8 + 0 - 0 - 6, h);
+        assertEquals(0 - 7 * 6 - 8 + 8 + 0 - 0 - 0 - 6, h, 0.1);
     }
 
     @Test
     void moveAndCheck() {
-        //TODO
+        final Coordinate source = new Coordinate(1, 0);
+        final Coordinate dest = new Coordinate(1, 0);
+
+        List<ActionCoord> list = new ArrayList<>();
+
+        // fails because there is a pawn on (2,0)
+        p2.getAlgo().moveAndCheck(1, 0, list, dest, source);
+        assertTrue(list.isEmpty());
+
+        // succeeds because there is no pawn on (1,1)
+        p2.getAlgo().moveAndCheck(-1, 1, list, dest, source);
+        assertFalse(list.isEmpty());
+        assertEquals(1, list.size());
+        assertEquals(new ActionCoord(new Coordinate(1, 0), new Coordinate(1, 1)), list.get(0));
+
+        // fails because (9,1) is not valid as it is out of bounds
+        list.clear();
+        p2.getAlgo().moveAndCheck(8, 0, list, dest, source);
+        assertTrue(list.isEmpty());
     }
 
     @Test
     void calculatePossiblePawnMoves() {
-        //TODO
+        List<ActionCoord> list = p2.getAlgo().calculatePossiblePawnMoves(p1);
+
+        assertFalse(list.isEmpty());
+        assertEquals(6,list.size());
+        assertTrue(list.contains(new ActionCoord(new Coordinate(0,0),new Coordinate(0,1))));
+        assertTrue(list.contains(new ActionCoord(new Coordinate(1,0),new Coordinate(1,1))));
+        assertTrue(list.contains(new ActionCoord(new Coordinate(2,0),new Coordinate(2,1))));
+        assertTrue(list.contains(new ActionCoord(new Coordinate(4,0),new Coordinate(4,1))));
+        assertTrue(list.contains(new ActionCoord(new Coordinate(5,0),new Coordinate(5,1))));
+        assertTrue(list.contains(new ActionCoord(new Coordinate(6,0),new Coordinate(6,1))));
     }
 
     @Test
     void calculatePossibleBallMoves() {
-        //TODO
+        List<ActionCoord> list = p2.getAlgo().calculatePossibleBallMoves(p1);
+
+        assertFalse(list.isEmpty());
+        assertEquals(2,list.size());
+        assertTrue(list.contains(new ActionCoord(new Coordinate(3,0),new Coordinate(2,0))));
+        assertTrue(list.contains(new ActionCoord(new Coordinate(3,0),new Coordinate(4,0))));
     }
 
     @Test
     void calculatePossibleMoves() {
-        //TODO
+        List<ActionCoord> list = p2.getAlgo().calculatePossibleMoves(p1);
+
+        assertFalse(list.isEmpty());
+        assertEquals(8,list.size());
+        assertTrue(list.contains(new ActionCoord(new Coordinate(0,0),new Coordinate(0,1))));
+        assertTrue(list.contains(new ActionCoord(new Coordinate(1,0),new Coordinate(1,1))));
+        assertTrue(list.contains(new ActionCoord(new Coordinate(2,0),new Coordinate(2,1))));
+        assertTrue(list.contains(new ActionCoord(new Coordinate(4,0),new Coordinate(4,1))));
+        assertTrue(list.contains(new ActionCoord(new Coordinate(5,0),new Coordinate(5,1))));
+        assertTrue(list.contains(new ActionCoord(new Coordinate(6,0),new Coordinate(6,1))));
+        assertTrue(list.contains(new ActionCoord(new Coordinate(3,0),new Coordinate(2,0))));
+        assertTrue(list.contains(new ActionCoord(new Coordinate(3,0),new Coordinate(4,0))));
     }
 }

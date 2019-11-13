@@ -1,7 +1,7 @@
-package diaballik.GameElements;
+package diaballik.gameElements;
 
-import diaballik.Coordinates.ActionCoord;
-import diaballik.Players.Player;
+import diaballik.coordinates.ActionCoord;
+import diaballik.players.Player;
 
 public abstract class Do implements Undoable {
     public abstract boolean move(Player p, ActionCoord coords);
