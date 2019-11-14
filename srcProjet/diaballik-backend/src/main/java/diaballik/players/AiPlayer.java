@@ -1,11 +1,11 @@
 package diaballik.players;
 
-import diaballik.coordinates.ActionCoord;
-import diaballik.gameElements.GameBoard;
 import diaballik.players.algorithms.AiAlgoAdaptor;
 import diaballik.players.algorithms.Algo;
 import diaballik.players.algorithms.EAiType;
 import diaballik.players.algorithms.NoobAlgo;
+import diaballik.coordinates.ActionCoord;
+import diaballik.gameElements.GameBoard;
 import diaballik.players.algorithms.StartingAlgo;
 
 import javax.xml.bind.annotation.XmlAccessType;

@@ -1,7 +1,7 @@
 package diaballik.players.algorithms;
 
-import diaballik.coordinates.ActionCoord;
 import diaballik.players.Player;
+import diaballik.coordinates.ActionCoord;
 
 import java.util.Comparator;
 import java.util.List;
