@@ -8,6 +8,7 @@ import java.util.Objects;
 /**
  * class ActionCoord
  * A pair of Coordinate representing a move on the GameBoard.
+ *
  * @see Coordinate
  */
 @XmlRootElement
@@ -15,7 +16,7 @@ import java.util.Objects;
 public class ActionCoord implements Cloneable {
 
     /**
-     *  The Coordinate of the Pawn to move
+     * The Coordinate of the Pawn to move
      */
     private Coordinate source;
 
@@ -26,6 +27,7 @@ public class ActionCoord implements Cloneable {
 
     /**
      * Constructor of the class
+     *
      * @param s the Coordinate of the Pawn to move
      * @param t the Coordinate where we want the Pawn to go
      */
@@ -33,13 +35,14 @@ public class ActionCoord implements Cloneable {
         source = s;
         target = t;
     }
-    
+
     public ActionCoord() {
     }
 
     /**
      * Getter of source
-     * @return  source as a Coordinate
+     *
+     * @return source as a Coordinate
      * @link ActionCoord.source
      */
     public Coordinate getSource() {
@@ -48,7 +51,8 @@ public class ActionCoord implements Cloneable {
 
     /**
      * Getter of target
-     * @return  target as a Coordinate
+     *
+     * @return target as a Coordinate
      * @link ActionCoord.target
      */
     public Coordinate getTarget() {
@@ -93,12 +97,15 @@ public class ActionCoord implements Cloneable {
 
     /**
      * Clones an actionCoord
+     *
      * @return a new actionCoord with the same source and dest
      */
     @Override
     public Object clone() {
         try {
-            return super.clone();
+            final ActionCoord res = (ActionCoord) super.clone();
+            res.source = (Coordinate) source.clone();
+            res.target = (Coordinate) target.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }

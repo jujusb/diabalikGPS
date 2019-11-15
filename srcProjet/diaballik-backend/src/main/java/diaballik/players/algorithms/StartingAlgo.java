@@ -106,7 +106,7 @@ public class StartingAlgo extends Algo {
      */
     @Override
     public ActionCoord decideMove() {
-        final Player adversary = board.getHumanPlayer();
+        final Player adversary = board.getPlayer1();
         final List<ActionCoord> moves;
         final List<ActionCoord> ballMoves;
 

@@ -157,9 +157,9 @@ public abstract class Player {
     }
 
     /**
-     * Getter of the list of pawn of the player
+     * Getter of the list of pawns of the player
      *
-     * @return the list of pawn of the player
+     * @return the list of pawns of the player
      */
     public List<Pawn> getPawns() {
         return pawns;
@@ -172,5 +172,14 @@ public abstract class Player {
      */
     public int heightSum() {
         return pawns.stream().mapToInt(p -> p.getPosition().getPosY()).sum();
+    }
+
+    /**
+     * Setter of the list of pawns of the player
+     *
+     * @param pawns the new list of pawns
+     */
+    public void setPawns(List<Pawn> pawns) {
+        this.pawns = pawns;
     }
 }
