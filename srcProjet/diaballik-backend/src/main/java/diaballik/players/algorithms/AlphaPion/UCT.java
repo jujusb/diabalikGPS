@@ -1,6 +1,7 @@
 package diaballik.players.algorithms.AlphaPion;
 
-import Jeu.model.Player;
+
+import diaballik.players.Player;
 
 import java.util.Collections;
 import java.util.Comparator;

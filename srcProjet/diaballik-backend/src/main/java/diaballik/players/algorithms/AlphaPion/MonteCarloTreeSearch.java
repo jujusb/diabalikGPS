@@ -19,10 +19,11 @@ public class MonteCarloTreeSearch {
     private Player player;
     private Player opponent;
 
+    int nbSimulations = 0;
 
-    public ActionCoord findNextMove(final GameBoard temp, final Player player, final Player opponent, final int nbActions) {
+    public ActionCoord findNextMove(final GameBoard currentBoard, final Player player, final Player opponent, final int nbActions) {
         long start = System.currentTimeMillis();
-        long end = start + 500;
+        long end = start + 5000;
 
         this.opponent = opponent;
         this.player = player;
@@ -30,8 +31,10 @@ public class MonteCarloTreeSearch {
         Tree tree = new Tree();
         Node rootNode = tree.getRoot();
 
-        GameBoard board = (GameBoard) temp.clone();
-        rootNode.getState().setGame(new Game(board, player, nbActions));
+        GameBoard board = (GameBoard) currentBoard.clone();
+
+        rootNode.getState().setGame(new Game(board, nbActions));
+        rootNode.getState().setPlayer(board.getPlayer2());
 
         while (System.currentTimeMillis() < end) {
             // Phase 1 - Selection of the most interesting node
@@ -55,7 +58,8 @@ public class MonteCarloTreeSearch {
         Node winnerNode = rootNode.getChildWithMaxScore();
         tree.setRoot(winnerNode);
         System.out.println("Chances to win : " + (winnerNode.getState().getWinScore() + 5 * winnerNode.getState().getVisitCount()) / (10 * winnerNode.getState().getVisitCount()));
-        return winnerNode.getState().getGame();
+        System.out.println("Number of simulations : " + nbSimulations); // ~ beetween 5000-15000
+        return winnerNode.getState().getActionCoord();
     }
 
     /**
@@ -95,19 +99,23 @@ public class MonteCarloTreeSearch {
     private Player simulateRandomPlayout(Node node) {
         Node tempNode = new Node(node);
         State tempState = tempNode.getState();
-        Player boardStatus = tempState.getGame().checkWinner();
+        Player boardStatus = tempState.getGame().getWinner();
 
         if (boardStatus == opponent) {
             tempNode.getParent().getState().setWinScore(Integer.MIN_VALUE);
             return boardStatus;
         }
 
+        int c = 0;
         while (boardStatus == null) { // while the game isn't finished
-            tempState.setPlayer(tempState.getGame().getPlayerTurn());
+            tempState.setPlayer(tempState.getGame().getCurrentPlayer());
             tempState.randomPlay();
-            boardStatus = tempState.getGame().checkWinner();
+            c++;
+            tempState.getGame().swapPlayer();
+            boardStatus = tempState.getGame().getWinner();
         }
-
+        System.out.println("c = " + c); // typically 500-1000
+        nbSimulations++;
 
         return boardStatus;
     }

@@ -1,5 +1,5 @@
 package diaballik.players.algorithms;
 
 public enum EAiType {
-    NOOB, STARTING, PROGRESSIVE,
+    NOOB, STARTING, PROGRESSIVE, MONTECARLO
 }

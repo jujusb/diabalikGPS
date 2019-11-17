@@ -1,10 +1,14 @@
 package diaballik.supervisors;
 
 import diaballik.coordinates.ActionCoord;
+import diaballik.coordinates.Coordinate;
 import diaballik.gameElements.GameBoard;
 import diaballik.players.AiPlayer;
+import diaballik.players.HumanPlayer;
 import diaballik.players.Player;
 import diaballik.players.PlayerFactory;
+import diaballik.players.algorithms.EAiType;
+import diaballik.players.algorithms.MonteCarloAlgo;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -91,13 +95,14 @@ public class Game implements Cloneable {
     }
 
     // used by Monte Carlo Algorithm (AlphaPion)
-    public Game(GameBoard board, Player currentPlayer, int nbActions) {
+    public Game(GameBoard board, int nbActions) {
         this.gameBoard = board;
         this.player1 = board.getPlayer1();
         this.player2 = board.getPlayer2();
         currentTurn = 0;
         this.nbActions = nbActions;
-        this.currentPlayer = currentPlayer;
+
+        this.currentPlayer = player2;
     }
 
     /**
@@ -190,9 +195,9 @@ public class Game implements Cloneable {
      * @param move the move that is played
      */
     public void moveOfPlayerNoCheck(final ActionCoord move) {
-        gameBoard.moveNoCheck(move, false, false)
+        gameBoard.moveNoCheck(move, false, false);
         nbActions++;
-        System.out.println(gameBoard);
+        //System.out.println(gameBoard);
     }
 
     /**
@@ -220,7 +225,7 @@ public class Game implements Cloneable {
                 ((AiPlayer) currentPlayer).swap();
                 Stream.iterate(0, i -> i < nbActionsPerTurn, i -> i + 1)
                         .forEach(i -> {
-                            gameBoard.moveNoCheck(((AiPlayer) currentPlayer).getMove(), true, true);
+                            gameBoard.moveNoCheck(((AiPlayer) currentPlayer).getMove(nbActions), true, true);
                             nbActions++;
                             System.out.println(gameBoard);
                         });
@@ -259,6 +264,17 @@ public class Game implements Cloneable {
         return gameBoard;
     }
 
+
+    public Player getWinner() {
+        if (player1.getBall().getPosition().getPosY() == 6) {
+            return player1;
+        }
+        if (player2.getBall().getPosition().getPosY() == 0) {
+            return player2;
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Game{" +
@@ -291,18 +307,10 @@ public class Game implements Cloneable {
                 g.currentPlayer = g.gameBoard.getPlayer2();
             }
 
+            return g;
+
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Player getWinner() {
-        if (player1.getBall().getPosition().getPosY() == 6) {
-            return player1;
-        }
-        if (player2.getBall().getPosition().getPosY() == 0) {
-            return player2;
         }
         return null;
     }

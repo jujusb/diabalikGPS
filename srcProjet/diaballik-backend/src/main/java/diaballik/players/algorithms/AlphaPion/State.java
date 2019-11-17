@@ -11,6 +11,11 @@ import java.util.List;
 
 public class State {
     private Game game;
+
+    /**
+     * The actionCoord that has led to this situation
+     */
+    private ActionCoord actionCoord;
     /**
      * represents the player that can lead to this game situation. It is not always related to the game player turn, for exemple if a players has 1 action left
      * and moves a pawn, this will lead to a new node with a new state in which it is the opponent's turn, but the value of player will be the one who did this move
@@ -33,12 +38,12 @@ public class State {
      * @param game   The game possibility
      * @param player The player who can lead to this possibility
      */
-    private State(Game game, Player player) {
+    private State(Game game, Player player, ActionCoord action) {
         this.game = game;
         visitCount = 0;
         winScore = 0;
         this.player = player;
-
+        this.actionCoord = action;
     }
 
     /**
@@ -50,6 +55,13 @@ public class State {
         this.game = (Game) state.getGame().clone();
         this.visitCount = state.getVisitCount();
         this.winScore = state.getWinScore();
+
+        // defines the right player to the state
+        if(state.getPlayer() == state.getGame().getPlayer1()){
+            this.player = game.getPlayer1();
+        }else{
+            this.player = game.getPlayer2();
+        }
     }
 
     public Player getPlayer() {
@@ -64,8 +76,13 @@ public class State {
         return game;
     }
 
+    public ActionCoord getActionCoord() {
+        return actionCoord;
+    }
+
     public void setGame(Game game) {
         this.game = game;
+        this.player = game.getCurrentPlayer();
     }
 
     public int getVisitCount() {
@@ -90,9 +107,11 @@ public class State {
         List<State> listState = new ArrayList<>();
         for (ActionCoord action : listGame) {
             Game possibleGame = (Game) game.clone();
-            game.moveOfPlayerNoCheck(action);
+            //System.out.println("New possible node : ");
+            possibleGame.moveOfPlayerNoCheck(action);
+            possibleGame.swapPlayer();
 
-            listState.add(new State(possibleGame, game.getCurrentPlayer()));
+            listState.add(new State(possibleGame, game.getCurrentPlayer(), action));
         }
         return listState;
     }
@@ -111,6 +130,7 @@ public class State {
      * This method takes most of the MCTS computing time
      */
     public void randomPlay() {
-        game.moveOfPlayerNoCheck(((AiPlayer)game.getCurrentPlayer()).getAlgo().decideMove());
+        //System.out.println("Random play : ");
+        game.moveOfPlayerNoCheck(((AiPlayer)game.getCurrentPlayer()).getAlgo().decideMove(0));
     }
 }

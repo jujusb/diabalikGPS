@@ -106,10 +106,10 @@ public class ActionCoord implements Cloneable {
             final ActionCoord res = (ActionCoord) super.clone();
             res.source = (Coordinate) source.clone();
             res.target = (Coordinate) target.clone();
+            return res;
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
         return null;
     }
-
 }
