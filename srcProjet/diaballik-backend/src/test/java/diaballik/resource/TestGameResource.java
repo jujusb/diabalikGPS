@@ -676,4 +676,175 @@ public class TestGameResource {
         assertEquals(-1, game.getCurrentTurn());
         assertEquals(3, game.getNbActionsPerTurn());
     }
+
+    @Test
+    void testWinner(final Client client, final URI baseUri) {
+        client
+                .target(baseUri)
+                .path("/game/newPvP/Bob/Bob2/true")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/0/0/1")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/1/0/2")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/2/0/3")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/endOfTurn")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/6/0/5")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/5/1/5")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/1/5/2/5")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/endOfTurn")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/3/0/4")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/4/0/5")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/0/5/0/6")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/endOfTurn")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/2/5/1/5")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/1/5/2/5")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/2/5/1/5")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/endOfTurn")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/1/0/0/0")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/3/0/2/0")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/2/0/0/0")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/endOfTurn")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/1/5/2/5")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/2/5/1/5")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/action/move/1/5/2/5")
+                .request()
+                .post(Entity.text(""));
+
+        client
+                .target(baseUri)
+                .path("/game/endOfTurn")
+                .request()
+                .post(Entity.text(""));
+
+
+        final Response res = client
+                .target(baseUri)
+                .path("/game/action/move/0/0/0/6")
+                .request()
+                .post(Entity.text(""));
+
+
+        assertEquals(Response.Status.OK.getStatusCode(), res.getStatus());
+
+        final Game game = LogJSONAndUnmarshallValue(res, Game.class);
+        assertNotNull(game);
+
+        assertEquals(1, game.getNbActions());
+        assertEquals(3, game.getCurrentTurn());
+        assertTrue(game.getGameBoard().getPawn(new Coordinate(0, 6)).isPresent());
+        assertTrue(game.getCurrentPlayer().isWinner());
+    }
 }

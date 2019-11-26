@@ -165,12 +165,26 @@ public class Game {
      */
     public boolean moveOfPlayer(final ActionCoord move) {
         // if the player still has moves and if his choice is "legal"
-        if (nbActions < nbActionsPerTurn && gameBoard.move(currentPlayer, move)) {
+        if (nbActions < nbActionsPerTurn && !(gameBoard.checkIfWon()) && gameBoard.move(currentPlayer, move)) {
             nbActions++;
             System.out.println(gameBoard);
+            final boolean hasWon = gameBoard.checkIfWon();
+            if(hasWon) {
+                displayWinner();
+            }
             return true;
         }
+        displayWinner();
         return false;
+    }
+
+    private void displayWinner() {
+        if (player1.isWinner()) {
+            System.out.println(player1.getName() + " is winner.");
+        }
+        if (player2.isWinner()) {
+            System.out.println(player2.getName() + " is winner.");
+        }
     }
 
     /**

@@ -255,6 +255,8 @@ class GameBoardTest {
     @Test
     void testCheckIfWonP1() {
         assertFalse(board.checkIfWon());
+        assertFalse(p1.isWinner());
+        assertFalse(p2.isWinner());
         //Mouvement du pion du joueur 2 de (0,6) en (1,5).
         board.move(p2, new ActionCoord(new Coordinate(0, 6), new Coordinate(0, 5)));
         board.move(p2, new ActionCoord(new Coordinate(0, 5), new Coordinate(1, 5)));
@@ -273,11 +275,15 @@ class GameBoardTest {
         board.move(p1, new ActionCoord(new Coordinate(3, 0), new Coordinate(0, 0)));
         board.move(p1, new ActionCoord(new Coordinate(0, 0), new Coordinate(0, 6)));
         assertTrue(board.checkIfWon());
+        assertTrue(p1.isWinner());
+        assertFalse(p2.isWinner());
     }
 
     @Test
     void testCheckIfWonP2() {
         assertFalse(board.checkIfWon());
+        assertFalse(p1.isWinner());
+        assertFalse(p2.isWinner());
         //Mouvement du pion du joueur 1 de (0,1) en (1,1).
         board.move(p1, new ActionCoord(new Coordinate(0, 0), new Coordinate(0, 1)));
         board.move(p1, new ActionCoord(new Coordinate(0, 1), new Coordinate(1, 1)));
@@ -296,6 +302,8 @@ class GameBoardTest {
         board.move(p2, new ActionCoord(new Coordinate(3, 6), new Coordinate(0, 6)));
         board.move(p2, new ActionCoord(new Coordinate(0, 6), new Coordinate(0, 0)));
         assertTrue(board.checkIfWon());
+        assertFalse(p1.isWinner());
+        assertTrue(p2.isWinner());
     }
 
 }

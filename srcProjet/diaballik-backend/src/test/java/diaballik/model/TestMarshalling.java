@@ -78,6 +78,7 @@ public class TestMarshalling {
         final Player p = marshall(p1);
         assertEquals("foo", p.getName());
         assertTrue(p.getColor());
+        assertFalse(p.isWinner());
     }
 
     @Test
@@ -85,6 +86,7 @@ public class TestMarshalling {
         final Player p = marshall(p2);
         assertEquals("foo", p.getName());
         assertFalse(p.getColor());
+        assertFalse(p.isWinner());
     }
 
     @Test

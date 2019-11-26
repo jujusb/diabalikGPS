@@ -327,9 +327,11 @@ public class GameBoard extends Do {
      */
     public Boolean checkIfWon() {
         if (player1.getBall().getPosition().getPosY() == 6) {
+            player1.setWinner(true);
             return true;
         }
         if (player2.getBall().getPosition().getPosY() == 0) {
+            player2.setWinner(true);
             return true;
         }
         return false;
