@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DiabalikComponent } from './diabalik/diabalik.component';
 import { ConfigComponent } from './config/config.component';
+import { MyData } from './mydata';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { ConfigComponent } from './config/config.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [MyData],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

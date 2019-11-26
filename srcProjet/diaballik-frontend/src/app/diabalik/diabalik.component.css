@@ -1,5 +1,5 @@
 div {
-    --size-cell: 120px;
+    --size-cell: 100px;
     --border-cell: 5px;
     --nb-cell: 7;
     --grid-size :  calc(var(--size-cell)*7);
@@ -34,4 +34,24 @@ div {
     z-index: 2;
     padding: 0;
     margin: 0;
+}
+div#colonne1 {
+	float: left;
+    width: 400px;
+    height: fit-content;
+    background: lightblue;
+    text-align: center;
+}
+
+div#colonne2 {
+	float: right;
+    width: 400px;
+    height: max-content;
+    background: burlywood;
+    text-align: center;
+}
+
+div#centre {
+	margin-left: 500px;
+	margin-right: 300px;
 }
