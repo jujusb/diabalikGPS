@@ -19,11 +19,16 @@ look at the css file to see how the aclass objects are rendered.
 The variable $event refers to the event (a MouseEvent) produced when using the mouse.
 -->
 
+<div class="board">
 <ng-container class='aclass' #myobjects *ngFor="let x of [0,1,2,3,4,5,6]" >
-    <div class='aclass' #myobjects *ngFor="let y of [0,1,2,3,4,5,6]" >{{x}} {{y}}</div>
+    <div class='aclass' #myobjects *ngFor="let y of [0,1,2,3,4,5,6]" [attr.data-x]=x [attr.data-y]=y>{{x}} {{y}}</div>
     </ng-container>
-    
+</div>    
 
+<!--<div class="piece" #pieces *ngFor="let piece of game.storage.board.pieces"
+    [ngStyle]="{'background-color': piece.player1 ? game.storage.p1.color.code : game.storage.p2.color.code}"
+    [style.left.px]="piece.x * 80 + 10" [style.top.px]="piece.y * 80 + 10" >
+</div>-->
 
 <!--<div class='aclass' #myobjects *ngFor="let x of [0,1,2,3,4,5,6]" 
     (mousedown)="rightClick($event)" 

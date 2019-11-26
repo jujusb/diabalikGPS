@@ -1,6 +1,8 @@
 div {
     --size-cell: 120px;
     --border-cell: 5px;
+    --nb-cell: 7;
+    --grid-size :  calc(var(--size-cell)*7);
 }
 
 
@@ -12,5 +14,24 @@ div {
     height: var(--size-cell);
     float: left;
     padding: 0; 
+    margin: 0;
+}
+
+.board {
+    box-sizing: border-box;
+    position:relative;
+    width: calc(var(--size-cell) * var(--nb-cell) + 4px);
+    height: calc(var(--size-cell) * var(--nb-cell) + 4px);
+    z-index: 1;
+}
+
+.piece {
+    box-sizing: border-box;
+    position:absolute;
+    background-color: black;
+    width: calc(var(--size-cell) - 20px);
+    height: calc(var(--size-cell) - 20px);
+    z-index: 2;
+    padding: 0;
     margin: 0;
 }

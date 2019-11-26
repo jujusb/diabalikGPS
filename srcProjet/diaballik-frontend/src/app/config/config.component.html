@@ -19,11 +19,11 @@
 </label>
 <br>
 <label>Second player IA ?
-        <input type="checkbox" ng-model="checkboxModel.value1">
+        <input type="checkbox" ng-model="checkboxModel.value1" (click)="ia = !ia">
 </label>
 <br>
 
-<p *ngIf="ok">IA sélectionnée !</p>
+<p *ngIf="ia">IA sélectionnée !</p>
 
 <button onclick="location.href = 'diabalik'">Play</button>
 
