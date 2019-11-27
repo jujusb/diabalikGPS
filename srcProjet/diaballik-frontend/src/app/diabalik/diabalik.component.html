@@ -38,11 +38,11 @@
         <br>
         <br>
         <br>
-        <p> Joueur 2 :{{data.storage.player2.name}} </p>
+        <p> Joueur 1 :{{data.storage.player1.name}} </p>
     </div>
 
     <div id="colonne2">
-        <p> Joueur 1 :{{data.storage.player1.name}} </p>
+        <p> Joueur 2 :{{data.storage.player2.name}} </p>
         <br>
         <br>
         <br>
@@ -81,15 +81,15 @@
 
     <div id="centre">
         <div class="board">
-            <ng-container class='aclass' #myobjects *ngFor="let x of [0,1,2,3,4,5,6]" >
-                <div class='aclass' #myobjects *ngFor="let y of [0,1,2,3,4,5,6]" [attr.data-x]=x [attr.data-y]=y>{{x}} {{y}}</div>
+            <ng-container class='case' #myobjects *ngFor="let y of [0,1,2,3,4,5,6]" >
+                <div class='case' #myobjects *ngFor="let x of [6,5,4,3,2,1,0]" [attr.data-x]=x [attr.data-y]=y>
+                    <div class='piece' *ngIf="data.storage.gameBoard.board[7*(6-y)+x]!=null" [ngStyle]="{'background-color': data.storage.gameBoard.board[7*(6-y)+x].player}">
+                            <div class='ball' *ngIf="data.storage.gameBoard.board[7*(6-y)+x].ballOwner"></div>
+                            </div>
+                </div>
             </ng-container>
         </div>
-            
-        <!--<div class="piece" #pieces *ngFor="let piece of game.storage.gameBoard.pieces"
-            [ngStyle]="{'background-color': piece.player}"
-            [style.left.px]="piece.posX * 80 + 10" [style.top.px]="piece.posY * 80 + 10" >
-        </div>-->
+    
     </div>
 
 </div>

@@ -6,15 +6,19 @@ div {
 }
 
 
-.aclass {
+.case {
     box-sizing: border-box;
     border: var(--border-cell) solid;
-    background-color: white;
+    background-color: rosybrown;
     width: var(--size-cell);
     height: var(--size-cell);
     float: left;
     padding: 0; 
     margin: 0;
+}
+
+.case:hover {
+    border-color: red;
 }
 
 .board {
@@ -28,13 +32,29 @@ div {
 .piece {
     box-sizing: border-box;
     position:absolute;
-    background-color: black;
     width: calc(var(--size-cell) - 20px);
     height: calc(var(--size-cell) - 20px);
     z-index: 2;
     padding: 0;
     margin: 0;
+    margin-left: var(--border-cell);
+    margin-top: var(--border-cell);
 }
+
+.ball {
+    position:absolute;
+    background-color: royalblue;
+    width: calc(var(--size-cell) - 50px);
+    height: calc(var(--size-cell) - 50px);
+    border-radius: 30px ;
+    z-index: 3;
+    padding: 0;
+    margin: 0;
+    margin-left: calc(3*var(--border-cell));
+    margin-top: calc(3*var(--border-cell));
+    }
+
+
 div#colonne1 {
 	float: left;
     width: 400px;
@@ -52,6 +72,6 @@ div#colonne2 {
 }
 
 div#centre {
-	margin-left: 500px;
+	margin-left: 550px;
 	margin-right: 300px;
 }
