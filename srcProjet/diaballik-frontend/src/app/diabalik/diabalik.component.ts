@@ -25,5 +25,20 @@ export class DiabalikComponent implements OnInit {
 
   ngOnInit() {
   }
+  // Similarly to the 'initialize' of JavaFX, it is
+  // called after the view has been initialised
+  ngAfterViewInit(): void {
+  }
 
+  public rightClickCase(event : MouseEvent) : void {
+    console.log("Click sur la case",1);
+  }
+
+  public rightClickPiece(event : MouseEvent) : void {
+    console.log("Click sur la pièce",1);
+  }
+
+  public rightClickBall(event : MouseEvent) : void {
+    console.log("Click sur la balle",1);
+  }
 }

@@ -23,7 +23,13 @@
 </label>
 <br>
 
-<p *ngIf="ia">IA sélectionnée !</p>
+<p *ngIf="ia">
+    <select name="ia">
+        <option value="noob">Noob</option>
+        <option value="starting">Starting</option>
+        <option value="progressive">Progressive</option>
+    </select>
+</p>
 
 <button onclick="location.href = 'diabalik'">Play</button>
 
