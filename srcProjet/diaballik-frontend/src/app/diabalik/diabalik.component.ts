@@ -23,22 +23,34 @@ export class DiabalikComponent implements OnInit {
    //this.ok = false;
  }
 
-  ngOnInit() {
+  caseSelected ;
+  isACaseSelected;
+ 
+ ngOnInit() {
+    this.isACaseSelected=false;
   }
   // Similarly to the 'initialize' of JavaFX, it is
   // called after the view has been initialised
   ngAfterViewInit(): void {
   }
 
-  public rightClickCase(event : MouseEvent) : void {
+  public clickCase(event : MouseEvent) : void {
     console.log("Click sur la case",1);
-  }
-
-  public rightClickPiece(event : MouseEvent) : void {
-    console.log("Click sur la pièce",1);
-  }
-
-  public rightClickBall(event : MouseEvent) : void {
-    console.log("Click sur la balle",1);
+    var target=(event.target as HTMLInputElement);
+    while(target.className!="case") {
+      target=target.parentElement as HTMLInputElement;
+    }
+    if(!this.isACaseSelected) {
+      this.isACaseSelected=true;
+      this.caseSelected=target;
+      target.style.borderColor='red';
+    } else {
+      //TODO
+      //requête REST suivi d'un rafraichissement du board
+      this.isACaseSelected=false;
+      this.caseSelected.style.borderColor=null;
+      this.caseSelected=null;
+    }
+    console.log(target);
   }
 }

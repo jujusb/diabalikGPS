@@ -7,15 +7,15 @@
     <input type="text" name="input">
 </label>
 <label>Color P1:
-        <input type="checkbox" ng-model="checkboxModel.value1">
+    <input type="checkbox" [name]="checkbox1" ng-model="checkboxModel.value1" (change)="change1($event)" [disabled]="isChecked && (isCheckedName!=name)">
 </label>
 <br>
 <label>
     Player 2 :
     <input type="text" name="input">
 </label>
-<label>Color P2:
-        <input type="checkbox" ng-model="checkboxModel.value1">
+<label>Color P2:    
+    <input type="checkbox" [name]="checkbox2" ng-model="checkboxModel.value1" (change)="change2($event)" [disabled]="isChecked && (isCheckedName!=name2)">
 </label>
 <br>
 <label>Second player IA ?
@@ -31,7 +31,7 @@
     </select>
 </p>
 
-<button onclick="location.href = 'diabalik'">Play</button>
+<button routerLink="/diabalik">Play</button>
 
 <!-- #name identifies all the div instances created by the ngFor as a set that
 can be used in the controller class -->
