@@ -58,7 +58,7 @@ div {
 div#colonne1 {
 	float: left;
     width: 400px;
-    height: fit-content;
+    height: var(--grid-size);
     background: lightblue;
     text-align: center;
 }
@@ -66,7 +66,7 @@ div#colonne1 {
 div#colonne2 {
 	float: right;
     width: 400px;
-    height: max-content;
+    height: var(--grid-size);
     background: burlywood;
     text-align: center;
 }

@@ -4,34 +4,34 @@
 
 <label>
     Player 1 :
-    <input type="text" name="input">
+    <input type="text" id="namePlayer1">
 </label>
 <label>Color P1:
-    <input type="checkbox" [name]="checkbox1" ng-model="checkboxModel.value1" (change)="change1($event)" [disabled]="isChecked && (isCheckedName!=name)">
+    <input type="checkbox" checked="true" id="colorCheckbox1" ng-model="checkboxModel.value1" (change)="change1($event)" [disabled]="isChecked && (isCheckedName!=name)">
 </label>
 <br>
 <label>
     Player 2 :
-    <input type="text" name="input">
+    <input type="text" id="namePlayer2">
 </label>
 <label>Color P2:    
-    <input type="checkbox" [name]="checkbox2" ng-model="checkboxModel.value1" (change)="change2($event)" [disabled]="isChecked && (isCheckedName!=name2)">
+    <input type="checkbox" id="colorCheckbox2" ng-model="checkboxModel.value1" (change)="change2($event)" [disabled]="isChecked && (isCheckedName!=name2)">
 </label>
 <br>
 <label>Second player IA ?
-        <input type="checkbox" ng-model="checkboxModel.value1" (click)="ia = !ia">
+        <input type="checkbox" id="iaCheckbox" ng-model="checkboxModel.value1" (click)="ia = !ia">
 </label>
 <br>
 
 <p *ngIf="ia">
-    <select name="ia">
+    <select id="iaType">
         <option value="noob">Noob</option>
         <option value="starting">Starting</option>
         <option value="progressive">Progressive</option>
     </select>
 </p>
 
-<button routerLink="/diabalik">Play</button>
+<button routerLink="/diabalik" (click)="launchGame($event)">Play</button>
 
 <!-- #name identifies all the div instances created by the ngFor as a set that
 can be used in the controller class -->
