@@ -1,31 +1,38 @@
 <div >
 	<div id="header">
 		<button routerLink="/config" (click)="killGame()"> < Quitter le jeu</button>
-        <p style="text-align: center;"> C'est à {{data.storage.currentPlayer.name}} de jouer !</p>
+        <p style="text-align: center;" *ngIf = "!(data.storage.player1.winner || data.storage.player2.winner)"> C'est à {{data.storage.currentPlayer.name}} de jouer !</p>
     </div>
 
-    <div id="colonne1" *ngIf="data.storage.currentPlayer.name == data.storage.player1.name">
-        <p>Tour courant : {{data.storage.currentTurn}}</p>
-        <button routerLink="/diabalik" (click)="undo()">Undo</button> <button routerLink="/diabalik" (click)="redo()">Redo</button>
-        <p>Nbre d'actions restantes : {{data.storage.nbActions}}</p>
-        <button routerLink="/diabalik" (click)="endOfTurn()">Je valide mes actions</button>
+    <div id="colonne1">
         <p> Joueur 1 :{{data.storage.player1.name}} </p>
-        <p> {{data.storage.player1.colour ? black : white}}</p>
+        <p *ngIf="data.storage.player1.colour"> white</p>
+        <p *ngIf="!data.storage.player1.colour"> black </p>
+        <div  *ngIf="data.storage.currentPlayer.name == data.storage.player1.name">
+                <p>Tour courant : {{data.storage.currentTurn}}</p><br>
+                <button routerLink="/diabalik" (click)="undo()" [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Undo</button> <button routerLink="/diabalik" (click)="redo()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Redo</button>
+                <p>Nbre d'actions restantes : {{3-data.storage.nbActions}}</p>
+                <button routerLink="/diabalik" (click)="endOfTurn()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Je valide mes actions</button>
+            </div>
     </div>
 
-    <div id="colonne2" *ngIf="data.storage.currentPlayer.name == data.storage.player2.name">
+    <div id="colonne2">
         <p> Joueur 2 :{{data.storage.player2.name}} </p>
-        <p>Tour courant : {{data.storage.currentTurn}}</p><br>
-        <button routerLink="/diabalik" (click)="undo()">Undo</button> <button routerLink="/diabalik" (click)="redo()">Redo</button>
-        <p>Nbre d'actions restantes : {{data.storage.nbActions}}</p>
-        <button routerLink="/diabalik" (click)="endOfTurn()">Je valide mes actions</button>
-        <p> {{data.storage.player2.colour ? black : white}}</p>
+        <p *ngIf="data.storage.player2.colour"> white</p>
+        <p *ngIf="!data.storage.player2.colour"> black </p>
+        <p *ngIf="data.storage.player2.type=='aiPlayer'"> {{data.storage.player2.algo}} </p>
+        <div  *ngIf="data.storage.currentPlayer.name == data.storage.player2.name">
+            <p>Tour courant : {{data.storage.currentTurn}}</p><br>
+            <button routerLink="/diabalik" (click)="undo()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Undo</button> <button routerLink="/diabalik" (click)="redo()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Redo</button>
+            <p>Nbre d'actions restantes : {{3-data.storage.nbActions}}</p>
+            <button routerLink="/diabalik" (click)="endOfTurn()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Je valide mes actions</button>
+        </div>
     </div>
 
     <div id="centre">
         <div class="board">
             <ng-container class='case' #myobjects *ngFor="let y of [6,5,4,3,2,1,0]" >
-                <div class='case' #myobjects *ngFor="let x of [0,1,2,3,4,5,6]" [attr.data-x]=x [attr.data-y]=y (mousedown)="clickCase($event)"> <!--*ngIf="isACaseSelected && caseSelected.data-x=x && caseSelected.data-y=y">-->
+                <div class='case' #myobjects *ngFor="let x of [0,1,2,3,4,5,6]" [attr.data-x]=x [attr.data-y]=y (mousedown)="clickCase($event)">
                     <div class='piece' *ngIf="data.storage.gameBoard.board[7*y+x]!=null" [ngStyle]="{'background-color': data.storage.gameBoard.board[7*y+x].player}">
                         <div class='ball' *ngIf="data.storage.gameBoard.board[7*y+x].ballOwner">
                         </div>
