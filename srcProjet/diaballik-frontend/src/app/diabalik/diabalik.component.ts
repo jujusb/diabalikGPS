@@ -57,7 +57,7 @@ export class DiabalikComponent implements OnInit {
       this.caseSelected=null;
       requete.subscribe((returnedData : any) => {
         console.log(returnedData);
-        this.data.receiveJson(JSON.stringify(returnedData));
+        this.data.receiveJson(returnedData);
       });
     }
     console.log(target);
@@ -80,20 +80,20 @@ export class DiabalikComponent implements OnInit {
   public undo() : void {
     this.http.put('/game/action/undo',{},{}).subscribe((returnedData : any) => {
       console.log(returnedData);
-      this.data.receiveJson(JSON.stringify(returnedData));
+      this.data.receiveJson(returnedData);
     });
   }
 
   public redo() : void {
     this.http.put('/game/action/redo',{},{}).subscribe((returnedData : any) => {
       console.log(returnedData);
-      this.data.receiveJson(JSON.stringify(returnedData));
+      this.data.receiveJson(returnedData);
     });
   }
   public endOfTurn() : void {
     this.http.post('/game/endOfTurn',{},{}).subscribe((returnedData : any) => {
       console.log(returnedData);
-      this.data.receiveJson(JSON.stringify(returnedData));
+      this.data.receiveJson(returnedData);
     });
   }
 }

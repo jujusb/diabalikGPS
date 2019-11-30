@@ -59,7 +59,7 @@ div#colonne1 {
 	float: left;
     width: 400px;
     height: var(--grid-size);
-    background: lightblue;
+    font-style: gray ;
     text-align: center;
 }
 
@@ -67,7 +67,7 @@ div#colonne2 {
 	float: right;
     width: 400px;
     height: var(--grid-size);
-    background: burlywood;
+    font-style: gray ;
     text-align: center;
 }
 

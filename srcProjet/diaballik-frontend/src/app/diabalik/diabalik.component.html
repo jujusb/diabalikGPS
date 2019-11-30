@@ -5,11 +5,12 @@
     </div>
 
     <div id="colonne1" *ngIf="data.storage.currentPlayer.name == data.storage.player1.name">
-        <p>Tour courant : {{data.storage.currentTurn}}</p><br>
+        <p>Tour courant : {{data.storage.currentTurn}}</p>
         <button routerLink="/diabalik" (click)="undo()">Undo</button> <button routerLink="/diabalik" (click)="redo()">Redo</button>
         <p>Nbre d'actions restantes : {{data.storage.nbActions}}</p>
         <button routerLink="/diabalik" (click)="endOfTurn()">Je valide mes actions</button>
         <p> Joueur 1 :{{data.storage.player1.name}} </p>
+        <p> {{data.storage.player1.colour ? black : white}}</p>
     </div>
 
     <div id="colonne2" *ngIf="data.storage.currentPlayer.name == data.storage.player2.name">
@@ -18,6 +19,7 @@
         <button routerLink="/diabalik" (click)="undo()">Undo</button> <button routerLink="/diabalik" (click)="redo()">Redo</button>
         <p>Nbre d'actions restantes : {{data.storage.nbActions}}</p>
         <button routerLink="/diabalik" (click)="endOfTurn()">Je valide mes actions</button>
+        <p> {{data.storage.player2.colour ? black : white}}</p>
     </div>
 
     <div id="centre">
