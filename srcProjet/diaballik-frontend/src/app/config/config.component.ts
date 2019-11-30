@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Subscriber } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { MyData } from '../mydata';
 
 @Component({
   selector: 'app-config',
@@ -15,7 +15,7 @@ export class ConfigComponent implements OnInit {
   iaCheckbox : HTMLInputElement;
   ia : HTMLInputElement;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private data : MyData) { }
 
   ngOnInit() {
     this.nameP1 = document.getElementById("namePlayer1") as HTMLInputElement;
@@ -44,18 +44,32 @@ export class ConfigComponent implements OnInit {
     var colorP1 = this.checkbox1.checked;
     var isIa = this.iaCheckbox.checked;
     var request;
-
+    console.log(nameP1);
+    console.log(nameP2+''+nameP2.length);
     if(isIa){
       var iaType = this.ia.value;
-      if(nameP2 == ""){
-        request = this.http.put('/game/newPVE/'+nameP1+'/'+colorP1+'/'+iaType,{},{});
+      if(nameP2.length == 0) {
+        request = this.http.post('/game/newPvE/'+nameP1+'/'+colorP1+'/'+iaType,{},{}).toPromise;
       }
       else{
-        request = this.http.put('/game/newPVE/'+nameP1+'/'+nameP2+'/'+colorP1+'/'+iaType,{},{});
+        request = this.http.post('/game/newPvE/'+nameP1+'/'+nameP2+'/'+colorP1+'/'+iaType,{},{}).toPromise;
       }
     }else{
-      request = this.http.put('/game/newPVP/'+nameP1+'/'+nameP2+'/'+colorP1,{},{});
+      request = this.http.post('/game/newPvP/'+nameP1+'/'+nameP2+'/'+colorP1,{},{});
     }
-    request.subscribe(returnedData => console.log(returnedData));
+    request.toPromise().catch(this.handleError);
+    request.subscribe(
+      returnedData => {
+        console.log(returnedData);
+        this.data.receiveJson(JSON.stringify(returnedData));
+      });
+  }
+
+  private handleError(errorResponse : HttpErrorResponse) : void {
+    if(errorResponse.error instanceof ErrorEvent) {
+      console.error('Client Side Error : ', errorResponse.error.message);
+    } else {
+      console.error('Serveur Side Error : ', errorResponse);
+    }
   }
 }

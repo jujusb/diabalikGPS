@@ -1,19 +1,23 @@
 <div >
 	<div id="header">
-		<button routerLink="/config"> < Quitter le jeu</button>
+		<button routerLink="/config" (click)="killGame()"> < Quitter le jeu</button>
         <p style="text-align: center;"> C'est à {{data.storage.currentPlayer.name}} de jouer !</p>
     </div>
 
-    <div id="colonne1">
+    <div id="colonne1" *ngIf="data.storage.currentPlayer.name == data.storage.player1.name">
         <p>Tour courant : {{data.storage.currentTurn}}</p><br>
+        <button routerLink="/diabalik" (click)="undo()">Undo</button> <button routerLink="/diabalik" (click)="redo()">Redo</button>
+        <p>Nbre d'actions restantes : {{data.storage.nbActions}}</p>
+        <button routerLink="/diabalik" (click)="endOfTurn()">Je valide mes actions</button>
         <p> Joueur 1 :{{data.storage.player1.name}} </p>
     </div>
 
-    <div id="colonne2">
+    <div id="colonne2" *ngIf="data.storage.currentPlayer.name == data.storage.player2.name">
         <p> Joueur 2 :{{data.storage.player2.name}} </p>
-        <button routerLink="/diabalik">Undo</button> <button routerLink="/diabalik">Redo</button>
+        <p>Tour courant : {{data.storage.currentTurn}}</p><br>
+        <button routerLink="/diabalik" (click)="undo()">Undo</button> <button routerLink="/diabalik" (click)="redo()">Redo</button>
         <p>Nbre d'actions restantes : {{data.storage.nbActions}}</p>
-        <button routerLink="/diabalik">Je valide mes actions</button>
+        <button routerLink="/diabalik" (click)="endOfTurn()">Je valide mes actions</button>
     </div>
 
     <div id="centre">
