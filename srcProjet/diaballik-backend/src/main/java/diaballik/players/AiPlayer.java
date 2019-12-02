@@ -1,11 +1,12 @@
 package diaballik.players;
 
+import diaballik.coordinates.ActionCoord;
+import diaballik.gameElements.GameBoard;
 import diaballik.players.algorithms.AiAlgoAdaptor;
 import diaballik.players.algorithms.Algo;
 import diaballik.players.algorithms.EAiType;
+import diaballik.players.algorithms.MonteCarloAlgo;
 import diaballik.players.algorithms.NoobAlgo;
-import diaballik.coordinates.ActionCoord;
-import diaballik.gameElements.GameBoard;
 import diaballik.players.algorithms.StartingAlgo;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -63,6 +64,10 @@ public class AiPlayer extends Player {
                 algo = new StartingAlgo(this);
                 TURNS_BEFORE_SWAP = -1;
                 break;
+            case MONTECARLO:
+                algo = new MonteCarloAlgo(this);
+                TURNS_BEFORE_SWAP = -1;
+                break;
             default:
                 algo = new NoobAlgo(this);
                 TURNS_BEFORE_SWAP = 3;
@@ -86,11 +91,11 @@ public class AiPlayer extends Player {
 
     /**
      * Function which returns a move to execute
-     *
+     * @param nbActions number of actions played for the AI
      * @return an ActionCoord's instance, which defines the movement of the Player
      */
-    public ActionCoord getMove() {
-        return algo.decideMove();
+    public ActionCoord getMove(int nbActions) {
+        return algo.decideMove(nbActions);
     }
 
     /**

@@ -102,11 +102,12 @@ public class StartingAlgo extends Algo {
     /**
      * Function which returns a move to execute
      *
+     * @param nbActions number of actions already done by the AI
      * @return an instance of ActionCoord, which defines the movement of the Player
      */
     @Override
-    public ActionCoord decideMove() {
-        final Player adversary = board.getHumanPlayer();
+    public ActionCoord decideMove(int nbActions) {
+        final Player adversary = board.getPlayer1();
         final List<ActionCoord> moves;
         final List<ActionCoord> ballMoves;
 

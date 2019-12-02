@@ -46,9 +46,10 @@ public abstract class Algo {
     /**
      * Function which returns a move to execute
      *
+     * @param nbActions number of actions already played by AI
      * @return an ActionCoord's instance, which defines the movement of the Player
      */
-    public abstract ActionCoord decideMove();
+    public abstract ActionCoord decideMove(int nbActions);
 
     /**
      * Moves a coordinate and, if it is free, adds a move there in an ActionCoord list for a given pawn
