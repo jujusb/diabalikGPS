@@ -26,7 +26,7 @@ public class Node {
      *
      * @param state State of the game related to the new node we create
      */
-    public Node(State state) {
+    public Node(final State state) {
         this.state = state;
         childArray = new ArrayList<>();
     }
@@ -36,32 +36,25 @@ public class Node {
      *
      * @param node The node to copy
      */
-    public Node(Node node) {
+    public Node(final Node node) {
         this.childArray = new ArrayList<>();
         this.state = new State(node.getState());
-        if (node.getParent() != null)
+        if (node.getParent() != null) {
             this.parent = node.getParent();
-        List<Node> childArray = node.getChildArray();
-        for (Node child : childArray) {
-            this.childArray.add(new Node(child));
         }
+        final List<Node> childArray = node.getChildArray();
+        childArray.forEach(child -> this.childArray.add(new Node(child)));
     }
 
     public State getState() {
         return state;
     }
 
-// --Commented out by Inspection START (11/05/2019 14:15):
-//    public void setState(State state) {
-//        this.state = state;
-//    }
-// --Commented out by Inspection STOP (11/05/2019 14:15)
-
     public Node getParent() {
         return parent;
     }
 
-    public void setParent(Node parent) {
+    public void setParent(final Node parent) {
         this.parent = parent;
     }
 
@@ -69,11 +62,6 @@ public class Node {
         return childArray;
     }
 
-// --Commented out by Inspection START (11/05/2019 14:15):
-//    public void setChildArray(List<Node> childArray) {
-//        this.childArray = childArray;
-//    }
-// --Commented out by Inspection STOP (11/05/2019 14:15)
 
     /**
      * Selects a random node from the children of the node
@@ -81,8 +69,8 @@ public class Node {
      * @return A random children node
      */
     public Node getRandomChildNode() {
-        int noOfPossibleMoves = this.childArray.size();
-        int selectRandom = (int) (Math.random() * noOfPossibleMoves);
+        final int noOfPossibleMoves = this.childArray.size();
+        final int selectRandom = (int) (Math.random() * noOfPossibleMoves);
         return this.childArray.get(selectRandom);
     }
 

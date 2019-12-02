@@ -6,7 +6,14 @@ import diaballik.players.Player;
 import java.util.Collections;
 import java.util.Comparator;
 
-class UCT {
+final class UCT {
+
+    /**
+     * Privatization of UCT constructor to avoid implementing one
+     */
+    private UCT() {
+        super();
+    }
 
     /**
      * Computes the UCT (upper confidence bound) values of each node. The higher it is, the more chances we have to explore this tree
@@ -18,14 +25,15 @@ class UCT {
      * @param playerGoal   The player we want to make win. If the opponent plays, we suppose it takes harmful decisions
      * @return The UCT value of the node
      */
-    private static double uctValue(int totalVisit, double nodeWinScore, int nodeVisit, Player playerOfNode, Player playerGoal) {
+    private static double uctValue(final int totalVisit, final double nodeWinScore, final int nodeVisit, final Player playerOfNode, final Player playerGoal) {
         if (nodeVisit == 0) {
             return Integer.MAX_VALUE;
         }
-        if (playerOfNode.equals(playerGoal))
+        if (playerOfNode.equals(playerGoal)) {
             return (nodeWinScore / (double) nodeVisit) + 1.41 * Math.sqrt(Math.log(totalVisit) / (double) nodeVisit);
-        else
+        } else {
             return (-nodeWinScore / (double) nodeVisit) + 1.41 * Math.sqrt(Math.log(totalVisit) / (double) nodeVisit);
+        }
     }
 
     /**
@@ -35,8 +43,8 @@ class UCT {
      * @param playerGoal The player we want to make win
      * @return The child we need to explore
      */
-    static Node findBestNodeWithUCT(Node node, Player playerGoal) {
-        int parentVisit = node.getState().getVisitCount();
+    static Node findBestNodeWithUCT(final Node node, final Player playerGoal) {
+        final int parentVisit = node.getState().getVisitCount();
         return Collections.max(
                 node.getChildArray(),
                 Comparator.comparing(c -> uctValue(parentVisit, c.getState().getWinScore(), c.getState().getVisitCount(), c.getState().getPlayer(), playerGoal)));

@@ -6,6 +6,7 @@ import diaballik.players.Player;
 import diaballik.supervisors.Game;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 
 public class MonteCarloTreeSearch {
@@ -22,44 +23,59 @@ public class MonteCarloTreeSearch {
     int nbSimulations = 0;
 
     public ActionCoord findNextMove(final GameBoard currentBoard, final Player player, final Player opponent, final int nbActions) {
-        long start = System.currentTimeMillis();
-        long end = start + 5000;
+        final long start = System.currentTimeMillis();
+        final long end = start + 5000;
 
         this.opponent = opponent;
         this.player = player;
 
-        Tree tree = new Tree();
-        Node rootNode = tree.getRoot();
+        final Tree tree = new Tree();
+        final Node rootNode = tree.getRoot();
 
-        GameBoard board = (GameBoard) currentBoard.clone();
+        final GameBoard board = (GameBoard) currentBoard.clone();
 
         rootNode.getState().setGame(new Game(board, nbActions));
         rootNode.getState().setPlayer(board.getPlayer2());
 
-        while (System.currentTimeMillis() < end) {
-            // Phase 1 - Selection of the most interesting node
-            Node promisingNode = selectPromisingNode(rootNode);
-            // Phase 2 - Expansion of the node to get its children
-            if (promisingNode.getState().getGame().getWinner() == null) // checks that the game isn't finished
-                expandNode(promisingNode);
+        // stream that explores nodes until the end of the allocated time
+        IntStream
+                .iterate(1, n -> n + 1)
+                .takeWhile(n -> System.currentTimeMillis() < end)
+                .forEach(n -> {
+                    // Phase 1 - Selection of the most interesting node
+                    final Node promisingNode = selectPromisingNode(rootNode);
+                    // Phase 2 - Expansion of the node to get its children
+                    if (promisingNode.getState().getGame().getWinner() == null) { // checks that the game isn't finished
+                        expandNode(promisingNode);
+                    }
+                    // Phase 3 - Simulation : chooses a random child node and tries a game with it
+                    Node nodeToExplore = promisingNode;
+                    if (promisingNode.getChildArray().size() > 0) {
+                        nodeToExplore = promisingNode.getRandomChildNode();
+                    }
+                    final Player playoutResult = simulateRandomPlayout(nodeToExplore);
+                    // Phase 4 - Update of the scores
+                    backPropogation(nodeToExplore, playoutResult);
+                });
 
-            // Phase 3 - Simulation : chooses a random child node and tries a game with it
-            Node nodeToExplore = promisingNode;
-            if (promisingNode.getChildArray().size() > 0) {
-                nodeToExplore = promisingNode.getRandomChildNode();
-            }
-            Player playoutResult = simulateRandomPlayout(nodeToExplore);
-            // Phase 4 - Update of the scores
-            backPropogation(nodeToExplore, playoutResult);
 
-        }
-
-        /** We run out of time : we have to stop the exploration there */
-        Node winnerNode = rootNode.getChildWithMaxScore();
+        /**
+         * We run out of time : we have to stop the exploration there
+         */
+        final Node winnerNode = rootNode.getChildWithMaxScore();
         tree.setRoot(winnerNode);
-        System.out.println("Chances to win : " + (winnerNode.getState().getWinScore() + 5 * winnerNode.getState().getVisitCount()) / (10 * winnerNode.getState().getVisitCount()));
+        System.out.println("Chances to win : " + (winnerNode.getState().
+
+                getWinScore() + 5 * winnerNode.getState().
+
+                getVisitCount()) / (10 * winnerNode.getState().
+
+                getVisitCount()));
         System.out.println("Number of simulations : " + nbSimulations); // ~ beetween 5000-15000
-        return winnerNode.getState().getActionCoord();
+        return winnerNode.getState().
+
+                getActionCoord();
+
     }
 
     /**
@@ -68,11 +84,14 @@ public class MonteCarloTreeSearch {
      * @param rootNode "father" of the nodes we want to order and to choose, it is the root of our tree here
      * @return the node with the highest UCT score
      */
-    private Node selectPromisingNode(Node rootNode) {
+    private Node selectPromisingNode(final Node rootNode) {
         Node node = rootNode;
-        while (node.getChildArray().size() != 0) {
-            node = UCT.findBestNodeWithUCT(node, player);
+
+        // recursively looks for the best leaf of the tree
+        if (node.getChildArray().size() != 0) {
+            node = selectPromisingNode(UCT.findBestNodeWithUCT(node, player));
         }
+
         return node;
     }
 
@@ -81,62 +100,75 @@ public class MonteCarloTreeSearch {
      *
      * @param node the node that is to be expanded
      */
-    private void expandNode(Node node) {
-        List<State> possibleStates = node.getState().getAllPossibleStates();
+    private void expandNode(final Node node) {
+        final List<State> possibleStates = node.getState().getAllPossibleStates();
         possibleStates.forEach(state -> {
-            Node newNode = new Node(state);
+            final Node newNode = new Node(state);
             newNode.setParent(node);
             node.getChildArray().add(newNode);
         });
     }
 
     /**
-     * randomly simulates the game. each player has more chances to advance his pawns and to attack than to go back, so that the simulation will be shorter.
+     * randomly simulates the game, updating node and state
      *
      * @param node node where we have to do a simulation
      * @return the player that wins
      */
-    private Player simulateRandomPlayout(Node node) {
-        Node tempNode = new Node(node);
-        State tempState = tempNode.getState();
-        Player boardStatus = tempState.getGame().getWinner();
+    private Player simulateRandomPlayout(final Node node) {
+        final Node tempNode = new Node(node);
+        final State tempState = tempNode.getState();
+        final Player boardStatus = tempState.getGame().getWinner();
 
         if (boardStatus == opponent) {
             tempNode.getParent().getState().setWinScore(Integer.MIN_VALUE);
             return boardStatus;
         }
 
+        // we randomly play this game to its end and cound the number of iterations needed
         int c = 0;
-        while (boardStatus == null) { // while the game isn't finished
-            tempState.setPlayer(tempState.getGame().getCurrentPlayer());
-            tempState.randomPlay();
-            c++;
-            tempState.getGame().swapPlayer();
-            boardStatus = tempState.getGame().getWinner();
-        }
-        System.out.println("c = " + c); // typically 500-1000
+        c = randomlyPlayUntilEnd(tempState, c);
+
+        //System.out.println("c = " + c); // typically 500-1000
         nbSimulations++;
 
         return boardStatus;
     }
 
     /**
+     * Randomly and recursively plays a game to its end
+     *
+     * @param s the state of the game at which we are
+     * @param c the number of actions already simulated
+     * @return the number of actions simulated for the whole game
+     */
+    int randomlyPlayUntilEnd(final State s, final int c) {
+        // there is a winner, we do not need to play
+        if (s.getGame().getWinner() != null) {
+            return c;
+        } else {
+            // there is no winner, we have to keep on playing
+            s.randomPlay();
+            s.getGame().swapPlayer();
+            return randomlyPlayUntilEnd(s, c + 1);
+        }
+    }
+
+    /**
      * Once the simulation has been done, updates the score of all the nodes above the one we chose
      *
-     * @param nodeToExplore the node that has been evaluated
-     * @param winner        the winner of this evaluation
+     * @param node   the node that has been evaluated
+     * @param winner the winner of this evaluation
      */
-    private void backPropogation(Node nodeToExplore, Player winner) {
-        Node tempNode = nodeToExplore;
-        while (tempNode != null) {
-            tempNode.getState().incrementVisit();
-
-            if (tempNode.getState().getPlayer().equals(winner)) {
-                tempNode.getState().addScore(WIN_SCORE);
+    private void backPropogation(final Node node, final Player winner) {
+        if (node != null) {
+            node.getState().incrementVisit();
+            if (node.getState().getPlayer().equals(winner)) {
+                node.getState().addScore(WIN_SCORE);
             } else {
-                tempNode.getState().addScore(-WIN_SCORE);
+                node.getState().addScore(-WIN_SCORE);
             }
-            tempNode = tempNode.getParent();
+            backPropogation(node.getParent(), winner);
         }
     }
 

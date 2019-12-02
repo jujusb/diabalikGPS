@@ -3,7 +3,7 @@ package diaballik.players.algorithms.AlphaPion;
 class Tree {
     private Node root;
 
-    public Tree() {
+    Tree() {
         root = new Node();
     }
 
@@ -12,7 +12,7 @@ class Tree {
         return root;
     }
 
-    public void setRoot(Node root) {
+    public void setRoot(final Node root) {
         this.root = root;
     }
 }

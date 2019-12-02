@@ -38,7 +38,7 @@ public class State {
      * @param game   The game possibility
      * @param player The player who can lead to this possibility
      */
-    private State(Game game, Player player, ActionCoord action) {
+    private State(final Game game, final Player player, final ActionCoord action) {
         this.game = game;
         visitCount = 0;
         winScore = 0;
@@ -51,15 +51,15 @@ public class State {
      *
      * @param state The state we want to copy
      */
-    public State(State state) {
+    public State(final State state) {
         this.game = (Game) state.getGame().clone();
         this.visitCount = state.getVisitCount();
         this.winScore = state.getWinScore();
 
         // defines the right player to the state
-        if(state.getPlayer() == state.getGame().getPlayer1()){
+        if (state.getPlayer() == state.getGame().getPlayer1()) {
             this.player = game.getPlayer1();
-        }else{
+        } else {
             this.player = game.getPlayer2();
         }
     }
@@ -68,7 +68,7 @@ public class State {
         return player;
     }
 
-    public void setPlayer(Player player) {
+    public void setPlayer(final Player player) {
         this.player = player;
     }
 
@@ -80,7 +80,7 @@ public class State {
         return actionCoord;
     }
 
-    public void setGame(Game game) {
+    public void setGame(final Game game) {
         this.game = game;
         this.player = game.getCurrentPlayer();
     }
@@ -93,7 +93,7 @@ public class State {
         return winScore;
     }
 
-    public void setWinScore(double winScore) {
+    public void setWinScore(final double winScore) {
         this.winScore = winScore;
     }
 
@@ -103,16 +103,17 @@ public class State {
      * @return A liste of all possibilities the current game player (and not the attribute "player" of this object) has
      */
     public List<State> getAllPossibleStates() {
-        List<ActionCoord> listGame = ((AiPlayer) player).getAlgo().calculatePossibleMoves(game.getCurrentPlayer());
-        List<State> listState = new ArrayList<>();
-        for (ActionCoord action : listGame) {
-            Game possibleGame = (Game) game.clone();
+        final List<ActionCoord> listGame = ((AiPlayer) player).getAlgo().calculatePossibleMoves(game.getCurrentPlayer());
+        final List<State> listState = new ArrayList<>();
+        listGame.forEach(action -> {
+            final Game possibleGame = (Game) game.clone();
             //System.out.println("New possible node : ");
             possibleGame.moveOfPlayerNoCheck(action);
             possibleGame.swapPlayer();
 
             listState.add(new State(possibleGame, game.getCurrentPlayer(), action));
-        }
+
+        });
         return listState;
     }
 
@@ -120,7 +121,7 @@ public class State {
         this.visitCount++;
     }
 
-    public void addScore(double score) {
+    public void addScore(final double score) {
         this.winScore += score;
     }
 
@@ -131,6 +132,6 @@ public class State {
      */
     public void randomPlay() {
         //System.out.println("Random play : ");
-        game.moveOfPlayerNoCheck(((AiPlayer)game.getCurrentPlayer()).getAlgo().decideMove(0));
+        game.moveOfPlayerNoCheck(((AiPlayer) game.getCurrentPlayer()).getAlgo().decideMove(0));
     }
 }
