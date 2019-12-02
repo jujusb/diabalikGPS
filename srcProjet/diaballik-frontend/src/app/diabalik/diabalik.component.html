@@ -5,13 +5,14 @@
             <p style="text-align: center;"> C'est à {{data.storage.currentPlayer.name}} de jouer !</p>
         </div>
         <div *ngIf = "data.storage.player1.winner || data.storage.player2.winner" style="text-align: center;">
+            <!--<button (click)="winner()">Félicitation {{data.storage.currentPlayer.name}} ! Vous avez gagné !</button>-->
             <p> {{data.storage.currentPlayer.name}} a gagné !</p>
             <button routerLink="/config" (click)="killGame()"> < Quitter le jeu</button> <button routerLink="/diabalik" *ngIf="data.storage.player2.winner" (click)="redemarrerGame()"> Revanche !!!</button> <button routerLink="/diabalik" *ngIf="data.storage.player1.winner" (click)="redemarrerGame()">Redémarrer jeu </button>
         </div>
     </div>
 
     <div id="colonne1">
-        <p> Joueur 1 :{{data.storage.player1.name}} </p>
+        <p> Joueur 1 : {{data.storage.player1.name}} </p>
         <p *ngIf="data.storage.player1.colour"> white</p>
         <p *ngIf="!data.storage.player1.colour"> black </p>
         <div  *ngIf="data.storage.currentPlayer.name == data.storage.player1.name">
@@ -23,7 +24,7 @@
     </div>
 
     <div id="colonne2">
-        <p> Joueur 2 :{{data.storage.player2.name}} </p>
+        <p> Joueur 2 : {{data.storage.player2.name}} </p>
         <p *ngIf="data.storage.player2.colour"> white</p>
         <p *ngIf="!data.storage.player2.colour"> black </p>
         <p *ngIf="data.storage.player2.type=='aiPlayer'"> {{data.storage.player2.algo}} </p>

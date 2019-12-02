@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>GAGNANT!!!</h1>
+<div mat-dialog-content>
+  <p>{{data.storage.currentPlayer.name}} a gagné !</p>
+</div>
+<div mat-dialog-actions>
+    <button routerLink="/config" (click)="killGame()"> < Quitter le jeu</button> <button routerLink="/diabalik" *ngIf="data.storage.player2.winner || (data.storage.player1.winner && data.storage.player2.type=='humanPlayer')" (click)="redemarrerGame()"> Revanche !!!</button> <button routerLink="/diabalik" *ngIf="data.storage.player1.winner && data.storage.player2.type=='aiPlayer'" (click)="redemarrerGame()">Redémarrer jeu </button>
+</div>

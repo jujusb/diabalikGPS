@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MyData } from '../mydata';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
+import{ MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-diabalik',
@@ -21,7 +22,7 @@ export class DiabalikComponent implements OnInit {
  // Look at the app.module.ts file to see how the HTTP and router modules have been added to be used here and
  // how 'data' as been configured to be an object that can be injected in the different components of the app.
  // constructor parameters that are defined with a visibility are turned as attributes of the class.
- constructor(private http: HttpClient, private data: MyData) {
+ constructor(private http: HttpClient, private data: MyData) {//, private dialog: MatDialog) {
    //this.ok = false;
  }
 
@@ -63,14 +64,16 @@ export class DiabalikComponent implements OnInit {
     console.log(target);
   }
 
-  private handleError(errorResponse : HttpErrorResponse) : any {
-    if(errorResponse.error instanceof ErrorEvent) {
-      console.error('Client Side Error : ', errorResponse.error.message);
-    } else {
-      console.error('Serveur Side Error : ', errorResponse);
-    }
-    //return throwError("There is a problem with the service");
-  }
+  /**private winner() {
+    const dialogRef = this.dialog.open(DiabalikWinnerDialog, {
+      width: '250px'
+    });
+
+    dialogRef.close();
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }*/
 
   public killGame() : void {
     var request = this.http.put('/game/kill',{},{});
@@ -100,6 +103,37 @@ export class DiabalikComponent implements OnInit {
   public redemarrerGame() : void {
     var request;
     var nameP1 = this.data.storage.player1.name;
+    var colorP1 = this.data.storage.player1.colour;
+    var nameP2 = this.data.storage.player2.name;
+    if(this.data.storage.player2.type=='aiPlayer') {
+      var iaType=this.data.storage.player2.algo ;
+      request = this.http.post('/game/newPvE/'+nameP1+'/'+colorP1+'/'+iaType,{},{});
+    }else{
+      request = this.http.post('/game/newPvP/'+nameP1+'/'+nameP2+'/'+colorP1,{},{});
+    }
+    request.subscribe(
+      returnedData => {
+        console.log(returnedData);
+        this.data.receiveJson(returnedData);
+      });
+  }
+}
+
+/*
+@Component({
+  selector: 'diabalik.component.dialog',
+  templateUrl: 'diabalik.component.dialog.html',
+})
+export class DiabalikWinnerDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DiabalikWinnerDialog>,
+    private http : HttpClient,
+    public data: MyData) {}
+
+  public redemarrerGame() : void {
+    var request;
+    var nameP1 = this.data.storage.player1.name;
     var colorP1 = this.data.storage.player1.color;
     var nameP2 = this.data.storage.player2.name;
     if(this.data.storage.player2.type=='aiPlayer') {
@@ -115,4 +149,8 @@ export class DiabalikComponent implements OnInit {
       });
   }
 
-}
+  public killGame() : void {
+    var request = this.http.put('/game/kill',{},{});
+    request.subscribe(returnedData => console.log(returnedData));
+  }
+}*/
