@@ -28,7 +28,7 @@ public final class PlayerFactory {
      * @return the new AI player
      */
     public Player createAi(final String type, final boolean color, final Optional<String> name) {
-        final EAiType t = EAiType.valueOf(type);
+        final EAiType t = EAiType.valueOf(type.toUpperCase());
         final boolean c = color;
         final String n;
 

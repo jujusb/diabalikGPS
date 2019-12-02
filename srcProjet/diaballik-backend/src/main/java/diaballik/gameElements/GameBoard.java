@@ -2,7 +2,10 @@ package diaballik.gameElements;
 
 import diaballik.coordinates.ActionCoord;
 import diaballik.coordinates.Coordinate;
+import diaballik.players.AiPlayer;
+import diaballik.players.HumanPlayer;
 import diaballik.players.Player;
+import diaballik.players.algorithms.EAiType;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,7 +20,7 @@ import java.util.stream.Stream;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class GameBoard extends Do {
+public class GameBoard extends Do implements Cloneable {
 
     /**
      * The boundary of the board
@@ -95,8 +98,15 @@ public class GameBoard extends Do {
     /**
      * Get Human Player
      */
-    public Player getHumanPlayer() {
+    public Player getPlayer1() {
         return player1;
+    }
+
+    /**
+     * Get the other Player
+     */
+    public Player getPlayer2() {
+        return player2;
     }
 
     /**
@@ -140,7 +150,7 @@ public class GameBoard extends Do {
     public void moveNoCheck(final ActionCoord coords, final boolean save, final boolean clearRedo) {
         final Pawn source = getPawn(coords.getSource()).get();
 
-        System.out.println("coords = " + coords);
+        // System.out.println("coords = " + coords);
         // checks if the ball moves or if it is a pawn
         if (source.isBallOwner()) {
             // it is a ball move
@@ -187,6 +197,7 @@ public class GameBoard extends Do {
         }
         return false;
     }
+
     /**
      * Check if the move to do is OK
      *
@@ -396,5 +407,63 @@ public class GameBoard extends Do {
         });
         s[0] += "*-*-*-*-*-*-*-*";
         return s[0];
+    }
+
+    /**
+     * Clones a board but makes a copy of players with cloning its pawns only (the other non-primitive attributes of the player will not be cloned)
+     *
+     * @return a new board with the same characteristics
+     */
+    @Override
+    public Object clone() {
+        try {
+            final GameBoard res = (GameBoard) super.clone();
+
+            // resets the list of the board pawns
+            res.board = new ArrayList<>(49);
+
+            // makes new players with noob algorithms
+            res.player1 = new AiPlayer(EAiType.NOOB,"A",player1.getColor());
+            res.player2 = new AiPlayer(EAiType.NOOB,"B",player2.getColor());
+
+            // sets the gameboard of the noob algorithms
+            ((AiPlayer)res.player1).setBoard(res);
+            ((AiPlayer)res.player2).setBoard(res);
+
+            // resets the lists of pawns of the players
+            res.player1.setPawns(new ArrayList<>());
+            res.player2.setPawns(new ArrayList<>());
+
+            // updates all the pawns lists
+            Stream.iterate(0, n -> n + 1)
+                    .limit(board.size())
+                    .forEachOrdered(n -> {
+                        if (board.get(n) != null) {
+                            Pawn p = board.get(n);
+                            Pawn p2;
+                            // let's add the pawn to the players' lists
+                            if (p.getPlayer().getColor() == player1.getColor()) {
+                                p2 = new Pawn((Coordinate) p.getPosition().clone(), res.player1);
+                                if(p.isBallOwner()){
+                                    p2.setBallOwner(true);
+                                }
+                            } else {
+                                p2 = new Pawn((Coordinate) p.getPosition().clone(), res.player2);
+                                if(p.isBallOwner()){
+                                    p2.setBallOwner(true);
+                                }
+                            }
+
+                            // let's add the pawn to the board's list
+                            res.board.add(p2);
+                        }else{
+                            res.board.add(null);
+                        }
+                    });
+            return res;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

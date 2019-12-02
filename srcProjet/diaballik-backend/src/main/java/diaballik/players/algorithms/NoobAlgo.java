@@ -19,10 +19,11 @@ public class NoobAlgo extends Algo {
     /**
      * Function which returns a move to execute
      *
+     * @param nbActions number of actions already done by the AI
      * @return an ActionCoord's instance, which defines the movement of the Player
      */
     @Override
-    public ActionCoord decideMove() {
+    public ActionCoord decideMove(int nbActions) {
         // List of the moves that the player can perform
         final List<ActionCoord> possibleMoves = calculatePossibleMoves(player);
         // now that the list possibleMoves is full, we have to randomly select one of the moves to proceed

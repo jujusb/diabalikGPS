@@ -65,7 +65,7 @@ class GameBoardTest {
 
     @Test
     void testGetPawn() {
-        assertEquals(board.getHumanPlayer().getPawns().get(0), board.getPawn(board.getHumanPlayer().getPawns().get(0).getPosition()).get());
+        assertEquals(board.getPlayer1().getPawns().get(0), board.getPawn(board.getPlayer1().getPawns().get(0).getPosition()).get());
         assertEquals(p2.getPawns().get(0), board.getPawn(p2.getPawns().get(0).getPosition()).get());
 
         assertEquals(board.getPawn(new Coordinate(3,3)), Optional.empty());
@@ -78,7 +78,7 @@ class GameBoardTest {
 
     @Test
     void testGetHumanPlayer(){
-        assertEquals(p1,board.getHumanPlayer());
+        assertEquals(p1,board.getPlayer1());
     }
 
     @Test
@@ -134,7 +134,7 @@ class GameBoardTest {
     @Test
     void testMoveBallHorizontal() {
         board.move(p1, new ActionCoord(new Coordinate(3, 0), new Coordinate(2, 0)));
-        assertEquals(board.getPawn(new Coordinate(2, 0)).get(), board.getHumanPlayer().getBall());
+        assertEquals(board.getPawn(new Coordinate(2, 0)).get(), board.getPlayer1().getBall());
         assertTrue(board.getPawn(new Coordinate(2, 0)).get().isBallOwner());
         assertFalse(board.getPawn(new Coordinate(3, 0)).get().isBallOwner());
     }
@@ -142,7 +142,7 @@ class GameBoardTest {
     @Test
     void testMoveBallVertical() {
         board.move(p1, new ActionCoord(new Coordinate(3, 0), new Coordinate(2, 0)));
-        assertEquals(board.getPawn(new Coordinate(2, 0)).get(), board.getHumanPlayer().getBall());
+        assertEquals(board.getPawn(new Coordinate(2, 0)).get(), board.getPlayer1().getBall());
         assertTrue(board.getPawn(new Coordinate(2, 0)).get().isBallOwner());
         assertFalse(board.getPawn(new Coordinate(3, 0)).get().isBallOwner());
     }

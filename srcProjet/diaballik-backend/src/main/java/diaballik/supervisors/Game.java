@@ -1,10 +1,14 @@
 package diaballik.supervisors;
 
 import diaballik.coordinates.ActionCoord;
+import diaballik.coordinates.Coordinate;
 import diaballik.gameElements.GameBoard;
 import diaballik.players.AiPlayer;
+import diaballik.players.HumanPlayer;
 import diaballik.players.Player;
 import diaballik.players.PlayerFactory;
+import diaballik.players.algorithms.EAiType;
+import diaballik.players.algorithms.MonteCarloAlgo;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -16,7 +20,7 @@ import java.util.stream.Stream;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Game {
+public class Game implements Cloneable {
     /**
      * The number of actions that a player can do during a turn
      */
@@ -90,6 +94,17 @@ public class Game {
         currentPlayer = player1;
     }
 
+    // used by Monte Carlo Algorithm (AlphaPion)
+    public Game(GameBoard board, int nbActions) {
+        this.gameBoard = board;
+        this.player1 = board.getPlayer1();
+        this.player2 = board.getPlayer2();
+        currentTurn = 0;
+        this.nbActions = nbActions;
+
+        this.currentPlayer = player2;
+    }
+
     /**
      * Builder of games, creates a game from a query
      *
@@ -135,6 +150,7 @@ public class Game {
      * @return the current player
      */
     public Player getCurrentPlayer() {
+        swapPlayer();
         return currentPlayer;
     }
 
@@ -188,6 +204,17 @@ public class Game {
     }
 
     /**
+     * Tries to move a pawn or a ball. Method used by Monte Carlo algorithm
+     *
+     * @param move the move that is played
+     */
+    public void moveOfPlayerNoCheck(final ActionCoord move) {
+        gameBoard.moveNoCheck(move, false, false);
+        nbActions++;
+        //System.out.println(gameBoard);
+    }
+
+    /**
      * Notifies the player wants to end his turn
      */
     public void endOfTurn() {
@@ -197,8 +224,6 @@ public class Game {
             swapPlayer();
             //clear the Undo and Redos
             gameBoard.endOfTurn();
-            // updates the nb of actions
-            nbActions = 0;
             // increases the number of turns only if we came back to player1
             if (currentPlayer == player1) {
                 currentTurn++;
@@ -214,7 +239,8 @@ public class Game {
                 ((AiPlayer) currentPlayer).swap();
                 Stream.iterate(0, i -> i < nbActionsPerTurn, i -> i + 1)
                         .forEach(i -> {
-                            gameBoard.moveNoCheck(((AiPlayer) currentPlayer).getMove(), true, true);
+                            gameBoard.moveNoCheck(((AiPlayer) currentPlayer).getMove(nbActions), true, true);
+                            nbActions++;
                             System.out.println(gameBoard);
                         });
                 swapPlayer();
@@ -229,14 +255,17 @@ public class Game {
      * Simply swaps the player that currently plays
      */
     public void swapPlayer() {
-        if (currentPlayer == player1) {
-            player1.setHasHand(false);
-            currentPlayer = player2;
-            player2.setHasHand(true);
-        } else {
-            player2.setHasHand(false);
-            currentPlayer = player1;
-            player1.setHasHand(true);
+        if (nbActions >= nbActionsPerTurn) {
+            if (currentPlayer == player1) {
+                player1.setHasHand(false);
+                currentPlayer = player2;
+                player2.setHasHand(true);
+            } else {
+                player2.setHasHand(false);
+                currentPlayer = player1;
+                player1.setHasHand(true);
+            }
+            nbActions = 0;
         }
     }
 
@@ -247,6 +276,17 @@ public class Game {
      */
     public GameBoard getGameBoard() {
         return gameBoard;
+    }
+
+
+    public Player getWinner() {
+        if (player1.getBall().getPosition().getPosY() == 6) {
+            return player1;
+        }
+        if (player2.getBall().getPosition().getPosY() == 0) {
+            return player2;
+        }
+        return null;
     }
 
     @Override
@@ -260,5 +300,32 @@ public class Game {
                 ", player2=" + player2 +
                 ", currentPlayer=" + currentPlayer +
                 '}';
+    }
+
+    /**
+     * Clones a game
+     *
+     * @return a new Game containing a clone of a gameboard
+     */
+    @Override
+    public Object clone() {
+        try {
+            final Game g = (Game) super.clone();
+            g.gameBoard = (GameBoard) gameBoard.clone();
+            g.player1 = g.gameBoard.getPlayer1();
+            g.player2 = g.gameBoard.getPlayer2();
+
+            if (currentPlayer == player1) {
+                g.currentPlayer = g.gameBoard.getPlayer1();
+            } else {
+                g.currentPlayer = g.gameBoard.getPlayer2();
+            }
+
+            return g;
+
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
