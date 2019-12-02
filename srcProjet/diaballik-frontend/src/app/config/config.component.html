@@ -1,0 +1,50 @@
+<h1>Diaballik</h1>
+
+
+
+<label>
+    Player 1 :
+    <input type="text" id="namePlayer1">
+</label>
+<label>Color P1:
+    <input type="checkbox" checked="true" id="colorCheckbox1" ng-model="checkboxModel.value1" (change)="change1($event)" [disabled]="isChecked && (isCheckedName!=name)">
+</label>
+<br>
+<label>
+    Player 2 :
+    <input type="text" id="namePlayer2">
+</label>
+<label>Color P2:    
+    <input type="checkbox" id="colorCheckbox2" ng-model="checkboxModel.value1" (change)="change2($event)" [disabled]="isChecked && (isCheckedName!=name2)">
+</label>
+<br>
+<label>Second player IA ?
+        <input type="checkbox" id="iaCheckbox" ng-model="checkboxModel.value1" (click)="ia = !ia">
+</label>
+<br>
+
+<p *ngIf="ia">
+    <select id="iaType">
+        <option value="noob">Noob</option>
+        <option value="starting">Starting</option>
+        <option value="progressive">Progressive</option>
+    </select>
+</p>
+
+<button routerLink="/diabalik" (click)="launchGame($event)">Play</button>
+
+<!-- #name identifies all the div instances created by the ngFor as a set that
+can be used in the controller class -->
+<!-- ngFor creates for each element of the given array an instance of div -->
+<!-- oncontextmenu is mandatory to hide the popup menu on right click -->
+<!-- [attr.data-x] creates an attribute in the div, which value is the current x value 
+https://www.w3schools.com/tags/att_global_data.asp
+This is useful when you want to get some information in the controller class
+look at the css file to see how the aclass objects are rendered.
+The variable $event refers to the event (a MouseEvent) produced when using the mouse.
+-->
+<div class='aclass' #myobjects *ngFor="let x of [0,1,2,3,4,5,6]" 
+    (mousedown)="rightClick($event)" 
+    oncontextmenu="return false;"
+    [attr.data-x]=x>
+</div>

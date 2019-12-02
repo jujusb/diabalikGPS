@@ -1,6 +1,8 @@
 *.class
 .idea/
 target/
+node_modules/
+package-lock.json
 *.iml
 *.jar
 *.war

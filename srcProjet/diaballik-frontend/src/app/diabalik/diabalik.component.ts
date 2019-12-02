@@ -1,0 +1,56 @@
+import { Component, OnInit } from '@angular/core';
+import { MyData } from '../mydata';
+
+@Component({
+  selector: 'app-diabalik',
+  templateUrl: './diabalik.component.html',
+  styleUrls: ['./diabalik.component.css']
+})
+export class DiabalikComponent implements OnInit {
+  /* TODO :
+- créer un évènement pour la réception de JSON et y afficher le jeu
+  */
+ // board: List<Case>;
+
+ //ok: boolean;
+
+ // dependency injection: the httpclient is a singleton injected through the constructor
+ // Same thing for the router and 'data'.
+ // Look at the app.module.ts file to see how the HTTP and router modules have been added to be used here and
+ // how 'data' as been configured to be an object that can be injected in the different components of the app.
+ // constructor parameters that are defined with a visibility are turned as attributes of the class.
+ constructor(private data: MyData) {
+   //this.ok = false;
+ }
+
+  caseSelected ;
+  isACaseSelected;
+ 
+ ngOnInit() {
+    this.isACaseSelected=false;
+  }
+  // Similarly to the 'initialize' of JavaFX, it is
+  // called after the view has been initialised
+  ngAfterViewInit(): void {
+  }
+
+  public clickCase(event : MouseEvent) : void {
+    console.log("Click sur la case",1);
+    var target=(event.target as HTMLInputElement);
+    while(target.className!="case") {
+      target=target.parentElement as HTMLInputElement;
+    }
+    if(!this.isACaseSelected) {
+      this.isACaseSelected=true;
+      this.caseSelected=target;
+      target.style.borderColor='red';
+    } else {
+      //TODO
+      //requête REST suivi d'un rafraichissement du board
+      this.isACaseSelected=false;
+      this.caseSelected.style.borderColor=null;
+      this.caseSelected=null;
+    }
+    console.log(target);
+  }
+}

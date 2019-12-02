@@ -48,6 +48,25 @@ public abstract class Player {
     Pawn ball; // ne peut pas être mis protected pour MAVEN à cause de l'erreur URF_UNREAD_PUBLIC OR PROTECTED FIELDS
 
     /**
+     * The player is winner.
+     */
+    boolean winner;
+
+    /**
+     * Getter for the boolean winner.
+     */
+    public boolean isWinner() {
+        return winner;
+    }
+    /**
+     * Setter for the boolean winner.
+     * @param iswinner true if the player won, false otherwise
+     */
+    public void setWinner(final boolean iswinner) {
+        this.winner = iswinner;
+    }
+
+    /**
      * Consturctor of Player. Initializes also pawns to an empty ArrayList and ball to null;
      *
      * @param n the name of the Player
@@ -58,6 +77,7 @@ public abstract class Player {
         colour = c;
         pawns = new ArrayList<Pawn>();
         ball = null;
+        winner = false;
     }
 
     @Override
