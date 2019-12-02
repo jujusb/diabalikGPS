@@ -1,7 +1,13 @@
 <div >
 	<div id="header">
-		<button routerLink="/config" (click)="killGame()"> < Quitter le jeu</button>
-        <p style="text-align: center;" *ngIf = "!(data.storage.player1.winner || data.storage.player2.winner)"> C'est à {{data.storage.currentPlayer.name}} de jouer !</p>
+        <div *ngIf = "!(data.storage.player1.winner || data.storage.player2.winner)">
+            <button routerLink="/config" (click)="killGame()"> < Quitter le jeu</button>
+            <p style="text-align: center;"> C'est à {{data.storage.currentPlayer.name}} de jouer !</p>
+        </div>
+        <div *ngIf = "data.storage.player1.winner || data.storage.player2.winner" style="text-align: center;">
+            <p> {{data.storage.currentPlayer.name}} a gagné !</p>
+            <button routerLink="/config" (click)="killGame()"> < Quitter le jeu</button> <button routerLink="/diabalik" *ngIf="data.storage.player2.winner" (click)="redemarrerGame()"> Revanche !!!</button> <button routerLink="/diabalik" *ngIf="data.storage.player1.winner" (click)="redemarrerGame()">Redémarrer jeu </button>
+        </div>
     </div>
 
     <div id="colonne1">

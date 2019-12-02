@@ -96,4 +96,23 @@ export class DiabalikComponent implements OnInit {
       this.data.receiveJson(returnedData);
     });
   }
+
+  public redemarrerGame() : void {
+    var request;
+    var nameP1 = this.data.storage.player1.name;
+    var colorP1 = this.data.storage.player1.color;
+    var nameP2 = this.data.storage.player2.name;
+    if(this.data.storage.player2.type=='aiPlayer') {
+      var iaType=this.data.storage.player2.algo ;
+      request = this.http.post('/game/newPvE/'+nameP1+'/'+colorP1+'/'+iaType,{},{});
+    }else{
+      request = this.http.post('/game/newPvP/'+nameP1+'/'+nameP2+'/'+colorP1,{},{});
+    }
+    request.subscribe(
+      returnedData => {
+        console.log(returnedData);
+        this.data.receiveJson(returnedData);
+      });
+  }
+
 }
