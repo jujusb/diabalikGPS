@@ -26,7 +26,7 @@ export class ConfigComponent implements OnInit {
     this.checkbox2 = document.getElementById("colorCheckbox2") as HTMLInputElement;
 
     this.iaCheckbox = document.getElementById("iaCheckbox") as HTMLInputElement;
-    this.mylist = ["NOOB","STARTING","PROGRESSIVE"];
+    this.mylist = ["NOOB","STARTING","PROGRESSIVE","MONTECARLO"];
   }
 
   

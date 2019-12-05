@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MyData } from '../mydata';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import{ MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+//import{ MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-diabalik',
