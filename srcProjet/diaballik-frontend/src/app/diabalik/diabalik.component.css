@@ -3,6 +3,7 @@ div {
     --border-cell: 5px;
     --nb-cell: 7;
     --grid-size :  calc(var(--size-cell)*7);
+    --margin-ball : 12px;
 }
 
 
@@ -42,17 +43,14 @@ div {
 }
 
 .ball {
-    position:absolute;
-    background-color: royalblue;
+    border : solid;
     width: calc(var(--size-cell) - 50px);
     height: calc(var(--size-cell) - 50px);
     border-radius: 30px ;
     z-index: 3;
-    padding: 0;
-    margin: 0;
-    margin-left: calc(3*var(--border-cell));
-    margin-top: calc(3*var(--border-cell));
-    }
+    margin : 0 auto;
+    margin-top : var(--margin-ball) ;
+}
 
 
 div#colonne1 {

@@ -44,10 +44,14 @@ export class DiabalikComponent implements OnInit {
       target=target.parentElement as HTMLInputElement;
     }
     if(!this.isACaseSelected) {
-      this.isACaseSelected=true;
-      this.caseSelected=target;
-      target.style.borderColor='red';
-      console.log(target.dataset.x);
+      if(this.data.storage.gameBoard.board[7 * parseInt(target.dataset.y,10) + parseInt(target.dataset.x,10)]!=null) {
+        if(this.data.storage.gameBoard.board[7 * parseInt(target.dataset.y,10) + parseInt(target.dataset.x,10)].player==(this.data.storage.currentPlayer.colour? "white" : "black")) {
+          this.isACaseSelected=true;
+          this.caseSelected=target;
+          target.style.borderColor='lime';
+          console.log(target.dataset.x);
+       }
+      }
     } else {
       //TODO
       //requête REST suivi d'un rafraichissement du board
