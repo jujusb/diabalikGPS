@@ -81,7 +81,10 @@ export class DiabalikComponent implements OnInit {
 
   public killGame() : void {
     var request = this.http.put('/game/kill',{},{});
-    request.subscribe(returnedData => console.log(returnedData));
+    request.subscribe((returnedData : any) => 
+      {console.log(returnedData);
+      this.data.receiveJson(returnedData);
+      });
   }
 
   public undo() : void {

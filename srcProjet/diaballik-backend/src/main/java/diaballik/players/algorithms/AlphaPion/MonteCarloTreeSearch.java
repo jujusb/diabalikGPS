@@ -24,7 +24,7 @@ public class MonteCarloTreeSearch {
 
     public ActionCoord findNextMove(final GameBoard currentBoard, final Player player, final Player opponent, final int nbActions) {
         final long start = System.currentTimeMillis();
-        final long end = start + 5000;
+        final long end = start + 500;
 
         this.opponent = opponent;
         this.player = player;

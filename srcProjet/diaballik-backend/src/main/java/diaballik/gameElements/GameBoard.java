@@ -452,7 +452,7 @@ public class GameBoard extends Do implements Cloneable {
                                     p2.setBallOwner(true);
                                 }
                             }
-
+ 
                             // let's add the pawn to the board's list
                             res.board.add(p2);
                         } else {

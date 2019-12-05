@@ -28,7 +28,7 @@
         <p *ngIf="data.storage.player2.colour"> white</p>
         <p *ngIf="!data.storage.player2.colour"> black </p>
         <p *ngIf="data.storage.player2.type=='aiPlayer'"> {{data.storage.player2.algo}} </p>
-        <div  *ngIf="data.storage.currentPlayer.name == data.storage.player2.name">
+        <div  *ngIf="data.storage.currentPlayer.name == data.storage.player2.name && data.storage.currentPlayer.type!='aiPlayer'" >
             <p>Tour courant : {{data.storage.currentTurn}}</p><br>
             <button routerLink="/diabalik" (click)="undo()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Undo</button> <button routerLink="/diabalik" (click)="redo()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Redo</button>
             <p>Nbre d'actions restantes : {{3-data.storage.nbActions}}</p>
