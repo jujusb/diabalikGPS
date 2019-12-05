@@ -44,6 +44,7 @@ public class MonteCarloTreeSearch {
                 .forEach(n -> {
                     // Phase 1 - Selection of the most interesting node
                     final Node promisingNode = selectPromisingNode(rootNode);
+                    //System.out.println("promising : " + promisingNode.hashCode());
                     // Phase 2 - Expansion of the node to get its children
                     if (promisingNode.getState().getGame().getWinner() == null) { // checks that the game isn't finished
                         expandNode(promisingNode);
@@ -53,9 +54,12 @@ public class MonteCarloTreeSearch {
                     if (promisingNode.getChildArray().size() > 0) {
                         nodeToExplore = promisingNode.getRandomChildNode();
                     }
+                    //System.out.println("nodeToExplore = " + nodeToExplore.hashCode());
                     final Player playoutResult = simulateRandomPlayout(nodeToExplore);
                     // Phase 4 - Update of the scores
                     backPropogation(nodeToExplore, playoutResult);
+                    //System.out.println("______________________________");
+                    //printRecursif(rootNode);
                 });
 
 
@@ -79,14 +83,29 @@ public class MonteCarloTreeSearch {
     }
 
     /**
+     * Prints a node and all its children recursively
+     *
+     * @param node the node where we start the printing
+     */
+    void printRecursif(final Node node) {
+        System.out.println("node = " + node);
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        node.getChildArray().stream().forEachOrdered(n -> printRecursif(n));
+    }
+
+
+    /**
      * Selects the most interesting node using UCT values, the node has to be a leaf of the tree
      *
-     * @param rootNode "father" of the nodes we want to order and to choose, it is the root of our tree here
+     * @param givenNode "father" of the nodes we want to order and to choose, it is the root of our tree here
      * @return the node with the highest UCT score
      */
-    private Node selectPromisingNode(final Node rootNode) {
-        Node node = rootNode;
-
+    private Node selectPromisingNode(final Node givenNode) {
+        Node node = givenNode;
         // recursively looks for the best leaf of the tree
         if (node.getChildArray().size() != 0) {
             node = selectPromisingNode(UCT.findBestNodeWithUCT(node, player));
@@ -101,6 +120,7 @@ public class MonteCarloTreeSearch {
      * @param node the node that is to be expanded
      */
     private void expandNode(final Node node) {
+        //System.out.println("expanded : " + node.hashCode());
         final List<State> possibleStates = node.getState().getAllPossibleStates();
         possibleStates.forEach(state -> {
             final Node newNode = new Node(state);
@@ -118,11 +138,10 @@ public class MonteCarloTreeSearch {
     private Player simulateRandomPlayout(final Node node) {
         final Node tempNode = new Node(node);
         final State tempState = tempNode.getState();
-        final Player boardStatus = tempState.getGame().getWinner();
 
-        if (boardStatus == opponent) {
+        if (tempState.getGame().getWinner() == opponent) {
             tempNode.getParent().getState().setWinScore(Integer.MIN_VALUE);
-            return boardStatus;
+            return tempState.getGame().getWinner();
         }
 
         // we randomly play this game to its end and cound the number of iterations needed
@@ -132,7 +151,7 @@ public class MonteCarloTreeSearch {
         //System.out.println("c = " + c); // typically 500-1000
         nbSimulations++;
 
-        return boardStatus;
+        return tempState.getGame().getWinner();
     }
 
     /**

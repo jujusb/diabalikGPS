@@ -85,4 +85,18 @@ public class Node {
         return Collections.max(this.childArray, Comparator.comparing(c -> c.getState().getVisitCount()));
     }
 
+    /**
+     * Makes a string from a node
+     *
+     * @return a string representing the node
+     */
+    @Override
+    public String toString() {
+        if (getChildArray().isEmpty()) {
+            return "Node " + this.hashCode() + " with state : \n" + state;
+        } else {
+            return "Node " + this.hashCode() + " with state : \n" + state +
+                    "\n fils prometteur : " + UCT.findBestNodeWithUCT(this, state.getPlayer()).hashCode();
+        }
+    }
 }

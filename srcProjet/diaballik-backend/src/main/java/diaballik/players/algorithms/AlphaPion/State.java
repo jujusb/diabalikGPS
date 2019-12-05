@@ -134,4 +134,16 @@ public class State {
         //System.out.println("Random play : ");
         game.moveOfPlayerNoCheck(((AiPlayer) game.getCurrentPlayer()).getAlgo().decideMove(0));
     }
+
+    /**
+     * Makes a string from a state
+     *
+     * @return a string representing the state (game etc)
+     */
+    @Override
+    public String toString() {
+        return "State " + this.hashCode() + " of player " + player.getColor()
+                + " visited " + visitCount + " times and with a win score of " + winScore +
+                "\nGAME : \n" + game.getGameBoard();
+    }
 }

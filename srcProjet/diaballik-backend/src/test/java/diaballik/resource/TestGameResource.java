@@ -231,7 +231,7 @@ public class TestGameResource {
                 .request()
                 .post(Entity.text(""));
 
-        assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), res.getStatus()); //TODO la méthode n'y accède jamais à cette réponse car it's the same think color and p.getColor()
+        assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), res.getStatus());
 
         final Game game = LogJSONAndUnmarshallValue(res, Game.class);
         assertNotNull(game);
