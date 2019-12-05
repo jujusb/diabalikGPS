@@ -94,7 +94,7 @@ public class AiPlayer extends Player {
      * @param nbActions number of actions played for the AI
      * @return an ActionCoord's instance, which defines the movement of the Player
      */
-    public ActionCoord getMove(int nbActions) {
+    public ActionCoord getMove(final int nbActions) {
         return algo.decideMove(nbActions);
     }
 

@@ -125,7 +125,6 @@ public class Coordinate implements Cloneable {
             e.printStackTrace();
         }
         return null;
-        //return new Coordinate(posX, posY);
     }
 
     /**

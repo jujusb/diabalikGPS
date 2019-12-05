@@ -20,7 +20,7 @@ public class AiAlgoAdaptor extends XmlAdapter<String, Algo> {
                 return "Noob";
             } else if (scenario instanceof StartingAlgo) {
                 return "Starting";
-            }else if (scenario instanceof  MonteCarloAlgo){
+            } else if (scenario instanceof MonteCarloAlgo) {
                 return "MonteCarlo";
             }
         }

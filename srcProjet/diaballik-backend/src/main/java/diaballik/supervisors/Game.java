@@ -1,14 +1,10 @@
 package diaballik.supervisors;
 
 import diaballik.coordinates.ActionCoord;
-import diaballik.coordinates.Coordinate;
 import diaballik.gameElements.GameBoard;
 import diaballik.players.AiPlayer;
-import diaballik.players.HumanPlayer;
 import diaballik.players.Player;
 import diaballik.players.PlayerFactory;
-import diaballik.players.algorithms.EAiType;
-import diaballik.players.algorithms.MonteCarloAlgo;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -95,7 +91,7 @@ public class Game implements Cloneable {
     }
 
     // used by Monte Carlo Algorithm (AlphaPion)
-    public Game(GameBoard board, int nbActions) {
+    public Game(final GameBoard board, final int nbActions) {
         this.gameBoard = board;
         this.player1 = board.getPlayer1();
         this.player2 = board.getPlayer2();

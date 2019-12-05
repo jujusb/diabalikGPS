@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 public class Node {
     /**
@@ -70,7 +71,8 @@ public class Node {
      */
     public Node getRandomChildNode() {
         final int noOfPossibleMoves = this.childArray.size();
-        final int selectRandom = (int) (Math.random() * noOfPossibleMoves);
+        final Random rdm = new Random();
+        final int selectRandom = (rdm.nextInt(noOfPossibleMoves));
         return this.childArray.get(selectRandom);
     }
 

@@ -3,7 +3,6 @@ package diaballik.gameElements;
 import diaballik.coordinates.ActionCoord;
 import diaballik.coordinates.Coordinate;
 import diaballik.players.AiPlayer;
-import diaballik.players.HumanPlayer;
 import diaballik.players.Player;
 import diaballik.players.algorithms.EAiType;
 
@@ -423,12 +422,12 @@ public class GameBoard extends Do implements Cloneable {
             res.board = new ArrayList<>(49);
 
             // makes new players with noob algorithms
-            res.player1 = new AiPlayer(EAiType.NOOB,"A",player1.getColor());
-            res.player2 = new AiPlayer(EAiType.NOOB,"B",player2.getColor());
+            res.player1 = new AiPlayer(EAiType.NOOB, "A", player1.getColor());
+            res.player2 = new AiPlayer(EAiType.NOOB, "B", player2.getColor());
 
             // sets the gameboard of the noob algorithms
-            ((AiPlayer)res.player1).setBoard(res);
-            ((AiPlayer)res.player2).setBoard(res);
+            ((AiPlayer) res.player1).setBoard(res);
+            ((AiPlayer) res.player2).setBoard(res);
 
             // resets the lists of pawns of the players
             res.player1.setPawns(new ArrayList<>());
@@ -439,31 +438,31 @@ public class GameBoard extends Do implements Cloneable {
                     .limit(board.size())
                     .forEachOrdered(n -> {
                         if (board.get(n) != null) {
-                            Pawn p = board.get(n);
-                            Pawn p2;
+                            final Pawn p = board.get(n);
+                            final Pawn p2;
                             // let's add the pawn to the players' lists
                             if (p.getPlayer().getColor() == player1.getColor()) {
                                 p2 = new Pawn((Coordinate) p.getPosition().clone(), res.player1);
-                                if(p.isBallOwner()){
+                                if (p.isBallOwner()) {
                                     p2.setBallOwner(true);
                                 }
                             } else {
                                 p2 = new Pawn((Coordinate) p.getPosition().clone(), res.player2);
-                                if(p.isBallOwner()){
+                                if (p.isBallOwner()) {
                                     p2.setBallOwner(true);
                                 }
                             }
 
                             // let's add the pawn to the board's list
                             res.board.add(p2);
-                        }else{
+                        } else {
                             res.board.add(null);
                         }
                     });
             return res;
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
-            return null;
+            return new GameBoard();
         }
     }
 }

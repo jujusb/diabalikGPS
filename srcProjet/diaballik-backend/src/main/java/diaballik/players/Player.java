@@ -199,7 +199,7 @@ public abstract class Player {
      *
      * @param pawns the new list of pawns
      */
-    public void setPawns(List<Pawn> pawns) {
+    public void setPawns(final List<Pawn> pawns) {
         this.pawns = pawns;
     }
 }

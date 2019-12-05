@@ -12,7 +12,7 @@ public class MonteCarloAlgo extends Algo {
     }
 
     @Override
-    public ActionCoord decideMove(int nbActions) {
-        return mcts.findNextMove(board, player, board.getPlayer1(),nbActions);
+    public ActionCoord decideMove(final int nbActions) {
+        return mcts.findNextMove(board, player, board.getPlayer1(), nbActions);
     }
 }

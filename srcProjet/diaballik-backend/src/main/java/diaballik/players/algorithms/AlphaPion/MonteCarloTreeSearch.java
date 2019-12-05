@@ -126,8 +126,8 @@ public class MonteCarloTreeSearch {
         }
 
         // we randomly play this game to its end and cound the number of iterations needed
-        int c = 0;
-        c = randomlyPlayUntilEnd(tempState, c);
+        //int c = 0;
+        randomlyPlayUntilEnd(tempState, 0);
 
         //System.out.println("c = " + c); // typically 500-1000
         nbSimulations++;
