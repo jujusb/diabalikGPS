@@ -50,28 +50,7 @@ class AlgoTest {
         assertEquals(0 - 7 * 6 - 8 + 8 + 0 - 0 - 0 - 6, h, 0.1);
     }
 
-    @Test
-    void moveAndCheck() {
-        final Coordinate source = new Coordinate(1, 0);
-        final Coordinate dest = new Coordinate(1, 0);
-
-        List<ActionCoord> list = new ArrayList<>();
-
-        // fails because there is a pawn on (2,0)
-        p2.getAlgo().moveAndCheck(1, 0, list, dest, source);
-        assertTrue(list.isEmpty());
-
-        // succeeds because there is no pawn on (1,1)
-        p2.getAlgo().moveAndCheck(-1, 1, list, dest, source);
-        assertFalse(list.isEmpty());
-        assertEquals(1, list.size());
-        assertEquals(new ActionCoord(new Coordinate(1, 0), new Coordinate(1, 1)), list.get(0));
-
-        // fails because (9,1) is not valid as it is out of bounds
-        list.clear();
-        p2.getAlgo().moveAndCheck(8, 0, list, dest, source);
-        assertTrue(list.isEmpty());
-    }
+   
 
     @Test
     void calculatePossiblePawnMoves() {

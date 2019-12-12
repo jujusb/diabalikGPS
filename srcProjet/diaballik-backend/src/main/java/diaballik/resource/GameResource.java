@@ -1,6 +1,8 @@
 package diaballik.resource;
 
 import diaballik.coordinates.ActionCoord;
+import diaballik.coordinates.Coordinate;
+import diaballik.gameElements.Pawn;
 import diaballik.supervisors.Game;
 import io.swagger.annotations.Api;
 
@@ -13,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Singleton
@@ -92,7 +95,7 @@ public class GameResource {
                 Parser.parseCoordinate(x2, y2));
         final boolean moveOk = game.moveOfPlayer(move);
         // tells the player to try this action and let it tell the game
-        if(moveOk) {
+        if (moveOk) {
             return Response.status(Response.Status.OK).entity(game).build();
         } else {
             // code to say the move was wrong
@@ -147,5 +150,20 @@ public class GameResource {
     public Response kill() {
         game = new Game();
         return Response.status(Response.Status.OK).entity(game).build();
+    }
+
+    /**
+     * GET /game/getPossibleMovesFrom/{x}/{y}
+     * Return a list of the possible moves for the pawn at x,y
+     */
+    @PUT
+    @Path("/getPossibleMovesFrom/{x}/{y}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMoves(@PathParam("x") final String x, @PathParam("y") final String y) {
+        final Pawn p = game.getGameBoard().getPawn(new Coordinate(Integer.valueOf(x), Integer.valueOf(y))).get();
+        final List<ActionCoord> list = game.getGameBoard().getPossiblePawnMoves(p);
+        list.addAll(game.getGameBoard().getPossibleBallMoves(p));
+
+        return Response.status(Response.Status.OK).entity(list).build();
     }
 }

@@ -362,6 +362,68 @@ public class GameBoard extends Do implements Cloneable {
         return aux[0];
     }
 
+
+    /**
+     * Returns a list of the possible moves for a given pawn (if it doesn't carry the ball)
+     *
+     * @param p The pawn we want to check the moves
+     * @return the list of possible moves
+     */
+    public List<ActionCoord> getPossiblePawnMoves(final Pawn p) {
+        final List<ActionCoord> possibleMoves = new ArrayList<>();
+        if (!p.isBallOwner()) {
+            final Coordinate source = (Coordinate) p.getPosition().clone();
+            final Coordinate c1 = (Coordinate) p.getPosition().clone();
+            final Coordinate c2 = (Coordinate) p.getPosition().clone();
+            final Coordinate c3 = (Coordinate) p.getPosition().clone();
+            final Coordinate c4 = (Coordinate) p.getPosition().clone();
+
+            moveAndCheck(1, 0, possibleMoves, c1, source);
+            moveAndCheck(-1, 0, possibleMoves, c2, source);
+            moveAndCheck(0, 1, possibleMoves, c3, source);
+            moveAndCheck(0, -1, possibleMoves, c4, source);
+        }
+        return possibleMoves;
+    }
+
+    /**
+     * Returns a list of the possible moves for a given pawn with ball
+     *
+     * @param ball The baall owner we want to check the moves
+     * @return the list of possible moves
+     */
+    public List<ActionCoord> getPossibleBallMoves(final Pawn ball) {
+        final List<ActionCoord> possibleMoves = new ArrayList<>();
+        if (ball.isBallOwner()) {
+            final List<Pawn> pawns = ball.getPlayer().getPawns();
+            // gathers all the possible moves of balls in the list possibleMoves
+            pawns.forEach(p -> {
+                if (!p.isBallOwner()) {
+                    if (this.canMoveBall(ball, p)) {
+                        possibleMoves.add(new ActionCoord((Coordinate) ball.getPosition().clone(), (Coordinate) p.getPosition().clone()));
+                    }
+                }
+            });
+        }
+        return possibleMoves;
+    }
+
+    /**
+     * Moves a coordinate and, if it is free, adds a move there in an ActionCoord list for a given pawn
+     *
+     * @param dx            the x displacement
+     * @param dy            the y displacement
+     * @param possibleMoves the list of currently possible moves
+     * @param dest          the coordinates we want to check
+     * @param source        the coordinates of the pawn that could move to c
+     */
+    void moveAndCheck(final int dx, final int dy, final List<ActionCoord> possibleMoves, final Coordinate dest, final Coordinate source) {
+        dest.moveOf(dx, dy);
+        if (this.checkCoord(dest) && this.getPawn(dest).isEmpty()) {
+            possibleMoves.add(new ActionCoord(source, dest));
+        }
+    }
+
     /**
      * Getter of undoable_mode
      *
@@ -452,7 +514,7 @@ public class GameBoard extends Do implements Cloneable {
                                     p2.setBallOwner(true);
                                 }
                             }
- 
+
                             // let's add the pawn to the board's list
                             res.board.add(p2);
                         } else {

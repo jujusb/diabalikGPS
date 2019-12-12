@@ -51,21 +51,6 @@ public abstract class Algo {
      */
     public abstract ActionCoord decideMove(int nbActions);
 
-    /**
-     * Moves a coordinate and, if it is free, adds a move there in an ActionCoord list for a given pawn
-     *
-     * @param dx            the x displacement
-     * @param dy            the y displacement
-     * @param possibleMoves the list of currently possible moves
-     * @param dest          the coordinates we want to check
-     * @param source        the coordinates of the pawn that could move to c
-     */
-    void moveAndCheck(final int dx, final int dy, final List<ActionCoord> possibleMoves, final Coordinate dest, final Coordinate source) {
-        dest.moveOf(dx, dy);
-        if (board.checkCoord(dest) && board.getPawn(dest).isEmpty()) {
-            possibleMoves.add(new ActionCoord(source, dest));
-        }
-    }
 
     /**
      * Method which adds in a list all the possible pawn moves for a given player
@@ -78,18 +63,7 @@ public abstract class Algo {
         final List<Pawn> pawns = one.getPawns();
         // gathers all the possible moves of pawns and balls in the list possibleMoves
         pawns.forEach(p -> {
-            if (!p.isBallOwner()) {
-                final Coordinate source = (Coordinate) p.getPosition().clone();
-                final Coordinate c1 = (Coordinate) p.getPosition().clone();
-                final Coordinate c2 = (Coordinate) p.getPosition().clone();
-                final Coordinate c3 = (Coordinate) p.getPosition().clone();
-                final Coordinate c4 = (Coordinate) p.getPosition().clone();
-
-                moveAndCheck(1, 0, possibleMoves, c1, source);
-                moveAndCheck(-1, 0, possibleMoves, c2, source);
-                moveAndCheck(0, 1, possibleMoves, c3, source);
-                moveAndCheck(0, -1, possibleMoves, c4, source);
-            }
+            possibleMoves.addAll(board.getPossiblePawnMoves(p));
         });
 
 
@@ -103,18 +77,8 @@ public abstract class Algo {
      * @return a list containing all the possible ball moves
      */
     public List<ActionCoord> calculatePossibleBallMoves(final Player one) {
-        final List<ActionCoord> possibleMoves = new ArrayList<>();
         final Pawn ball = one.getBall();
-        final List<Pawn> pawns = one.getPawns();
-        // gathers all the possible moves of balls in the list possibleMoves
-        pawns.forEach(p -> {
-            if (!p.isBallOwner()) {
-                if (board.canMoveBall(ball, p)) {
-                    possibleMoves.add(new ActionCoord((Coordinate) ball.getPosition().clone(), (Coordinate) p.getPosition().clone()));
-                }
-            }
-        });
-        return possibleMoves;
+        return board.getPossibleBallMoves(ball);
     }
 
     /**

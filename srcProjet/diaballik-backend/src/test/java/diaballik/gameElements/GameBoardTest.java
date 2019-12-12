@@ -7,6 +7,8 @@ import diaballik.players.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -61,6 +63,29 @@ class GameBoardTest {
         System.out.println(board.playerPawnCoordinates());
 
         assertTrue(board.getPawn(new Coordinate(3, 3)).isEmpty()); // check an empty position
+    }
+
+    @Test
+    void moveAndCheck() {
+        final Coordinate source = new Coordinate(1, 0);
+        final Coordinate dest = new Coordinate(1, 0);
+
+        List<ActionCoord> list = new ArrayList<>();
+
+        // fails because there is a pawn on (2,0)
+        board.moveAndCheck(1, 0, list, dest, source);
+        assertTrue(list.isEmpty());
+
+        // succeeds because there is no pawn on (1,1)
+        board.moveAndCheck(-1, 1, list, dest, source);
+        assertFalse(list.isEmpty());
+        assertEquals(1, list.size());
+        assertEquals(new ActionCoord(new Coordinate(1, 0), new Coordinate(1, 1)), list.get(0));
+
+        // fails because (9,1) is not valid as it is out of bounds
+        list.clear();
+        board.moveAndCheck(8, 0, list, dest, source);
+        assertTrue(list.isEmpty());
     }
 
     @Test
