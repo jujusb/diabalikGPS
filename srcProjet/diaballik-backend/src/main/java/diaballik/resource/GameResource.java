@@ -7,6 +7,7 @@ import diaballik.supervisors.Game;
 import io.swagger.annotations.Api;
 
 import javax.inject.Singleton;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -156,7 +157,7 @@ public class GameResource {
      * GET /game/getPossibleMovesFrom/{x}/{y}
      * Return a list of the possible moves for the pawn at x,y
      */
-    @PUT
+    @GET
     @Path("/getPossibleMovesFrom/{x}/{y}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMoves(@PathParam("x") final String x, @PathParam("y") final String y) {
