@@ -70,14 +70,7 @@ export class DiabalikComponent implements OnInit {
           req.subscribe((returnData : any)=>{
             this.data.receiveListOfMovesJson(returnData);
             console.log(this.data.listOfMoves);
-            var i ;
-            for(i = 0; i<this.data.listOfMoves.list.length ; i++) {
-              var x = this.data.listOfMoves.list[i].target.posX;
-              var y = 6-this.data.listOfMoves.list[i].target.posY;
-              //console.log("move");
-              //console.log(this.board[7*y+x]);
-              this.board[7*y+x].style.background="blue";
-            }
+            this.colorListOfMove();
           });
        }
       }
@@ -92,14 +85,27 @@ export class DiabalikComponent implements OnInit {
         console.log(returnedData);
         this.data.receiveJson(returnedData);
       });
-      var i;
-      for(i = 0; i<this.data.listOfMoves.list.length ; i++) {
-        var x = this.data.listOfMoves.list[i].target.posX;
-        var y = 6-this.data.listOfMoves.list[i].target.posY;
-        //console.log("move");
-        //console.log(this.board[7*y+x]);
-        this.board[7*y+x].style.background="rosybrown";
-      }
+      this.resetListOfMove();
+    }
+  }
+  private colorListOfMove() {
+    var i ;
+    for(i = 0; i<this.data.listOfMoves.list.length ; i++) {
+      var x = this.data.listOfMoves.list[i].target.posX;
+      var y = 6-this.data.listOfMoves.list[i].target.posY;
+      //console.log("move");
+      //console.log(this.board[7*y+x]);
+      this.board[7*y+x].style.background="blue";
+    }
+  }
+  private resetListOfMove() {
+    var i;
+    for(i = 0; i<this.data.listOfMoves.list.length ; i++) {
+      var x = this.data.listOfMoves.list[i].target.posX;
+      var y = 6-this.data.listOfMoves.list[i].target.posY;
+      //console.log("move");
+      //console.log(this.board[7*y+x]);
+      this.board[7*y+x].style.background="rosybrown";
     }
   }
 
@@ -127,6 +133,12 @@ export class DiabalikComponent implements OnInit {
       console.log(returnedData);
       this.data.receiveJson(returnedData);
     });
+    this.resetListOfMove();
+    if(this.isACaseSelected) {
+      this.isACaseSelected=false;
+      this.caseSelected.style.borderColor=null;
+      this.caseSelected=null;
+    }
   }
 
   public redo() : void {
@@ -134,6 +146,12 @@ export class DiabalikComponent implements OnInit {
       console.log(returnedData);
       this.data.receiveJson(returnedData);
     });
+    this.resetListOfMove();
+    if(this.isACaseSelected) {
+      this.isACaseSelected=false;
+      this.caseSelected.style.borderColor=null;
+      this.caseSelected=null;
+    }
   }
   public endOfTurn() : void {
     this.http.post('/game/endOfTurn',{},{}).subscribe((returnedData : any) => {
