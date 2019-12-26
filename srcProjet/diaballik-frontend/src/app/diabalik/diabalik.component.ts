@@ -51,14 +51,21 @@ export class DiabalikComponent implements OnInit {
           this.isACaseSelected=true;
           this.caseSelected=target;
           target.style.borderColor='lime';
-          console.log(target.dataset.x);
+          //console.log(target.dataset.x);
 
           if(this.isFirstTurn) {
             var tar=event.composedPath() as any ;
-            this.board=tar[2].children as HTMLCollection;
-            this.isFirstTurn=false;
+            //console.log(tar);
+            var i; 
+            for(i=0; i<tar.length; i++) {
+              //console.log(tar[i]);
+              if(tar[i].childElementCount==49) {
+                this.board=tar[i].children;
+                this.isFirstTurn=false;
+              } 
+            }
           }
-          console.log(this.board);
+          //console.log(this.board);
           var req = this.http.get('/game/getPossibleMovesFrom/'+target.dataset.x+'/'+target.dataset.y);
           req.subscribe((returnData : any)=>{
             this.data.receiveListOfMovesJson(returnData);
@@ -67,8 +74,8 @@ export class DiabalikComponent implements OnInit {
             for(i = 0; i<this.data.listOfMoves.list.length ; i++) {
               var x = this.data.listOfMoves.list[i].target.posX;
               var y = 6-this.data.listOfMoves.list[i].target.posY;
-              console.log("move");
-              console.log(this.board[7*y+x]);
+              //console.log("move");
+              //console.log(this.board[7*y+x]);
               this.board[7*y+x].style.background="blue";
             }
           });
@@ -82,19 +89,18 @@ export class DiabalikComponent implements OnInit {
       var requete = this.http.post('/game/action/move/'+this.caseSelected.dataset.x+'/'+this.caseSelected.dataset.y+'/'+target.dataset.x+'/'+target.dataset.y,{},{});
       this.caseSelected=null;
       requete.subscribe((returnedData : any) => {
-        //console.log(returnedData);
+        console.log(returnedData);
         this.data.receiveJson(returnedData);
       });
       var i;
       for(i = 0; i<this.data.listOfMoves.list.length ; i++) {
         var x = this.data.listOfMoves.list[i].target.posX;
         var y = 6-this.data.listOfMoves.list[i].target.posY;
-        console.log("move");
-        console.log(this.board[7*y+x]);
+        //console.log("move");
+        //console.log(this.board[7*y+x]);
         this.board[7*y+x].style.background="rosybrown";
       }
     }
-    console.log(target);
   }
 
   /**private winner() {
