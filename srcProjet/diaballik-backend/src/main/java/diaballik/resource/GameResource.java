@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//import org.json.JSONArray;
+
 @Singleton
 @Path("game")
 @Api(value = "game")
@@ -164,7 +166,8 @@ public class GameResource {
         final Pawn p = game.getGameBoard().getPawn(new Coordinate(Integer.valueOf(x), Integer.valueOf(y))).get();
         final List<ActionCoord> list = game.getGameBoard().getPossiblePawnMoves(p);
         list.addAll(game.getGameBoard().getPossibleBallMoves(p));
-
-        return Response.status(Response.Status.OK).entity(list).build();
+        ActionCoord[] array = new ActionCoord[list.size()];
+        array = list.toArray(array);
+        return Response.status(Response.Status.OK).entity(array).build();
     }
 }

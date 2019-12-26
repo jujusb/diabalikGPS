@@ -28,6 +28,8 @@ export class DiabalikComponent implements OnInit {
 
   caseSelected ;
   isACaseSelected;
+  board;
+  isFirstTurn=true;
  
  ngOnInit() {
     this.isACaseSelected=false;
@@ -50,20 +52,47 @@ export class DiabalikComponent implements OnInit {
           this.caseSelected=target;
           target.style.borderColor='lime';
           console.log(target.dataset.x);
+
+          if(this.isFirstTurn) {
+            var tar=event.composedPath();
+            this.board=tar[2].children as HTMLCollection;
+            this.isFirstTurn=false;
+          }
+          console.log(this.board);
+          var req = this.http.get('/game/getPossibleMovesFrom/'+target.dataset.x+'/'+target.dataset.y);
+          req.subscribe((returnData : any)=>{
+            this.data.receiveListOfMovesJson(returnData);
+            console.log(this.data.listOfMoves);
+            var i ;
+            for(i = 0; i<this.data.listOfMoves.list.length ; i++) {
+              var x = this.data.listOfMoves.list[i].target.posX;
+              var y = 6-this.data.listOfMoves.list[i].target.posY;
+              console.log("move");
+              console.log(this.board[7*y+x]);
+              this.board[7*y+x].style.background="blue";
+            }
+          });
        }
       }
+
     } else {
-      //TODO
       //requête REST suivi d'un rafraichissement du board
       this.isACaseSelected=false;
       this.caseSelected.style.borderColor=null;
       var requete = this.http.post('/game/action/move/'+this.caseSelected.dataset.x+'/'+this.caseSelected.dataset.y+'/'+target.dataset.x+'/'+target.dataset.y,{},{});
-      //requete.toPromise().catch(this.handleError);
       this.caseSelected=null;
       requete.subscribe((returnedData : any) => {
-        console.log(returnedData);
+        //console.log(returnedData);
         this.data.receiveJson(returnedData);
       });
+      var i;
+      for(i = 0; i<this.data.listOfMoves.list.length ; i++) {
+        var x = this.data.listOfMoves.list[i].target.posX;
+        var y = 6-this.data.listOfMoves.list[i].target.posY;
+        console.log("move");
+        console.log(this.board[7*y+x]);
+        this.board[7*y+x].style.background="rosybrown";
+      }
     }
     console.log(target);
   }
