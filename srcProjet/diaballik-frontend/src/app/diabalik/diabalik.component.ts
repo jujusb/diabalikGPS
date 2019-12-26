@@ -158,6 +158,12 @@ export class DiabalikComponent implements OnInit {
       console.log(returnedData);
       this.data.receiveJson(returnedData);
     });
+    this.resetListOfMove();
+    if(this.isACaseSelected) {
+      this.isACaseSelected=false;
+      this.caseSelected.style.borderColor=null;
+      this.caseSelected=null;
+    }
   }
 
   public redemarrerGame() : void {

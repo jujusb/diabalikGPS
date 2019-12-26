@@ -19,7 +19,7 @@
                 <p>Tour courant : {{data.storage.currentTurn}}</p><br>
                 <button routerLink="/diabalik" (click)="undo()" [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Undo</button> <button routerLink="/diabalik" (click)="redo()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Redo</button>
                 <p>Nbre d'actions restantes : {{3-data.storage.nbActions}}</p>
-                <button routerLink="/diabalik" (click)="endOfTurn()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Je valide mes actions</button>
+                <button routerLink="/diabalik" (click)="endOfTurn()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner || !(data.storage.nbActions==3))">Je valide mes actions</button>
             </div>
     </div>
 
@@ -32,7 +32,7 @@
             <p>Tour courant : {{data.storage.currentTurn}}</p><br>
             <button routerLink="/diabalik" (click)="undo()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Undo</button> <button routerLink="/diabalik" (click)="redo()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Redo</button>
             <p>Nbre d'actions restantes : {{3-data.storage.nbActions}}</p>
-            <button routerLink="/diabalik" (click)="endOfTurn()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner)">Je valide mes actions</button>
+            <button routerLink="/diabalik" (click)="endOfTurn()"  [disabled]= "(data.storage.player1.winner || data.storage.player2.winner || !(data.storage.nbActions==3))">Je valide mes actions</button>
         </div>
     </div>
 
