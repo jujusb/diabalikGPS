@@ -54,7 +54,7 @@ export class DiabalikComponent implements OnInit {
           console.log(target.dataset.x);
 
           if(this.isFirstTurn) {
-            var tar=event.composedPath();
+            var tar=event.composedPath() as any ;
             this.board=tar[2].children as HTMLCollection;
             this.isFirstTurn=false;
           }

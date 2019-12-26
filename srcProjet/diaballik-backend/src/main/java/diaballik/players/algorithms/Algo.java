@@ -1,7 +1,6 @@
 package diaballik.players.algorithms;
 
 import diaballik.coordinates.ActionCoord;
-import diaballik.coordinates.Coordinate;
 import diaballik.gameElements.GameBoard;
 import diaballik.gameElements.Pawn;
 import diaballik.players.Player;

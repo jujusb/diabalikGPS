@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 //import org.json.JSONArray;
 
@@ -163,11 +164,14 @@ public class GameResource {
     @Path("/getPossibleMovesFrom/{x}/{y}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMoves(@PathParam("x") final String x, @PathParam("y") final String y) {
-        final Pawn p = game.getGameBoard().getPawn(new Coordinate(Integer.valueOf(x), Integer.valueOf(y))).get();
-        final List<ActionCoord> list = game.getGameBoard().getPossiblePawnMoves(p);
-        list.addAll(game.getGameBoard().getPossibleBallMoves(p));
-        ActionCoord[] array = new ActionCoord[list.size()];
-        array = list.toArray(array);
-        return Response.status(Response.Status.OK).entity(array).build();
+        final Optional<Pawn> p = game.getGameBoard().getPawn(new Coordinate(Integer.parseInt(x), Integer.parseInt(y)));
+        if(p.isPresent()) {
+            final List<ActionCoord> list = game.getGameBoard().getPossiblePawnMoves(p.get());
+            list.addAll(game.getGameBoard().getPossibleBallMoves(p.get()));
+            ActionCoord[] array = new ActionCoord[list.size()];
+            array = list.toArray(array);
+            return Response.status(Response.Status.OK).entity(array).build();
+        }
+        return Response.status(Response.Status.BAD_REQUEST).build();
     }
 }
